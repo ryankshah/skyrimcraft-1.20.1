@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 //TODO: FiX THIS!!! (the prevent use if has shield etc.)
 public class SkyrimTwoHandedSword extends SwordItem
 {
-    public SkyrimTwoHandedSword(Tier pTier, Properties pProperties) {
-        super(pTier, pProperties);
+    public SkyrimTwoHandedSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
 //    @Override

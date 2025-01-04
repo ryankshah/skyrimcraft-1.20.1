@@ -12,13 +12,13 @@ public class EffectHist extends MobEffect
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+    public boolean isDurationEffectTick(int tickCount, int amplifier) {
         int i = 50 >> amplifier;
         return i > 0 ? tickCount % i == 0 : true; // every 1 second
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
+    public void applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
         if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
             livingEntity.heal(4F); // 10x faster (technically 10.0F compared to 1.0F by regen effect, but lets do this)
         }
@@ -26,6 +26,6 @@ public class EffectHist extends MobEffect
 //            player.heal();
 //            player.getFoodData()..regenHunger(2 * amplifier); // Regen 2 hunger points per amplifier level every tick
 //        }
-        return super.applyEffectTick(livingEntity, p_76394_2_);
+        super.applyEffectTick(livingEntity, p_76394_2_);
     }
 }

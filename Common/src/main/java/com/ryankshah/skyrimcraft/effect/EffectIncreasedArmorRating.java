@@ -11,12 +11,12 @@ public class EffectIncreasedArmorRating extends InstantenousMobEffect
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+    public boolean isDurationEffectTick(int tickCount, int amplifier) {
         return true;
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
-        return super.applyEffectTick(livingEntity, p_76394_2_);
+    public void applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
+        super.applyEffectTick(livingEntity, p_76394_2_);
     }
 }

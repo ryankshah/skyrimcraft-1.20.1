@@ -16,18 +16,18 @@ public class EffectFrozen extends MobEffect
     // Whether the effect should apply this tick. Used e.g. by the Regeneration effect that only applies
     // once every x ticks, depending on the tick count and amplifier.
     @Override
-    public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+    public boolean isDurationEffectTick(int tickCount, int amplifier) {
         return true; //tickCount % 2 == 0; // replace this with whatever check you want
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
+    public void applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
         if(livingEntity instanceof Mob mob) {
             mob.goalSelector.disableControlFlag(Goal.Flag.MOVE);
             mob.goalSelector.disableControlFlag(Goal.Flag.JUMP);
         } else if(livingEntity instanceof Player player) {
         }
 
-        return super.applyEffectTick(livingEntity, p_76394_2_);
+        super.applyEffectTick(livingEntity, p_76394_2_);
     }
 }

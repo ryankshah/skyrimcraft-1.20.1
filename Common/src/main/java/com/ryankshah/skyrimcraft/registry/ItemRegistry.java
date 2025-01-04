@@ -1,14 +1,14 @@
 package com.ryankshah.skyrimcraft.registry;
 
-import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
-import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
 import com.ryankshah.skyrimcraft.effect.ModEffects;
-import com.ryankshah.skyrimcraft.item.*;
 import com.ryankshah.skyrimcraft.item.ArmorMaterials;
+import com.ryankshah.skyrimcraft.item.*;
 import com.ryankshah.skyrimcraft.item.potion.*;
+import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
+import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import com.ryankshah.skyrimcraft.util.ClientUtil;
 import com.ryankshah.skyrimcraft.util.IngredientEffect;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -18,7 +18,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Supplier;
 
@@ -28,446 +27,446 @@ public class ItemRegistry
 
     public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(Registries.ITEM, Constants.MODID);
 
-    public static final RegistryObject<Item, Item> SWEET_ROLL = ITEMS.register("sweet_roll",
+    public static final RegistryObject<Item> SWEET_ROLL = ITEMS.register("sweet_roll",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .effect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 2), 1f)
                             .build())
                     .rarity(Rarity.EPIC)
             ));
-    public static final RegistryObject<Item, Item> GARLIC_BREAD = ITEMS.register("garlic_bread",
+    public static final RegistryObject<Item> GARLIC_BREAD = ITEMS.register("garlic_bread",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
-                            .effect(new MobEffectInstance(ModEffects.CURE_DISEASE.asHolder(), 200, 2), 1f)
+                            .saturationMod(0.2f)
+                            .effect(new MobEffectInstance(ModEffects.CURE_DISEASE.get(), 200, 2), 1f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> POTATO_BREAD = ITEMS.register("potato_bread",
+    public static final RegistryObject<Item> POTATO_BREAD = ITEMS.register("potato_bread",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> TOMATO = ITEMS.register("tomato",
+    public static final RegistryObject<Item> TOMATO = ITEMS.register("tomato",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> APPLE_PIE = ITEMS.register("apple_pie",
+    public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> MAMMOTH_STEAK = ITEMS.register("mammoth_steak",
+    public static final RegistryObject<Item> MAMMOTH_STEAK = ITEMS.register("mammoth_steak",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> VENISON = ITEMS.register("venison",
+    public static final RegistryObject<Item> VENISON = ITEMS.register("venison",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CABBAGE = ITEMS.register("cabbage",
+    public static final RegistryObject<Item> CABBAGE = ITEMS.register("cabbage",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> TOMATO_SOUP = ITEMS.register("tomato_soup",
+    public static final RegistryObject<Item> TOMATO_SOUP = ITEMS.register("tomato_soup",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> APPLE_CABBAGE_STEW = ITEMS.register("apple_cabbage_stew",
+    public static final RegistryObject<Item> APPLE_CABBAGE_STEW = ITEMS.register("apple_cabbage_stew",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> APPLE_DUMPLING = ITEMS.register("apple_dumpling",
+    public static final RegistryObject<Item> APPLE_DUMPLING = ITEMS.register("apple_dumpling",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> BEEF_STEW = ITEMS.register("beef_stew",
+    public static final RegistryObject<Item> BEEF_STEW = ITEMS.register("beef_stew",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CABBAGE_SOUP = ITEMS.register("cabbage_soup",
+    public static final RegistryObject<Item> CABBAGE_SOUP = ITEMS.register("cabbage_soup",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CABBAGE_POTATO_SOUP = ITEMS.register("cabbage_potato_soup",
+    public static final RegistryObject<Item> CABBAGE_POTATO_SOUP = ITEMS.register("cabbage_potato_soup",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CHICKEN_DUMPLING = ITEMS.register("chicken_dumpling",
+    public static final RegistryObject<Item> CHICKEN_DUMPLING = ITEMS.register("chicken_dumpling",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CLAM_MEAT = ITEMS.register("clam_meat",
+    public static final RegistryObject<Item> CLAM_MEAT = ITEMS.register("clam_meat",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> SLICED_GOAT_CHEESE = ITEMS.register("sliced_goat_cheese",
+    public static final RegistryObject<Item> SLICED_GOAT_CHEESE = ITEMS.register("sliced_goat_cheese",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> SLICED_EIDAR_CHEESE = ITEMS.register("sliced_eidar_cheese",
+    public static final RegistryObject<Item> SLICED_EIDAR_CHEESE = ITEMS.register("sliced_eidar_cheese",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> GOURD = ITEMS.register("gourd",
+    public static final RegistryObject<Item> GOURD = ITEMS.register("gourd",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> LEEK = ITEMS.register("leek",
+    public static final RegistryObject<Item> LEEK = ITEMS.register("leek",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> LEG_OF_GOAT = ITEMS.register("leg_of_goat",
+    public static final RegistryObject<Item> LEG_OF_GOAT = ITEMS.register("leg_of_goat",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .effect(new MobEffectInstance(MobEffects.HUNGER, 200, 2), 1f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> LEG_OF_GOAT_ROAST = ITEMS.register("leg_of_goat_roast",
+    public static final RegistryObject<Item> LEG_OF_GOAT_ROAST = ITEMS.register("leg_of_goat_roast",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> HORSE_MEAT = ITEMS.register("horse_meat",
+    public static final RegistryObject<Item> HORSE_MEAT = ITEMS.register("horse_meat",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .effect(new MobEffectInstance(MobEffects.HUNGER, 200, 2), 1f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> HORSE_HAUNCH = ITEMS.register("horse_haunch",
+    public static final RegistryObject<Item> HORSE_HAUNCH = ITEMS.register("horse_haunch",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> VEGETABLE_SOUP = ITEMS.register("vegetable_soup",
+    public static final RegistryObject<Item> VEGETABLE_SOUP = ITEMS.register("vegetable_soup",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> ASH_YAM = ITEMS.register("ash_yam",
+    public static final RegistryObject<Item> ASH_YAM = ITEMS.register("ash_yam",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> ASH_YAM_SLIPS = ITEMS.register("ash_yam_slips",
+    public static final RegistryObject<Item> ASH_YAM_SLIPS = ITEMS.register("ash_yam_slips",
             () -> new ItemNameBlockItem(BlockRegistry.ASH_YAM_CROP.get(), new Item.Properties()));
-    public static final RegistryObject<Item, Item> BOILED_CREME_TREAT = ITEMS.register("boiled_creme_treat",
+    public static final RegistryObject<Item> BOILED_CREME_TREAT = ITEMS.register("boiled_creme_treat",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> BRAIDED_BREAD = ITEMS.register("braided_bread",
+    public static final RegistryObject<Item> BRAIDED_BREAD = ITEMS.register("braided_bread",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> CLAM_CHOWDER = ITEMS.register("clam_chowder",
+    public static final RegistryObject<Item> CLAM_CHOWDER = ITEMS.register("clam_chowder",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> ELSWEYR_FONDUE = ITEMS.register("elsweyr_fondue",
+    public static final RegistryObject<Item> ELSWEYR_FONDUE = ITEMS.register("elsweyr_fondue",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
-                            .effect(new MobEffectInstance(ModEffects.MAGICKA_REGEN.asHolder(), 500, 2), 1f)
+                            .saturationMod(0.2f)
+                            .effect(new MobEffectInstance(ModEffects.MAGICKA_REGEN.get(), 500, 2), 1f)
 //                                    .effect(new MobEffectInstance(ModEffects.FORTIFY_MAGICKA.asHolder(), 500, 2), 1f)
         .build())
             ));
-    public static final RegistryObject<Item, Item> GREEN_APPLE = ITEMS.register("green_apple",
+    public static final RegistryObject<Item> GREEN_APPLE = ITEMS.register("green_apple",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> GRILLED_LEEKS = ITEMS.register("grilled_leeks",
+    public static final RegistryObject<Item> GRILLED_LEEKS = ITEMS.register("grilled_leeks",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> HONEY_NUT_TREAT = ITEMS.register("honey_nut_treat",
+    public static final RegistryObject<Item> HONEY_NUT_TREAT = ITEMS.register("honey_nut_treat",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> JAZBAY_GRAPES = ITEMS.register("jazbay_grapes",
+    public static final RegistryObject<Item> JAZBAY_GRAPES = ITEMS.register("jazbay_grapes",
             () -> new ItemNameBlockItem(BlockRegistry.JAZBAY_GRAPE_BUSH.get(), new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> JAZBAY_CROSTATA = ITEMS.register("jazbay_crostata",
+    public static final RegistryObject<Item> JAZBAY_CROSTATA = ITEMS.register("jazbay_crostata",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> JUNIPER_BERRIES = ITEMS.register("juniper_berries",
+    public static final RegistryObject<Item> JUNIPER_BERRIES = ITEMS.register("juniper_berries",
             () -> new ItemNameBlockItem(BlockRegistry.JUNIPER_BERRY_BUSH.get(), new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> JUNIPER_BERRY_CROSTATA = ITEMS.register("juniper_berry_crostata",
+    public static final RegistryObject<Item> JUNIPER_BERRY_CROSTATA = ITEMS.register("juniper_berry_crostata",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> LAVENDER = ITEMS.register("lavender",
+    public static final RegistryObject<Item> LAVENDER = ITEMS.register("lavender",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> LAVENDER_DUMPLING = ITEMS.register("lavender_dumpling",
+    public static final RegistryObject<Item> LAVENDER_DUMPLING = ITEMS.register("lavender_dumpling",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> MAMMOTH_CHEESE_BOWL = ITEMS.register("mammoth_cheese_bowl",
+    public static final RegistryObject<Item> MAMMOTH_CHEESE_BOWL = ITEMS.register("mammoth_cheese_bowl",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> POTATO_SOUP = ITEMS.register("potato_soup",
+    public static final RegistryObject<Item> POTATO_SOUP = ITEMS.register("potato_soup",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> SNOWBERRIES = ITEMS.register("snowberries",
+    public static final RegistryObject<Item> SNOWBERRIES = ITEMS.register("snowberries",
             () -> new ItemNameBlockItem(BlockRegistry.SNOWBERRY_BUSH.get(), new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
-    public static final RegistryObject<Item, Item> SNOWBERRY_CROSTATA = ITEMS.register("snowberry_crostata",
+    public static final RegistryObject<Item> SNOWBERRY_CROSTATA = ITEMS.register("snowberry_crostata",
             () -> new Item(new Item.Properties()
                     .stacksTo(64)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationModifier(0.2f)
+                            .saturationMod(0.2f)
                             .build())
             ));
 
-    public static final RegistryObject<Item, Item> ALE = ITEMS.register("ale", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1))); // new PotionItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> ALTO_WINE = ITEMS.register("alto_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> ARGONIAN_ALE = ITEMS.register("argonian_ale", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> NORD_MEAD = ITEMS.register("nord_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> BLACK_BRIAR_MEAD = ITEMS.register("black_briar_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> BLACK_BRIAR_RESERVE = ITEMS.register("black_briar_reserve", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> DRAGONS_BREATH_MEAD = ITEMS.register("dragons_breath_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> FIREBRAND_WINE = ITEMS.register("firebrand_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> HONNINGBREW_MEAD = ITEMS.register("honningbrew_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> MEAD_WITH_JUNIPER_BERRY = ITEMS.register("mead_with_juniper_berry", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> SKOOMA = ITEMS.register("skooma", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> SPICED_WINE = ITEMS.register("spiced_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item, Item> WINE = ITEMS.register("wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> ALE = ITEMS.register("ale", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1))); // new PotionItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> ALTO_WINE = ITEMS.register("alto_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> ARGONIAN_ALE = ITEMS.register("argonian_ale", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> NORD_MEAD = ITEMS.register("nord_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> BLACK_BRIAR_MEAD = ITEMS.register("black_briar_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> BLACK_BRIAR_RESERVE = ITEMS.register("black_briar_reserve", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DRAGONS_BREATH_MEAD = ITEMS.register("dragons_breath_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FIREBRAND_WINE = ITEMS.register("firebrand_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> HONNINGBREW_MEAD = ITEMS.register("honningbrew_mead", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MEAD_WITH_JUNIPER_BERRY = ITEMS.register("mead_with_juniper_berry", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SKOOMA = ITEMS.register("skooma", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SPICED_WINE = ITEMS.register("spiced_wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> WINE = ITEMS.register("wine", () -> new SkyrimAlcohol(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item, Item> MAMMOTH_SNOUT = ITEMS.register("mammoth_snout", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLOUR = ITEMS.register("flour", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> BUTTER = ITEMS.register("butter", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MAMMOTH_SNOUT = ITEMS.register("mammoth_snout", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLOUR = ITEMS.register("flour", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BUTTER = ITEMS.register("butter", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item, Item> GARLIC = ITEMS.register("garlic", () -> new ItemNameBlockItem(BlockRegistry.GARLIC_CROP.get(), new Item.Properties()));
-    public static final RegistryObject<Item, Item> TOMATO_SEEDS = ITEMS.register("tomato_seeds", () -> new ItemNameBlockItem(BlockRegistry.TOMATO_CROP.get(), new Item.Properties()));
-    public static final RegistryObject<Item, Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () -> new ItemNameBlockItem(BlockRegistry.CABBAGE_CROP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> GARLIC = ITEMS.register("garlic", () -> new ItemNameBlockItem(BlockRegistry.GARLIC_CROP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> TOMATO_SEEDS = ITEMS.register("tomato_seeds", () -> new ItemNameBlockItem(BlockRegistry.TOMATO_CROP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () -> new ItemNameBlockItem(BlockRegistry.CABBAGE_CROP.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item, Item> CORUNDUM_INGOT = ITEMS.register("corundum_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> DWARVEN_METAL_INGOT = ITEMS.register("dwarven_metal_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> EBONY_INGOT = ITEMS.register("ebony_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> MALACHITE_INGOT = ITEMS.register("malachite_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> MOONSTONE_INGOT = ITEMS.register("moonstone_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> ORICHALCUM_INGOT = ITEMS.register("orichalcum_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> QUICKSILVER_INGOT = ITEMS.register("quicksilver_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> LEATHER_STRIPS = ITEMS.register("leather_strips", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> DAEDRA_HEART = ITEMS.register("daedra_heart", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.DAMAGE_STAMINA_REGEN, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.FEAR));
+    public static final RegistryObject<Item> CORUNDUM_INGOT = ITEMS.register("corundum_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DWARVEN_METAL_INGOT = ITEMS.register("dwarven_metal_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EBONY_INGOT = ITEMS.register("ebony_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MALACHITE_INGOT = ITEMS.register("malachite_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MOONSTONE_INGOT = ITEMS.register("moonstone_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ORICHALCUM_INGOT = ITEMS.register("orichalcum_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> QUICKSILVER_INGOT = ITEMS.register("quicksilver_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LEATHER_STRIPS = ITEMS.register("leather_strips", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DAEDRA_HEART = ITEMS.register("daedra_heart", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.DAMAGE_STAMINA_REGEN, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.FEAR));
 
     // TODO: Make these a new roll in ore drop loot tables.
-    public static final RegistryObject<Item, Item> FLAWED_AMETHYST = ITEMS.register("flawed_amethyst", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWED_DIAMOND = ITEMS.register("flawed_diamond", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWED_EMERALD = ITEMS.register("flawed_emerald", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWED_RUBY = ITEMS.register("flawed_ruby", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWLESS_RUBY = ITEMS.register("flawless_ruby", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWED_GARNET = ITEMS.register("flawed_garnet", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item, Item> FLAWLESS_GARNET = ITEMS.register("flawless_garnet", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWED_AMETHYST = ITEMS.register("flawed_amethyst", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWED_DIAMOND = ITEMS.register("flawed_diamond", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWED_EMERALD = ITEMS.register("flawed_emerald", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWED_RUBY = ITEMS.register("flawed_ruby", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWLESS_RUBY = ITEMS.register("flawless_ruby", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWED_GARNET = ITEMS.register("flawed_garnet", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FLAWLESS_GARNET = ITEMS.register("flawless_garnet", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item, Item> SALT_PILE = ITEMS.register("salt_pile", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.SLOW, IngredientEffect.REGENERATE_MAGICKA));
-    //    public static final RegistryObject<Item, Item> CREEP_CLUSTER = ITEMS.register("creep_cluster", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.DAMAGE_STAMINA_REGEN, IngredientEffect.FORTIFY_CARRY_WEIGHT, IngredientEffect.WEAKNESS_TO_MAGIC));
-    public static final RegistryObject<Item, Item> GRASS_POD = ITEMS.register("grass_pod", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.RAVAGE_MAGICKA, IngredientEffect.FORTIFY_ALTERATION, IngredientEffect.RESTORE_MAGICKA));
-    public static final RegistryObject<Item, Item> VAMPIRE_DUST = ITEMS.register("vampire_dust", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.INVISIBILITY, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.REGENERATE_HEALTH, IngredientEffect.CURE_DISEASE));
-    public static final RegistryObject<Item, Item> MORA_TAPINELLA = ITEMS.register("mora_tapinella", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.REGENERATE_STAMINA, IngredientEffect.FORTIFY_ILLUSION));
-    public static final RegistryObject<Item, Item> BRIAR_HEART = ITEMS.register("briar_heart", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.PARALYSIS, IngredientEffect.FORTIFY_MAGICKA));
-    public static final RegistryObject<Item, Item> GIANTS_TOE = ITEMS.register("giants_toe", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_HEALTH, IngredientEffect.FORTIFY_CARRY_WEIGHT, IngredientEffect.DAMAGE_STAMINA_REGEN));
-    public static final RegistryObject<Item, Item> SALMON_ROE = ITEMS.register("salmon_roe", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.WATERBREATHING, IngredientEffect.FORTIFY_MAGICKA, IngredientEffect.REGENERATE_MAGICKA));
-    public static final RegistryObject<Item, Item> DWARVEN_OIL = ITEMS.register("dwarven_oil", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.REGENERATE_MAGICKA, IngredientEffect.RESTORE_MAGICKA));
-    public static final RegistryObject<Item, Item> FIRE_SALTS = ITEMS.register("fire_salts", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.RESIST_FIRE, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.REGENERATE_MAGICKA));
-    public static final RegistryObject<Item, Item> ABECEAN_LONGFIN = ITEMS.register("abecean_longfin", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.FORTIFY_SNEAK, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.FORTIFY_RESTORATION));
-    public static final RegistryObject<Item, Item> CYRODILIC_SPADETAIL = ITEMS.register("cyrodilic_spadetail", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.FEAR, IngredientEffect.RAVAGE_HEALTH));
-    public static final RegistryObject<Item, Item> SABRE_CAT_TOOTH = ITEMS.register("sabre_cat_tooth", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_HEAVY_ARMOR, IngredientEffect.FORTIFY_SMITHING, IngredientEffect.WEAKNESS_TO_POISON));
-    public static final RegistryObject<Item, Item> BLUE_DARTWING = ITEMS.register("blue_dartwing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_SHOCK, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.RESTORE_HEALTH, IngredientEffect.FEAR));
-    public static final RegistryObject<Item, Item> ORANGE_DARTWING = ITEMS.register("orange_dartwing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_MAGICKA, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.LINGERING_DAMAGE_HEALTH));
-    public static final RegistryObject<Item, Item> PEARL = ITEMS.register("pearl", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.RESIST_SHOCK));
-    public static final RegistryObject<Item, Item> SMALL_PEARL = ITEMS.register("small_pearl", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.RESIST_FROST));
-    public static final RegistryObject<Item, Item> PINE_THRUSH_EGG = ITEMS.register("pine_thrush_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_LOCKPICKING, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.RESIST_SHOCK));
-    public static final RegistryObject<Item, Item> ROCK_WARBLER_EGG = ITEMS.register("rock_warbler_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.DAMAGE_STAMINA, IngredientEffect.WEAKNESS_TO_MAGIC));
-    public static final RegistryObject<Item, Item> SLAUGHTERFISH_EGG = ITEMS.register("slaughterfish_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.FORTIFY_STAMINA));
-    public static final RegistryObject<Item, Item> SLAUGHTERFISH_SCALES = ITEMS.register("slaughterfish_scales", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FROST, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.FORTIFY_HEAVY_ARMOR, IngredientEffect.FORTIFY_BLOCK));
-    public static final RegistryObject<Item, Item> SPIDER_EGG = ITEMS.register("spider_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.FORTIFY_LOCKPICKING, IngredientEffect.FORTIFY_MARKSMAN));
-    public static final RegistryObject<Item, Item> HAWK_EGG = ITEMS.register("hawk_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_MAGIC, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.WATERBREATHING, IngredientEffect.LINGERING_DAMAGE_STAMINA));
-    public static final RegistryObject<Item, Item> TROLL_FAT = ITEMS.register("troll_fat", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_TWO_HANDED, IngredientEffect.FRENZY, IngredientEffect.DAMAGE_HEALTH));
-    public static final RegistryObject<Item, Item> CHAURUS_EGGS = ITEMS.register("chaurus_eggs", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.FORTIFY_STAMINA, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.INVISIBILITY));
-    //    public static final RegistryObject<Item, Item> FLY_AMANITA = ITEMS.register("fly_amanita", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_TWO_HANDED, IngredientEffect.FRENZY, IngredientEffect.REGENERATE_STAMINA));
-    public static final RegistryObject<Item, Item> ELVES_EAR = ITEMS.register("elves_ear", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_MARKSMAN, IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.RESIST_FIRE));
-    public static final RegistryObject<Item, Item> TAPROOT = ITEMS.register("taproot", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.REGENERATE_MAGICKA, IngredientEffect.RESTORE_MAGICKA));
-    public static final RegistryObject<Item, Item> BEE = ITEMS.register("bee", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_STAMINA, IngredientEffect.REGENERATE_STAMINA, IngredientEffect.WEAKNESS_TO_SHOCK));
-    public static final RegistryObject<Item, Item> EYE_OF_SABRE_CAT = ITEMS.register("eye_of_sabre_cat", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_HEALTH, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.RESTORE_HEALTH));
-    public static final RegistryObject<Item, Item> BEAR_CLAWS = ITEMS.register("bear_claws", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_HEALTH, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.DAMAGE_MAGICKA_REGEN));
-    public static final RegistryObject<Item, Item> BEEHIVE_HUSK = ITEMS.register("beehive_husk", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_LIGHT_ARMOR, IngredientEffect.FORTIFY_SNEAK, IngredientEffect.FORTIFY_DESTRUCTION));
-    public static final RegistryObject<Item, Item> BERITS_ASHES = ITEMS.register("berits_ashes", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_CONJURATION, IngredientEffect.RAVAGE_STAMINA));
-    //    public static final RegistryObject<Item, Item> BLEEDING_CROWN = ITEMS.register("bleeding_crown", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FIRE, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.RESIST_MAGIC));
-//    public static final RegistryObject<Item, Item> BLISTERWORT = ITEMS.register("blisterwort", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FRENZY, IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_SMITHING));
-    public static final RegistryObject<Item, Item> BLUE_BUTTERFLY_WING = ITEMS.register("blue_butterfly_wing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_CONJURATION, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.FORTIFY_ENCHANTING));
-    public static final RegistryObject<Item, Item> BUTTERFLY_WING = ITEMS.register("butterfly_wing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_BARTER, IngredientEffect.LINGERING_DAMAGE_STAMINA, IngredientEffect.DAMAGE_MAGICKA));
-    //    public static final RegistryObject<Item, Item> CANIS_ROOT = ITEMS.register("canis_root", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.FORTIFY_MARKSMAN, IngredientEffect.PARALYSIS));
-    public static final RegistryObject<Item, Item> CHARRED_SKEEVER_HIDE = ITEMS.register("charred_skeever_hide", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.CURE_DISEASE, IngredientEffect.RESIST_POISON, IngredientEffect.RESTORE_HEALTH));
-    public static final RegistryObject<Item, Item> CRIMSON_NIRNROOT = ITEMS.register("crimson_nirnroot", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.DAMAGE_STAMINA, IngredientEffect.INVISIBILITY, IngredientEffect.RESIST_MAGIC));
-    public static final RegistryObject<Item, Item> DEATHBELL = ITEMS.register("deathbell", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.RAVAGE_STAMINA, IngredientEffect.SLOW, IngredientEffect.WEAKNESS_TO_POISON));
-    public static final RegistryObject<Item, Item> DRAGONS_TONGUE = ITEMS.register("dragons_tongue", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_BARTER, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.FORTIFY_TWO_HANDED));
-    public static final RegistryObject<Item, Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_DESTRUCTION, IngredientEffect.FORTIFY_MAGICKA, IngredientEffect.DAMAGE_HEALTH));
-    public static final RegistryObject<Item, Item> FALMER_EAR = ITEMS.register("falmer_ear", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.FRENZY, IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_LOCKPICKING));
+    public static final RegistryObject<Item> SALT_PILE = ITEMS.register("salt_pile", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.SLOW, IngredientEffect.REGENERATE_MAGICKA));
+    //    public static final RegistryObject<Item> CREEP_CLUSTER = ITEMS.register("creep_cluster", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.DAMAGE_STAMINA_REGEN, IngredientEffect.FORTIFY_CARRY_WEIGHT, IngredientEffect.WEAKNESS_TO_MAGIC));
+    public static final RegistryObject<Item> GRASS_POD = ITEMS.register("grass_pod", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.RAVAGE_MAGICKA, IngredientEffect.FORTIFY_ALTERATION, IngredientEffect.RESTORE_MAGICKA));
+    public static final RegistryObject<Item> VAMPIRE_DUST = ITEMS.register("vampire_dust", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.INVISIBILITY, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.REGENERATE_HEALTH, IngredientEffect.CURE_DISEASE));
+    public static final RegistryObject<Item> MORA_TAPINELLA = ITEMS.register("mora_tapinella", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.REGENERATE_STAMINA, IngredientEffect.FORTIFY_ILLUSION));
+    public static final RegistryObject<Item> BRIAR_HEART = ITEMS.register("briar_heart", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.PARALYSIS, IngredientEffect.FORTIFY_MAGICKA));
+    public static final RegistryObject<Item> GIANTS_TOE = ITEMS.register("giants_toe", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_HEALTH, IngredientEffect.FORTIFY_CARRY_WEIGHT, IngredientEffect.DAMAGE_STAMINA_REGEN));
+    public static final RegistryObject<Item> SALMON_ROE = ITEMS.register("salmon_roe", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.WATERBREATHING, IngredientEffect.FORTIFY_MAGICKA, IngredientEffect.REGENERATE_MAGICKA));
+    public static final RegistryObject<Item> DWARVEN_OIL = ITEMS.register("dwarven_oil", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.REGENERATE_MAGICKA, IngredientEffect.RESTORE_MAGICKA));
+    public static final RegistryObject<Item> FIRE_SALTS = ITEMS.register("fire_salts", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.RESIST_FIRE, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.REGENERATE_MAGICKA));
+    public static final RegistryObject<Item> ABECEAN_LONGFIN = ITEMS.register("abecean_longfin", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.FORTIFY_SNEAK, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.FORTIFY_RESTORATION));
+    public static final RegistryObject<Item> CYRODILIC_SPADETAIL = ITEMS.register("cyrodilic_spadetail", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.FEAR, IngredientEffect.RAVAGE_HEALTH));
+    public static final RegistryObject<Item> SABRE_CAT_TOOTH = ITEMS.register("sabre_cat_tooth", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_HEAVY_ARMOR, IngredientEffect.FORTIFY_SMITHING, IngredientEffect.WEAKNESS_TO_POISON));
+    public static final RegistryObject<Item> BLUE_DARTWING = ITEMS.register("blue_dartwing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_SHOCK, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.RESTORE_HEALTH, IngredientEffect.FEAR));
+    public static final RegistryObject<Item> ORANGE_DARTWING = ITEMS.register("orange_dartwing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_MAGICKA, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.LINGERING_DAMAGE_HEALTH));
+    public static final RegistryObject<Item> PEARL = ITEMS.register("pearl", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.RESTORE_MAGICKA, IngredientEffect.RESIST_SHOCK));
+    public static final RegistryObject<Item> SMALL_PEARL = ITEMS.register("small_pearl", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.FORTIFY_RESTORATION, IngredientEffect.RESIST_FROST));
+    public static final RegistryObject<Item> PINE_THRUSH_EGG = ITEMS.register("pine_thrush_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_LOCKPICKING, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.RESIST_SHOCK));
+    public static final RegistryObject<Item> ROCK_WARBLER_EGG = ITEMS.register("rock_warbler_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.DAMAGE_STAMINA, IngredientEffect.WEAKNESS_TO_MAGIC));
+    public static final RegistryObject<Item> SLAUGHTERFISH_EGG = ITEMS.register("slaughterfish_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_PICKPOCKET, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.FORTIFY_STAMINA));
+    public static final RegistryObject<Item> SLAUGHTERFISH_SCALES = ITEMS.register("slaughterfish_scales", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FROST, IngredientEffect.LINGERING_DAMAGE_HEALTH, IngredientEffect.FORTIFY_HEAVY_ARMOR, IngredientEffect.FORTIFY_BLOCK));
+    public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.FORTIFY_LOCKPICKING, IngredientEffect.FORTIFY_MARKSMAN));
+    public static final RegistryObject<Item> HAWK_EGG = ITEMS.register("hawk_egg", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_MAGIC, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.WATERBREATHING, IngredientEffect.LINGERING_DAMAGE_STAMINA));
+    public static final RegistryObject<Item> TROLL_FAT = ITEMS.register("troll_fat", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_TWO_HANDED, IngredientEffect.FRENZY, IngredientEffect.DAMAGE_HEALTH));
+    public static final RegistryObject<Item> CHAURUS_EGGS = ITEMS.register("chaurus_eggs", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.FORTIFY_STAMINA, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.INVISIBILITY));
+    //    public static final RegistryObject<Item> FLY_AMANITA = ITEMS.register("fly_amanita", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_TWO_HANDED, IngredientEffect.FRENZY, IngredientEffect.REGENERATE_STAMINA));
+    public static final RegistryObject<Item> ELVES_EAR = ITEMS.register("elves_ear", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_MARKSMAN, IngredientEffect.WEAKNESS_TO_FROST, IngredientEffect.RESIST_FIRE));
+    public static final RegistryObject<Item> TAPROOT = ITEMS.register("taproot", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_MAGIC, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.REGENERATE_MAGICKA, IngredientEffect.RESTORE_MAGICKA));
+    public static final RegistryObject<Item> BEE = ITEMS.register("bee", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_STAMINA, IngredientEffect.REGENERATE_STAMINA, IngredientEffect.WEAKNESS_TO_SHOCK));
+    public static final RegistryObject<Item> EYE_OF_SABRE_CAT = ITEMS.register("eye_of_sabre_cat", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.RAVAGE_HEALTH, IngredientEffect.DAMAGE_MAGICKA, IngredientEffect.RESTORE_HEALTH));
+    public static final RegistryObject<Item> BEAR_CLAWS = ITEMS.register("bear_claws", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.FORTIFY_HEALTH, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.DAMAGE_MAGICKA_REGEN));
+    public static final RegistryObject<Item> BEEHIVE_HUSK = ITEMS.register("beehive_husk", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_LIGHT_ARMOR, IngredientEffect.FORTIFY_SNEAK, IngredientEffect.FORTIFY_DESTRUCTION));
+    public static final RegistryObject<Item> BERITS_ASHES = ITEMS.register("berits_ashes", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_CONJURATION, IngredientEffect.RAVAGE_STAMINA));
+    //    public static final RegistryObject<Item> BLEEDING_CROWN = ITEMS.register("bleeding_crown", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.WEAKNESS_TO_FIRE, IngredientEffect.FORTIFY_BLOCK, IngredientEffect.WEAKNESS_TO_POISON, IngredientEffect.RESIST_MAGIC));
+//    public static final RegistryObject<Item> BLISTERWORT = ITEMS.register("blisterwort", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FRENZY, IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_SMITHING));
+    public static final RegistryObject<Item> BLUE_BUTTERFLY_WING = ITEMS.register("blue_butterfly_wing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_CONJURATION, IngredientEffect.DAMAGE_MAGICKA_REGEN, IngredientEffect.FORTIFY_ENCHANTING));
+    public static final RegistryObject<Item> BUTTERFLY_WING = ITEMS.register("butterfly_wing", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_HEALTH, IngredientEffect.FORTIFY_BARTER, IngredientEffect.LINGERING_DAMAGE_STAMINA, IngredientEffect.DAMAGE_MAGICKA));
+    //    public static final RegistryObject<Item> CANIS_ROOT = ITEMS.register("canis_root", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_STAMINA, IngredientEffect.FORTIFY_ONE_HANDED, IngredientEffect.FORTIFY_MARKSMAN, IngredientEffect.PARALYSIS));
+    public static final RegistryObject<Item> CHARRED_SKEEVER_HIDE = ITEMS.register("charred_skeever_hide", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_STAMINA, IngredientEffect.CURE_DISEASE, IngredientEffect.RESIST_POISON, IngredientEffect.RESTORE_HEALTH));
+    public static final RegistryObject<Item> CRIMSON_NIRNROOT = ITEMS.register("crimson_nirnroot", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.DAMAGE_STAMINA, IngredientEffect.INVISIBILITY, IngredientEffect.RESIST_MAGIC));
+    public static final RegistryObject<Item> DEATHBELL = ITEMS.register("deathbell", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.RAVAGE_STAMINA, IngredientEffect.SLOW, IngredientEffect.WEAKNESS_TO_POISON));
+    public static final RegistryObject<Item> DRAGONS_TONGUE = ITEMS.register("dragons_tongue", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESIST_FIRE, IngredientEffect.FORTIFY_BARTER, IngredientEffect.FORTIFY_ILLUSION, IngredientEffect.FORTIFY_TWO_HANDED));
+    public static final RegistryObject<Item> ECTOPLASM = ITEMS.register("ectoplasm", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.RESTORE_MAGICKA, IngredientEffect.FORTIFY_DESTRUCTION, IngredientEffect.FORTIFY_MAGICKA, IngredientEffect.DAMAGE_HEALTH));
+    public static final RegistryObject<Item> FALMER_EAR = ITEMS.register("falmer_ear", () -> new SkyrimIngredient(new Item.Properties(), IngredientEffect.DAMAGE_HEALTH, IngredientEffect.FRENZY, IngredientEffect.RESIST_POISON, IngredientEffect.FORTIFY_LOCKPICKING));
 
     //// COMBAT ////
     // Ancient Nord
@@ -530,8 +529,8 @@ public class ItemRegistry
     public static final Supplier<SkyrimArmor> EBONY_BOOTS = ITEMS.register("ebony_boots", () -> new SkyrimArmor(ArmorMaterials.EBONY, SkyrimArmor.Type.BOOTS, new Item.Properties(), true));
     public static final Supplier<ShieldItem> EBONY_SHIELD = ITEMS.register("ebony_shield", () -> new ShieldItem(new Item.Properties().stacksTo(1).durability(672)));
     //    public static final Supplier<SwordItem> EBONY_ARROW = ITEMS.register("ebony_arrow", () -> new SkyrimArrow.EbonyArrow(new Item.Properties().fireResistant(), "Ebony Arrow"));
-    public static final Supplier<SwordItem> EBONY_DAGGER = ITEMS.register("ebony_dagger", () -> new SwordItem(ItemTier.EBONY, (new Item.Properties()).fireResistant().attributes(SwordItem.createAttributes(ItemTier.EBONY, 5, -1.8f))));
-    public static final Supplier<SwordItem> EBONY_SWORD = ITEMS.register("ebony_sword", () -> new SwordItem(ItemTier.EBONY, (new Item.Properties()).fireResistant().attributes(SwordItem.createAttributes(ItemTier.EBONY, 8, -2.4f))));
+    public static final Supplier<SwordItem> EBONY_DAGGER = ITEMS.register("ebony_dagger", () -> new SwordItem(ItemTier.EBONY, 5, -1.8f, new Item.Properties().fireResistant()));
+    public static final Supplier<SwordItem> EBONY_SWORD = ITEMS.register("ebony_sword", () -> new SwordItem(ItemTier.EBONY, 8, -2.4f, new Item.Properties().fireResistant()));
     public static final Supplier<SkyrimTwoHandedSword> EBONY_BATTLEAXE = ITEMS.register("ebony_battleaxe", () -> new SkyrimTwoHandedSword(ItemTier.EBONY, (new Item.Properties()).fireResistant().attributes(SwordItem.createAttributes(ItemTier.EBONY, 10, -3.2f))));
     public static final Supplier<SkyrimTwoHandedSword> EBONY_GREATSWORD = ITEMS.register("ebony_greatsword", () -> new SkyrimTwoHandedSword(ItemTier.EBONY, (new Item.Properties()).fireResistant().attributes(SwordItem.createAttributes(ItemTier.EBONY, 9, -2.8f))));
     public static final Supplier<SwordItem> EBONY_MACE = ITEMS.register("ebony_mace", () -> new SwordItem(ItemTier.EBONY, (new Item.Properties()).fireResistant().attributes(SwordItem.createAttributes(ItemTier.EBONY, 9, -3.0f))));
@@ -649,8 +648,8 @@ public class ItemRegistry
     public static final Supplier<SkyrimArmor> HIDE_BOOTS = ITEMS.register("hide_boots", () -> new SkyrimArmor(ArmorMaterials.HIDE, SkyrimArmor.Type.BOOTS, new Item.Properties(), false));
 
     // Swords
-    public static final Supplier<SwordItem> CHILLREND = ITEMS.register("chillrend", () -> new SwordItem(ItemTier.STEEL, (new Item.Properties()).fireResistant()));
-    public static final Supplier<SwordItem> DAWNBREAKER = ITEMS.register("dawnbreaker", () -> new SwordItem(ItemTier.STEEL, (new Item.Properties()).fireResistant()));
+    public static final Supplier<SwordItem> CHILLREND = ITEMS.register("chillrend", () -> new SwordItem(ItemTier.STEEL, 5, -2f, new Item.Properties().fireResistant()));
+    public static final Supplier<SwordItem> DAWNBREAKER = ITEMS.register("dawnbreaker", () -> new SwordItem(ItemTier.STEEL, 5, -2f, new Item.Properties().fireResistant()));
 
 
     //// MAGIC ////
@@ -725,48 +724,48 @@ public class ItemRegistry
     public static final Supplier<Item> SILVER_JEWELLED_NECKLACE = ITEMS.register("silver_jewelled_necklace", () -> new SkyrimNecklace());
     public static final Supplier<Item> SILVER_SAPPHIRE_NECKLACE = ITEMS.register("silver_sapphire_necklace", () -> new SkyrimNecklace());
 
-    public static final RegistryObject<Item, Item> MINOR_MAGICKA_POTION = ITEMS.register("minor_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 2.0f));
-    public static final RegistryObject<Item, Item> MAGICKA_POTION = ITEMS.register("magicka_potion", () -> new MagickaPotion(new Item.Properties(), 4.0f));
-    public static final RegistryObject<Item, Item> PLENTIFUL_MAGICKA_POTION = ITEMS.register("plentiful_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 6.0f));
-    public static final RegistryObject<Item, Item> VIGOROUS_MAGICKA_POTION = ITEMS.register("vigorous_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 8.0f));
-    public static final RegistryObject<Item, Item> EXTREME_MAGICKA_POTION = ITEMS.register("extreme_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 12.0f));
-    public static final RegistryObject<Item, Item> ULTIMATE_MAGICKA_POTION = ITEMS.register("ultimate_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 20.0f));
+    public static final RegistryObject<Item> MINOR_MAGICKA_POTION = ITEMS.register("minor_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 2.0f));
+    public static final RegistryObject<Item> MAGICKA_POTION = ITEMS.register("magicka_potion", () -> new MagickaPotion(new Item.Properties(), 4.0f));
+    public static final RegistryObject<Item> PLENTIFUL_MAGICKA_POTION = ITEMS.register("plentiful_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 6.0f));
+    public static final RegistryObject<Item> VIGOROUS_MAGICKA_POTION = ITEMS.register("vigorous_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 8.0f));
+    public static final RegistryObject<Item> EXTREME_MAGICKA_POTION = ITEMS.register("extreme_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 12.0f));
+    public static final RegistryObject<Item> ULTIMATE_MAGICKA_POTION = ITEMS.register("ultimate_magicka_potion", () -> new MagickaPotion(new Item.Properties(), 20.0f));
 
-    public static final RegistryObject<Item, Item> LASTING_POTENCY_POTION = ITEMS.register("lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(),1.5f, 600));
-    public static final RegistryObject<Item, Item> DRAUGHT_LASTING_POTENCY_POTION = ITEMS.register("draught_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.6f, 600));
-    public static final RegistryObject<Item, Item> SOLUTION_LASTING_POTENCY_POTION = ITEMS.register("solution_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.7f, 600));
-    public static final RegistryObject<Item, Item> PHILTER_LASTING_POTENCY_POTION = ITEMS.register("philter_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.8f, 600));
-    public static final RegistryObject<Item, Item> ELIXIR_LASTING_POTENCY_POTION = ITEMS.register("elixir_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 2f, 600));
+    public static final RegistryObject<Item> LASTING_POTENCY_POTION = ITEMS.register("lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(),1.5f, 600));
+    public static final RegistryObject<Item> DRAUGHT_LASTING_POTENCY_POTION = ITEMS.register("draught_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.6f, 600));
+    public static final RegistryObject<Item> SOLUTION_LASTING_POTENCY_POTION = ITEMS.register("solution_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.7f, 600));
+    public static final RegistryObject<Item> PHILTER_LASTING_POTENCY_POTION = ITEMS.register("philter_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 1.8f, 600));
+    public static final RegistryObject<Item> ELIXIR_LASTING_POTENCY_POTION = ITEMS.register("elixir_lasting_potency_potion", () -> new RegenMagickaPotion(new Item.Properties(), 2f, 600));
 
-    public static final RegistryObject<Item, Item> POTION_OF_HAGGLING = ITEMS.register("potion_of_haggling", () -> new HagglingPotion(new Item.Properties(),1, 30));
-    public static final RegistryObject<Item, Item> DRAUGHT_OF_HAGGLING = ITEMS.register("draught_of_haggling", () -> new HagglingPotion(new Item.Properties(), 1, 60));
-    public static final RegistryObject<Item, Item> PHILTER_OF_HAGGLING = ITEMS.register("philter_of_haggling", () -> new HagglingPotion(new Item.Properties(), 2, 30));
-    public static final RegistryObject<Item, Item> ELIXIR_OF_HAGGLING = ITEMS.register("elixir_of_haggling", () -> new HagglingPotion(new Item.Properties(), 3, 60));
+    public static final RegistryObject<Item> POTION_OF_HAGGLING = ITEMS.register("potion_of_haggling", () -> new HagglingPotion(new Item.Properties(),1, 30));
+    public static final RegistryObject<Item> DRAUGHT_OF_HAGGLING = ITEMS.register("draught_of_haggling", () -> new HagglingPotion(new Item.Properties(), 1, 60));
+    public static final RegistryObject<Item> PHILTER_OF_HAGGLING = ITEMS.register("philter_of_haggling", () -> new HagglingPotion(new Item.Properties(), 2, 30));
+    public static final RegistryObject<Item> ELIXIR_OF_HAGGLING = ITEMS.register("elixir_of_haggling", () -> new HagglingPotion(new Item.Properties(), 3, 60));
 
-    public static final RegistryObject<Item, Item> POTION_OF_TRUE_SHOT = ITEMS.register("potion_of_true_shot", () -> new TrueShotPotion(new Item.Properties(),1, 60));
-    public static final RegistryObject<Item, Item> DRAUGHT_OF_TRUE_SHOT = ITEMS.register("draught_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 2, 60));
-    public static final RegistryObject<Item, Item> PHILTER_OF_TRUE_SHOT = ITEMS.register("philter_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 3, 60));
-    public static final RegistryObject<Item, Item> ELIXIR_OF_TRUE_SHOT = ITEMS.register("elixir_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 4, 60));
+    public static final RegistryObject<Item> POTION_OF_TRUE_SHOT = ITEMS.register("potion_of_true_shot", () -> new TrueShotPotion(new Item.Properties(),1, 60));
+    public static final RegistryObject<Item> DRAUGHT_OF_TRUE_SHOT = ITEMS.register("draught_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 2, 60));
+    public static final RegistryObject<Item> PHILTER_OF_TRUE_SHOT = ITEMS.register("philter_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 3, 60));
+    public static final RegistryObject<Item> ELIXIR_OF_TRUE_SHOT = ITEMS.register("elixir_of_true_shot", () -> new TrueShotPotion(new Item.Properties(), 4, 60));
 
 
     // Unique and non-levelled potions
-    public static final RegistryObject<Item, Item> PHILTER_OF_THE_PHANTOM_POTION = ITEMS.register("philter_of_the_phantom_potion", () -> new SpectralPotion(new Item.Properties(), 600));
-    public static final RegistryObject<Item, Item> POTION_OF_WATERWALKING = ITEMS.register("potion_of_waterwalking", () -> new WaterWalkingPotion(new Item.Properties(), 1, 1200));
-    public static final RegistryObject<Item, Item> POTION_OF_CURE_DISEASES = ITEMS.register("potion_of_cure_diseases", () -> new CureDiseasesPotion(new Item.Properties(), 200));
-    public static final RegistryObject<Item, Item> POTION_OF_CURE_POISON = ITEMS.register("potion_of_cure_poison", () -> new CurePoisonPotion(new Item.Properties(), 200));
+    public static final RegistryObject<Item> PHILTER_OF_THE_PHANTOM_POTION = ITEMS.register("philter_of_the_phantom_potion", () -> new SpectralPotion(new Item.Properties(), 600));
+    public static final RegistryObject<Item> POTION_OF_WATERWALKING = ITEMS.register("potion_of_waterwalking", () -> new WaterWalkingPotion(new Item.Properties(), 1, 1200));
+    public static final RegistryObject<Item> POTION_OF_CURE_DISEASES = ITEMS.register("potion_of_cure_diseases", () -> new CureDiseasesPotion(new Item.Properties(), 200));
+    public static final RegistryObject<Item> POTION_OF_CURE_POISON = ITEMS.register("potion_of_cure_poison", () -> new CurePoisonPotion(new Item.Properties(), 200));
 
-    public static final RegistryObject<Item, Item> SABRE_CAT_SPAWN_EGG = ITEMS.register("sabre_cat_spawn_egg", () -> new SpawnEggItem(EntityRegistry.SABRE_CAT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> GIANT_SPAWN_EGG = ITEMS.register("giant_spawn_egg", () -> new SpawnEggItem(EntityRegistry.GIANT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> DRAGON_SPAWN_EGG = ITEMS.register("dragon_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAGON.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> BLUE_BUTTERFLY_SPAWN_EGG = ITEMS.register("blue_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> MONARCH_BUTTERFLY_SPAWN_EGG = ITEMS.register("monarch_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.MONARCH_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> ORANGE_DARTWING_SPAWN_EGG = ITEMS.register("orange_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.ORANGE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> BLUE_DARTWING_SPAWN_EGG = ITEMS.register("blue_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> LUNAR_MOTH_SPAWN_EGG = ITEMS.register("lunar_moth_spawn_egg", () -> new SpawnEggItem(EntityRegistry.LUNAR_MOTH.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> TORCHBUG_SPAWN_EGG = ITEMS.register("torchbug_spawn_egg", () -> new SpawnEggItem(EntityRegistry.TORCHBUG.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAUGR.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> KHAJIIT_SPAWN_EGG = ITEMS.register("khajiit_spawn_egg", () -> new SpawnEggItem(EntityRegistry.KHAJIIT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item, Item> FALMER_SPAWN_EGG = ITEMS.register("falmer_spawn_egg", () -> new SpawnEggItem(EntityRegistry.FALMER.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> SABRE_CAT_SPAWN_EGG = ITEMS.register("sabre_cat_spawn_egg", () -> new SpawnEggItem(EntityRegistry.SABRE_CAT.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> GIANT_SPAWN_EGG = ITEMS.register("giant_spawn_egg", () -> new SpawnEggItem(EntityRegistry.GIANT.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> DRAGON_SPAWN_EGG = ITEMS.register("dragon_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAGON.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> BLUE_BUTTERFLY_SPAWN_EGG = ITEMS.register("blue_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> MONARCH_BUTTERFLY_SPAWN_EGG = ITEMS.register("monarch_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.MONARCH_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> ORANGE_DARTWING_SPAWN_EGG = ITEMS.register("orange_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.ORANGE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> BLUE_DARTWING_SPAWN_EGG = ITEMS.register("blue_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> LUNAR_MOTH_SPAWN_EGG = ITEMS.register("lunar_moth_spawn_egg", () -> new SpawnEggItem(EntityRegistry.LUNAR_MOTH.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> TORCHBUG_SPAWN_EGG = ITEMS.register("torchbug_spawn_egg", () -> new SpawnEggItem(EntityRegistry.TORCHBUG.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAUGR.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> KHAJIIT_SPAWN_EGG = ITEMS.register("khajiit_spawn_egg", () -> new SpawnEggItem(EntityRegistry.KHAJIIT.get(), 0x505050, 0x606060, new Item.Properties()));
+    public static final RegistryObject<Item> FALMER_SPAWN_EGG = ITEMS.register("falmer_spawn_egg", () -> new SpawnEggItem(EntityRegistry.FALMER.get(), 0x505050, 0x606060, new Item.Properties()));
 
     public static void registerItemModelProperties() {
         registerTwoHandedProperties(ANCIENT_NORD_BATTLEAXE.get());
@@ -830,16 +829,16 @@ public class ItemRegistry
     }
 
     private static void registerTwoHandedProperties(Item item) {
-        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath(Constants.MODID,  "no_use"), ClientUtil::noUse);
-        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath(Constants.MODID,  "blocking"), ClientUtil::blocking);
+        ItemProperties.register(item, new ResourceLocation(Constants.MODID,  "no_use"), ClientUtil::noUse);
+        ItemProperties.register(item, new ResourceLocation(Constants.MODID,  "blocking"), ClientUtil::blocking);
     }
 
     private static void registerBowProperties(Item item) {
-        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath(Constants.MODID,  "pulling"), ClientUtil::pulling);
-        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath(Constants.MODID,  "pull"), ClientUtil::pull);
+        ItemProperties.register(item, new ResourceLocation(Constants.MODID,  "pulling"), ClientUtil::pulling);
+        ItemProperties.register(item, new ResourceLocation(Constants.MODID,  "pull"), ClientUtil::pull);
     }
 
     private static void registerShield(Item item) {
-        ItemProperties.register(item, ResourceLocation.fromNamespaceAndPath(Constants.MODID,  "blocking"), ClientUtil::blocking);
+        ItemProperties.register(item, new ResourceLocation(Constants.MODID,  "blocking"), ClientUtil::blocking);
     }
 }

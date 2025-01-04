@@ -19,12 +19,12 @@ public class EffectSpectral extends MobEffect
     // Whether the effect should apply this tick. Used e.g. by the Regeneration effect that only applies
     // once every x ticks, depending on the tick count and amplifier.
     @Override
-    public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+    public boolean isDurationEffectTick(int tickCount, int amplifier) {
         return true; //tickCount % 2 == 0; // replace this with whatever check you want
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
+    public void applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
         if(livingEntity.level() instanceof ServerLevel) {
             ServerLevel world = (ServerLevel)livingEntity.level();
             float radius = 0.5f;
@@ -37,6 +37,6 @@ public class EffectSpectral extends MobEffect
                 world.sendParticles(ParticleTypes.ASH, livingEntity.getX() + point.x, livingEntity.getY() + 0.2f, livingEntity.getZ() + point.z, 1, point.x, 0D, point.z, 0); // set amount to 0 so particles don't fly off and stays in place
             }
         }
-        return super.applyEffectTick(livingEntity, p_76394_2_);
+        super.applyEffectTick(livingEntity, p_76394_2_);
     }
 }

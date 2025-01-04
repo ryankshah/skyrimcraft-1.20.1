@@ -27,7 +27,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetKeyName;
 
 public class MagicScreen extends Screen
 {
-    protected static final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+    protected static final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
     private static final int PADDING = 7;
 
     private Map<Spell.SpellType, ArrayList<Spell>> spellsAndTypes;
@@ -91,7 +91,8 @@ public class MagicScreen extends Screen
         poseStack.pushPose();
 //        RenderUtil.bind(MENU_ICONS);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderTransparentBackground(graphics);
+        this.renderBackground(graphics);
+//        this.renderTransparentBackground(graphics);
 
         if(this.spellTypeChosen) {
             graphics.fillGradient(this.width - 90, 0, this.width - 10, this.height, 0xAA000000, 0xAA000000);
@@ -114,8 +115,8 @@ public class MagicScreen extends Screen
         // Draw "buttons" for keys for selecting spells
         drawGradientRect(graphics, poseStack, 17, this.height - 29, 32, this.height - 14, 0xAA000000, 0xAA000000, 0xFF5D5A51);
         drawGradientRect(graphics, poseStack, 37, this.height - 29, 52, this.height - 14, 0xAA000000, 0xAA000000, 0xFF5D5A51);
-        graphics.drawCenteredString(font, glfwGetKeyName(KeysRegistry.SPELL_SLOT_1_KEY.get().getDefaultKey().getValue(), 0).toUpperCase(), 25, this.height - 25, 0x0000FF00);
-        graphics.drawCenteredString(font, glfwGetKeyName(KeysRegistry.SPELL_SLOT_2_KEY.get().getDefaultKey().getValue(), 0).toUpperCase(), 45, this.height - 25, 0x0000FFFF);
+        graphics.drawCenteredString(font, glfwGetKeyName(KeysRegistry.SPELL_SLOT_1_KEY.getDefaultKey().getValue(), 0).toUpperCase(), 25, this.height - 25, 0x0000FF00);
+        graphics.drawCenteredString(font, glfwGetKeyName(KeysRegistry.SPELL_SLOT_2_KEY.getDefaultKey().getValue(), 0).toUpperCase(), 45, this.height - 25, 0x0000FFFF);
         graphics.drawCenteredString(font, "Equip", 70, this.height - 25, 0x00FFFFFF);
 
         renderMagicka(graphics, poseStack, this.width, this.height);
@@ -272,8 +273,8 @@ public class MagicScreen extends Screen
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if(scrollY < 0) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        if(delta < 0) {
             if (!this.spellTypeChosen) {
                 if (this.currentSpellType < this.spellTypes.size() - 1)
                     ++this.currentSpellType;
@@ -281,7 +282,7 @@ public class MagicScreen extends Screen
                 if (this.currentSpell < this.spellsListForCurrentSpellType.size() - 1)
                     ++this.currentSpell;
             }
-        } else if(scrollY > 0) {
+        } else if(delta > 0) {
             if (!this.spellTypeChosen) {
                 if(this.currentSpellType > 0)
                     --this.currentSpellType;
@@ -295,7 +296,7 @@ public class MagicScreen extends Screen
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
             if(!this.spellTypeChosen) {
                 if(this.currentSpellType < this.spellTypes.size()-1)
                     ++this.currentSpellType;
@@ -307,7 +308,7 @@ public class MagicScreen extends Screen
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
             if(!this.spellTypeChosen) {
                 if(this.currentSpellType > 0)
                     --this.currentSpellType;
@@ -319,21 +320,21 @@ public class MagicScreen extends Screen
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
             if(this.spellTypeChosen) {
                 this.spellTypeChosen = false;
                 this.currentSpell = 0;
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode)) {
             if(!this.spellTypeChosen) {
                 this.spellTypeChosen = true;
                 this.currentSpell = 0;
             }
         }
 
-        if(KeysRegistry.SPELL_SLOT_1_KEY.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SPELL_SLOT_1_KEY.matches(keyCode, scanCode)) {
             Spell selectedSpell1 = character.getSelectedSpell1();
             Spell selectedSpell2 = character.getSelectedSpell2();
 
@@ -359,7 +360,7 @@ public class MagicScreen extends Screen
             System.out.println(character.toString());
         }
 
-        if(KeysRegistry.SPELL_SLOT_2_KEY.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SPELL_SLOT_2_KEY.matches(keyCode, scanCode)) {
             Spell selectedSpell1 = character.getSelectedSpell1();
             Spell selectedSpell2 = character.getSelectedSpell2();
 

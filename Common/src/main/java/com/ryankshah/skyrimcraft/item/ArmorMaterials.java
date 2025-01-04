@@ -3,176 +3,176 @@ package com.ryankshah.skyrimcraft.item;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.function.Supplier;
 
-public class ArmorMaterials //implements StringRepresentable, ArmorMaterial
+public enum ArmorMaterials implements StringRepresentable, ArmorMaterial
 {
-    public static final Holder<ArmorMaterial> ANCIENT_NORD = register(Constants.MODID+":ancient_nord",
-            Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
-                p_266652_.put(ArmorItem.Type.BOOTS, 2);
-                p_266652_.put(ArmorItem.Type.LEGGINGS, 4);
-                p_266652_.put(ArmorItem.Type.CHESTPLATE, 5);
-                p_266652_.put(ArmorItem.Type.HELMET, 2);
-            }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.5F, 0.125F,
-            () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "ancient_nord"))));
-
-    public static final Holder<ArmorMaterial> DRAGONBONE = register(Constants.MODID+":dragonbone", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    ANCIENT_NORD(Constants.MODID+":ancient_nord", 15,
+        Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+            p_266652_.put(ArmorItem.Type.BOOTS, 2);
+            p_266652_.put(ArmorItem.Type.LEGGINGS, 4);
+            p_266652_.put(ArmorItem.Type.CHESTPLATE, 5);
+            p_266652_.put(ArmorItem.Type.HELMET, 2);
+        }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.5F, 0.125F, () -> Ingredient.of(Items.IRON_INGOT)),
+    DRAGONBONE(Constants.MODID+":dragonbone", 15, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 2);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266652_.put(ArmorItem.Type.HELMET, 2);
-    }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.0F, 0.25F, () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "dragonbone"))));
-
-    public static final Holder<ArmorMaterial> HIDE = register(Constants.MODID+":hide", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.0F, 0.25F, () -> Ingredient.of(Items.IRON_INGOT)),
+    HIDE(Constants.MODID+":hide", 5, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 1);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 2);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 3);
         p_266652_.put(ArmorItem.Type.HELMET, 1);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F,
-            () -> Ingredient.of(ItemRegistry.LEATHER_STRIPS.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "hide"))));
-
-    public static final Holder<ArmorMaterial> SCALED = register(Constants.MODID+":scaled", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ItemRegistry.LEATHER_STRIPS.get())),
+    SCALED(Constants.MODID+":scaled", 8, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 1);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 2);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 3);
         p_266652_.put(ArmorItem.Type.HELMET, 1);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ItemRegistry.STEEL_INGOT.get()),
-        List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "scaled"))));
-
-    public static final Holder<ArmorMaterial> STEEL = register(Constants.MODID+":steel", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ItemRegistry.STEEL_INGOT.get())),
+    STEEL(Constants.MODID+":steel", 22, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 6);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 7);
         p_266654_.put(ArmorItem.Type.HELMET, 3);
-    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.STEEL_INGOT.get()),
-        List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "steel"))));
-
-    public static final Holder<ArmorMaterial> GLASS = register(Constants.MODID+":glass", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.STEEL_INGOT.get())),
+    GLASS(Constants.MODID+":glass", 20, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
-    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.MALACHITE_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "glass"))));
-
-
-    public static final Holder<ArmorMaterial> ELVEN = register(Constants.MODID+":elven", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.MALACHITE_INGOT.get())),
+    ELVEN(Constants.MODID+":elven", 22, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
-    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.2F, 0.1F, () -> Ingredient.of(ItemRegistry.MOONSTONE_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "elven"))));
-
-
-    public static final Holder<ArmorMaterial> DAEDRIC = register(Constants.MODID+":daedric", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266655_ -> {
+    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.2F, 0.1F, () -> Ingredient.of(ItemRegistry.MOONSTONE_INGOT.get())),
+    DAEDRIC(Constants.MODID+":daedric", 45, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266655_ -> {
         p_266655_.put(ArmorItem.Type.BOOTS, 4);
         p_266655_.put(ArmorItem.Type.LEGGINGS, 8);
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 8);
         p_266655_.put(ArmorItem.Type.HELMET, 4);
-    }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.0F, 0.25F, () -> Ingredient.of(ItemRegistry.EBONY_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "daedric"))));
-
-
-    public static final Holder<ArmorMaterial> EBONY = register(Constants.MODID+":ebony", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266655_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.0F, 0.25F, () -> Ingredient.of(ItemRegistry.EBONY_INGOT.get())),
+    EBONY(Constants.MODID+":ebony", 37, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266655_ -> {
         p_266655_.put(ArmorItem.Type.BOOTS, 3);
         p_266655_.put(ArmorItem.Type.LEGGINGS, 6);
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 8);
         p_266655_.put(ArmorItem.Type.HELMET, 3);
-    }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(ItemRegistry.EBONY_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "ebony"))));
-
-
-    public static final Holder<ArmorMaterial> ORCISH = register(Constants.MODID+":orcish", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(ItemRegistry.EBONY_INGOT.get())),
+    ORCISH(Constants.MODID+":orcish", 33, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
-    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.ORICHALCUM_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "orcish"))));
-
-
-    public static final Holder<ArmorMaterial> DWARVEN = register(Constants.MODID+":dwarven", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.ORICHALCUM_INGOT.get())),
+    DWARVEN(Constants.MODID+":dwarven", 33, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
-    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.DWARVEN_METAL_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "dwarven"))));
-
-
-    public static final Holder<ArmorMaterial> IRON = register(Constants.MODID+":iron", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
+    }), 9, SoundEvents.ARMOR_EQUIP_GENERIC, 0.1F, 0.0F, () -> Ingredient.of(ItemRegistry.DWARVEN_METAL_INGOT.get())),
+    IRON(Constants.MODID+":iron", 15, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266654_ -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
-    }), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(Items.IRON_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "iron"))));
-
-
-    public static final Holder<ArmorMaterial> STORMCLOAK = register(Constants.MODID+":stormcloak", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    }), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(Items.IRON_INGOT)),
+    STORMCLOAK(Constants.MODID+":stormcloak", 8, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 1);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 2);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 3);
         p_266652_.put(ArmorItem.Type.HELMET, 1);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY,
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "stormcloak"))));
-
-
-    public static final Holder<ArmorMaterial> IMPERIAL = register(Constants.MODID+":imperial", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY),
+    IMPERIAL(Constants.MODID+":imperial", 8, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 1);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 2);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 3);
         p_266652_.put(ArmorItem.Type.HELMET, 1);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY,
-        List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "imperial"))));
-
-
-    public static final Holder<ArmorMaterial> FALMER = register(Constants.MODID+":falmer", Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY),
+    FALMER(Constants.MODID+":falmer", 8, Util.make(new EnumMap<>(ArmorItem.Type.class), p_266652_ -> {
         p_266652_.put(ArmorItem.Type.BOOTS, 1);
         p_266652_.put(ArmorItem.Type.LEGGINGS, 2);
         p_266652_.put(ArmorItem.Type.CHESTPLATE, 3);
         p_266652_.put(ArmorItem.Type.HELMET, 1);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY,
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "falmer"))));
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY);
 
+    public static final StringRepresentable.EnumCodec<ArmorMaterials> CODEC = StringRepresentable.fromEnum(ArmorMaterials::values);
+    private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {
+        p_266653_.put(ArmorItem.Type.BOOTS, 13);
+        p_266653_.put(ArmorItem.Type.LEGGINGS, 15);
+        p_266653_.put(ArmorItem.Type.CHESTPLATE, 16);
+        p_266653_.put(ArmorItem.Type.HELMET, 11);
+    });
 
-    private static Holder<ArmorMaterial> register(
-        String pName,
-        EnumMap<ArmorItem.Type, Integer> pDefense,
-        int pEnchantmentValue,
-        Holder<SoundEvent> pEquipSound,
-        float pToughness,
-        float pKnockbackResistance,
-        Supplier<Ingredient> pRepairIngridient,
-        List<ArmorMaterial.Layer> pLayers
-    ) {
-        EnumMap<ArmorItem.Type, Integer> enummap = new EnumMap<>(ArmorItem.Type.class);
+    private final String name;
+    private final int durabilityMultiplier;
+    private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
+    private final int enchantmentValue;
+    private final SoundEvent sound;
+    private final float toughness;
+    private final float knockbackResistance;
+    private final LazyLoadedValue<Ingredient> repairIngredient;
 
-        for (ArmorItem.Type armoritem$type : ArmorItem.Type.values()) {
-            enummap.put(armoritem$type, pDefense.get(armoritem$type));
-        }
+    private ArmorMaterials(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> pProtectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
+        this.name = pName;
+        this.durabilityMultiplier = pDurabilityMultiplier;
+        this.protectionFunctionForType = pProtectionFunctionForType;
+        this.enchantmentValue = pEnchantmentValue;
+        this.sound = pSound;
+        this.toughness = pToughness;
+        this.knockbackResistance = pKnockbackResistance;
+        this.repairIngredient = new LazyLoadedValue<>(pRepairIngredient);
+    }
 
-        return Registry.registerForHolder(
-                BuiltInRegistries.ARMOR_MATERIAL,
-                ResourceLocation.parse(pName),
-                new ArmorMaterial(enummap, pEnchantmentValue, pEquipSound, pRepairIngridient, pLayers, pToughness, pKnockbackResistance)
-        );
+    public int getDurabilityForType(ArmorItem.Type pType) {
+        return HEALTH_FUNCTION_FOR_TYPE.get(pType) * this.durabilityMultiplier;
+    }
+
+    public int getDefenseForType(ArmorItem.Type pType) {
+        return this.protectionFunctionForType.get(pType);
+    }
+
+    public int getEnchantmentValue() {
+        return this.enchantmentValue;
+    }
+
+    public SoundEvent getEquipSound() {
+        return this.sound;
+    }
+
+    public Ingredient getRepairIngredient() {
+        return this.repairIngredient.get();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public float getToughness() {
+        return this.toughness;
+    }
+
+    /**
+     * Gets the percentage of knockback resistance provided by armor of the material.
+     */
+    public float getKnockbackResistance() {
+        return this.knockbackResistance;
+    }
+
+    public String getSerializedName() {
+        return this.name;
     }
 }

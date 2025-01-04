@@ -9,7 +9,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.LightLayer;
 
 public class EffectVampirism extends MobEffect
 {
@@ -18,12 +17,12 @@ public class EffectVampirism extends MobEffect
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         if (entityLivingBaseIn instanceof Player player) {
             ExtraCharacter extraCharacter = Services.PLATFORM.getExtraCharacter(player);
             int infectionTime = extraCharacter.getInfectionTime();
@@ -48,9 +47,9 @@ public class EffectVampirism extends MobEffect
                 // Transform the player into a vampire here
                 player.displayClientMessage(Component.literal("You have become a vampire!"), false);
                 // Remove the effect as the transformation is complete
-                player.removeEffect(ModEffects.SANGUINARE_VAMPIRIS.asHolder());
+                player.removeEffect(ModEffects.SANGUINARE_VAMPIRIS.get());
             }
         }
-        return super.applyEffectTick(entityLivingBaseIn, amplifier);
+        super.applyEffectTick(entityLivingBaseIn, amplifier);
     }
 }

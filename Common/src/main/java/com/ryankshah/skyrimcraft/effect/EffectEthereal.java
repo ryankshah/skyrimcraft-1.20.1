@@ -11,22 +11,17 @@ public class EffectEthereal extends MobEffect
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         // Apply your effect logic here.
         if(!livingEntity.isInvulnerable())
             livingEntity.setInvulnerable(true);
-        return super.applyEffectTick(livingEntity, amplifier);
+        super.applyEffectTick(livingEntity, amplifier);
     }
 
     // Whether the effect should apply this tick. Used e.g. by the Regeneration effect that only applies
     // once every x ticks, depending on the tick count and amplifier.
     @Override
-    public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+    public boolean isDurationEffectTick(int tickCount, int amplifier) {
         return true; //tickCount % 2 == 0; // replace this with whatever check you want
-    }
-
-    // Utility method that is called when the effect is first added to the entity.
-    @Override
-    public void onEffectStarted(LivingEntity entity, int amplifier) {
     }
 }

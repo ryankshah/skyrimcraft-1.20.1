@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
@@ -162,7 +163,7 @@ public class ConjuredFollowOwnerGoal extends Goal
     }
 
     private boolean canTeleportTo(BlockPos pPos) {
-        PathType blockpathtypes = WalkNodeEvaluator.getPathTypeStatic(this.tamable, pPos);
+        BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pPos.mutable());
         if (blockpathtypes != PathType.WALKABLE) {
             return false;
         } else {

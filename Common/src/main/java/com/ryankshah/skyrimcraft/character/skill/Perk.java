@@ -2,9 +2,6 @@ package com.ryankshah.skyrimcraft.character.skill;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 
 import java.util.List;
 
@@ -24,19 +21,19 @@ public class Perk
             Codec.BOOL.fieldOf("unlocked").forGetter(Perk::isUnlocked)
     ).apply(perk, Perk::new));
 
-    public static StreamCodec<RegistryFriendlyByteBuf, Perk> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8,
-            Perk::getName,
-            ByteBufCodecs.STRING_UTF8,
-            Perk::getDescription,
-            ByteBufCodecs.INT,
-            Perk::getLevelRequirement,
-            ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()),
-            Perk::getParents,
-            ByteBufCodecs.BOOL,
-            Perk::isUnlocked,
-            Perk::new
-    );
+//    public static StreamCodec<RegistryFriendlyByteBuf, Perk> STREAM_CODEC = StreamCodec.composite(
+//            ByteBufCodecs.STRING_UTF8,
+//            Perk::getName,
+//            ByteBufCodecs.STRING_UTF8,
+//            Perk::getDescription,
+//            ByteBufCodecs.INT,
+//            Perk::getLevelRequirement,
+//            ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list()),
+//            Perk::getParents,
+//            ByteBufCodecs.BOOL,
+//            Perk::isUnlocked,
+//            Perk::new
+//    );
 
     public Perk(String name, String description, int levelRequirement, List<String> parents, boolean unlocked) {
         this.name = name;

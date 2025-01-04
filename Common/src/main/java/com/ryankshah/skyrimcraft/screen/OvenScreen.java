@@ -33,7 +33,7 @@ import java.util.List;
 
 public class OvenScreen extends Screen
 {
-    protected static final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+    protected static final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
     private Multimap<String, OvenRecipe> items;
     private List<OvenRecipe> itemList;
@@ -159,8 +159,8 @@ public class OvenScreen extends Screen
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if(scrollY < 0) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        if(delta < 0) {
             if (!this.categoryChosen) {
                 if (this.currentCategory < this.categories.length - 1)
                     ++this.currentCategory;
@@ -171,7 +171,7 @@ public class OvenScreen extends Screen
                 if (this.currentItem < this.itemList.size() - 1)
                     ++this.currentItem;
             }
-        } else if(scrollY > 0) {
+        } else if(delta > 0) {
             if (!this.categoryChosen) {
                 if(this.currentCategory > 0)
                     --this.currentCategory;
@@ -188,7 +188,7 @@ public class OvenScreen extends Screen
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
             if (!this.categoryChosen) {
                 if (this.currentCategory < this.categories.length - 1) {
                     ++this.currentCategory;
@@ -205,7 +205,7 @@ public class OvenScreen extends Screen
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
             if (!this.categoryChosen) {
                 if (this.currentCategory > 0) {
                     --this.currentCategory;
@@ -222,21 +222,21 @@ public class OvenScreen extends Screen
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode)) {
             if(this.categoryChosen) {
                 this.categoryChosen = false;
                 this.currentItem = 0;
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
             if(!this.categoryChosen) {
                 this.categoryChosen = true;
                 this.currentItem = 0;
             }
         }
 
-        if(KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
             if (!this.categoryChosen) {
                 return false;
             }

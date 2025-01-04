@@ -1,17 +1,12 @@
 package com.ryankshah.skyrimcraft.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.ryankshah.skyrimcraft.registry.KeysRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,17 +117,17 @@ public class DialogueScreen extends Screen
             return false;
         }
 
-        if(KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+        if(KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
             selectedOption = Math.max(0, selectedOption - 1);
             lastNavigationTime = currentTime;
             playNavigationSound();
             return true;
-        } else if(KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+        } else if(KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
             selectedOption = Math.min(dialogueOptions.size() - 1, selectedOption + 1);
             lastNavigationTime = currentTime;
             playNavigationSound();
             return true;
-        } else if(KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+        } else if(KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
             if (!dialogueOptions.isEmpty()) {
                 selectCurrentOption();
             }
@@ -144,7 +139,7 @@ public class DialogueScreen extends Screen
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (KeysRegistry.SKYRIM_MENU_MB1_CLICK.get().matchesMouse(button)) {  // Left click
+        if (KeysRegistry.SKYRIM_MENU_MB1_CLICK.matchesMouse(button)) {  // Left click
             for (int i = 0; i < optionButtons.size(); i++) {
                 if (optionButtons.get(i).isHovered(mouseX, mouseY)) {
                     selectedOption = i;

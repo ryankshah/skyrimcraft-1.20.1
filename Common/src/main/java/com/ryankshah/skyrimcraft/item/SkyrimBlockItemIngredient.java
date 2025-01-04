@@ -4,7 +4,6 @@ import com.ryankshah.skyrimcraft.util.IngredientEffect;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -26,12 +25,11 @@ public class SkyrimBlockItemIngredient extends BlockItem
         this.ingredientEffects = ingredientEffects;
     }
 
-
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable("Effects: ").withStyle(ChatFormatting.DARK_PURPLE));
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        pTooltip.add(Component.translatable("Effects: ").withStyle(ChatFormatting.DARK_PURPLE));
         for(int i = 0; i < ingredientEffects.length; i++)
-            pTooltipComponents.add(Component.translatable(ingredientEffects[i].toString()));
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pIsAdvanced);
+            pTooltip.add(Component.translatable(ingredientEffects[i].toString()));
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 }

@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class MenuScreen extends Screen
 {
-    protected static final ResourceLocation MENU_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/cross.png");
-    private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+    protected static final ResourceLocation MENU_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/cross.png");
+    private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
     protected static final int PLAYER_BAR_MAX_WIDTH = 78;
 
     private Direction currentDirection;
@@ -60,7 +60,8 @@ public class MenuScreen extends Screen
         poseStack.pushPose();
         RenderUtil.bind(MENU_ICONS);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        this.renderTransparentBackground(graphics);
+//        this.renderTransparentBackground(graphics);
+        this.renderBackground(graphics);
         RenderUtil.blitWithBlend(poseStack, scaledWidth / 2 - 103, scaledHeight / 2 - 50, 24, 81, 207, 100, 256, 256, 1, 1.0f);
 
         if(currentDirection == Direction.NORTH) {
@@ -213,15 +214,15 @@ public class MenuScreen extends Screen
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode))
+        if(KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode))
             currentDirection = Direction.WEST;
-        else if(KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode))
+        else if(KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode))
             currentDirection = Direction.EAST;
-        else if(KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode))
+        else if(KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode))
             currentDirection = Direction.NORTH;
-        else if(KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode))
+        else if(KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode))
             currentDirection = Direction.SOUTH;
-        else if(KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+        else if(KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
             GLFW.glfwSetCursor(minecraft.getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR));
             if(currentDirection == Direction.NORTH) {
                 minecraft.setScreen(null);

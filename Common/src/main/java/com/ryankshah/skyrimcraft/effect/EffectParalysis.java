@@ -13,12 +13,12 @@ public class EffectParalysis extends MobEffect
     }
 
     @Override
-    public boolean shouldApplyEffectTickThisTick(int pDuration, int pAmplifier) {
+    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
+    public void applyEffectTick(LivingEntity livingEntity, int p_76394_2_) {
         if(livingEntity instanceof Mob mob) {
             mob.getMoveControl().setWantedPosition(mob.getX(), mob.getY(), mob.getZ(), mob.getSpeed());
             mob.goalSelector.disableControlFlag(Goal.Flag.MOVE);
@@ -26,6 +26,6 @@ public class EffectParalysis extends MobEffect
             mob.goalSelector.disableControlFlag(Goal.Flag.LOOK);
             mob.goalSelector.disableControlFlag(Goal.Flag.TARGET);
         }
-        return super.applyEffectTick(livingEntity, p_76394_2_);
+        super.applyEffectTick(livingEntity, p_76394_2_);
     }
 }

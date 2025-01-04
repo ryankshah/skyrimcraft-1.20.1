@@ -29,8 +29,8 @@ public class CharacterCreationScreen extends Screen
 {
     //protected static final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/character_creation_icons.png");
 
-    public static final CubeMap CUBE_MAP = new CubeMap(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/panorama/panorama"));
-    private static final ResourceLocation PANORAMA_OVERLAY = ResourceLocation.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");
+    public static final CubeMap CUBE_MAP = new CubeMap(new ResourceLocation(Constants.MODID, "textures/gui/panorama/panorama"));
+    private static final ResourceLocation PANORAMA_OVERLAY = new ResourceLocation("textures/gui/title/background/panorama_overlay.png");
     private final PanoramaRenderer panorama = new PanoramaRenderer(CUBE_MAP);
 //    private final CUbema panorama = new RenderSkybox(CUBE_MAP);
     private final boolean fading = true;
@@ -68,7 +68,7 @@ public class CharacterCreationScreen extends Screen
 
         float f = this.fading ? (float)(Util.getMillis() - this.fadeInStart) / 1000.0F : 1.0F;
 //        graphics.fill(0, 0, this.width, this.height, -1);
-        this.panorama.render(graphics, width, height, Mth.clamp(f, 0.0F, 1.0F), partialTicks); // TODO: Check this!
+        this.panorama.render(Mth.clamp(f, 0.0F, 1.0F), partialTicks); // TODO: Check this!
 //        CUBE_MAP.render(this.minecraft, Mth.sin(cubeMapPosition * 0.001F) * 5.0F + 25.0F, -cubeMapPosition * 0.1F, Mth.clamp(f, 0.0F, 1.0F));
         int i = 274;
         int j = this.width / 2 + 40;
@@ -105,8 +105,8 @@ public class CharacterCreationScreen extends Screen
 
     //TODO: Check this
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if(scrollY > 0) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        if(delta > 0) {
             if (this.currentRace > 0)
                 --this.currentRace;
             else
@@ -116,7 +116,7 @@ public class CharacterCreationScreen extends Screen
             final CreateCharacter createCharacter = new CreateCharacter(currentRaceObject.getId(), false);
             Dispatcher.sendToServer(createCharacter);
 //            PacketDistributor.SERVER.noArg().send(createCharacter);
-        } else if(scrollY < 0) {
+        } else if(delta < 0) {
             if (this.currentRace < this.races.size() - 1)
                 ++this.currentRace;
             else
@@ -132,7 +132,7 @@ public class CharacterCreationScreen extends Screen
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+        if (KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
             if (this.currentRace < this.races.size() - 1)
                 ++this.currentRace;
             else
@@ -144,7 +144,7 @@ public class CharacterCreationScreen extends Screen
 //            PacketDistributor.SERVER.noArg().send(createCharacter);
         }
 
-        if (KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+        if (KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
             if (this.currentRace > 0)
                 --this.currentRace;
             else
@@ -156,7 +156,7 @@ public class CharacterCreationScreen extends Screen
 //            PacketDistributor.SERVER.noArg().send(createCharacter);
         }
 
-        if (KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+        if (KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
             final CreateCharacter createCharacter = new CreateCharacter(currentRaceObject.getId(), true);
             Dispatcher.sendToServer(createCharacter);
 //            PacketDistributor.SERVER.noArg().send(createCharacter);

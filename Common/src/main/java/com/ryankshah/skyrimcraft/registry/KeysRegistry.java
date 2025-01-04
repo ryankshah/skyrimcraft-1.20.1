@@ -15,75 +15,74 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import org.apache.logging.log4j.util.Lazy;
 import org.lwjgl.glfw.GLFW;
 
 public class KeysRegistry
 {
     public static void init() {}
 
-    public static final Lazy<KeyMapping> MENU_KEY = Lazy.lazy(() -> new KeyMapping(
+    public static final KeyMapping MENU_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_menu", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_TAB, // Default key is TAB (previously M key)
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SPELL_SLOT_1_KEY = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SPELL_SLOT_1_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_spell_1", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_V, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SPELL_SLOT_2_KEY = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SPELL_SLOT_2_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_spell_2", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_B, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> PICKPOCKET_KEY = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping PICKPOCKET_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_pickpocket", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_P, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
+    );
 
-    public static final Lazy<KeyMapping> SKYRIM_MENU_ENTER = Lazy.lazy(() -> new KeyMapping(
+    public static final KeyMapping SKYRIM_MENU_ENTER = new KeyMapping(
             "key." + Constants.MODID + ".menu.enter", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_ENTER, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SKYRIM_MENU_NORTH = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SKYRIM_MENU_NORTH = new KeyMapping(
             "key." + Constants.MODID + ".menu.north", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_UP, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SKYRIM_MENU_SOUTH = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SKYRIM_MENU_SOUTH = new KeyMapping(
             "key." + Constants.MODID + ".menu.south", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_DOWN, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SKYRIM_MENU_EAST = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SKYRIM_MENU_EAST = new KeyMapping(
             "key." + Constants.MODID + ".menu.east", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_LEFT, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
-    public static final Lazy<KeyMapping> SKYRIM_MENU_WEST = Lazy.lazy(() -> new KeyMapping(
+    );
+    public static final KeyMapping SKYRIM_MENU_WEST = new KeyMapping(
             "key." + Constants.MODID + ".menu.west", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_RIGHT, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
+    );
 
-    public static final Lazy<KeyMapping> SKYRIM_MENU_MB1_CLICK = Lazy.lazy(() -> new KeyMapping(
+    public static final KeyMapping SKYRIM_MENU_MB1_CLICK = new KeyMapping(
             "key." + Constants.MODID + ".menu_button_1.click", // Will be localized using this translation key
             InputConstants.Type.MOUSE,
             GLFW.GLFW_MOUSE_BUTTON_1, // Default key is P
             "key.categories.skyrimcraft" // Mapping will be in the misc category
-    ));
+    );
 
     public static void onKeyInput(int key, int scanCode, int action, int modifiers) {
         Minecraft mc = Minecraft.getInstance();
@@ -92,11 +91,11 @@ public class KeysRegistry
         if (mc.screen != null)
             return;
 
-        while (MENU_KEY.get().consumeClick()) {
+        while (MENU_KEY.consumeClick()) {
             mc.setScreen(new MenuScreen());
             return;
         }
-        while (SPELL_SLOT_1_KEY.get().consumeClick()) { // TODO: Check if `isDown` for continuous cast?
+        while (SPELL_SLOT_1_KEY.consumeClick()) { // TODO: Check if `isDown` for continuous cast?
             Character character = Character.get(mc.player);
             Spell spell = character.getSelectedSpell1();
             if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
@@ -107,7 +106,7 @@ public class KeysRegistry
                 mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
             return;
         }
-        while (SPELL_SLOT_2_KEY.get().consumeClick()) {
+        while (SPELL_SLOT_2_KEY.consumeClick()) {
             Character character = Character.get(mc.player);
             Spell spell = character.getSelectedSpell2();
             if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
@@ -118,7 +117,7 @@ public class KeysRegistry
                 mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
             return;
         }
-        while (PICKPOCKET_KEY.get().consumeClick()) {
+        while (PICKPOCKET_KEY.consumeClick()) {
             if (mc.crosshairPickEntity instanceof LivingEntity && mc.player.isCrouching()) {
                 LivingEntity entity = (LivingEntity) mc.crosshairPickEntity;
 

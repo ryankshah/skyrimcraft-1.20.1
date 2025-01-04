@@ -37,7 +37,7 @@ public class MapScreen extends Screen
     private static final int ICON_WIDTH = 12;
     private static final int ICON_HEIGHT = 16;
     private static final float BASE_MARKER_SIZE = 8.0f;
-    private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+    private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
     private final Minecraft mc;
     private final Level level;
@@ -182,7 +182,7 @@ public class MapScreen extends Screen
             poseStack.pushPose();
             poseStack.translate(startX + playerX, startY + playerZ, 0);
             poseStack.scale(markerSize/8, markerSize/8, 1);
-            RenderUtil.bind(minecraft.player.getSkin().texture());
+            RenderUtil.bind(minecraft.player.getSkinTextureLocation());
             RenderUtil.blitWithBlend(guiGraphics.pose(), -4, -4, 8, 8, 8, 8, 64, 64, 1, 1);
             poseStack.popPose();
         }
@@ -331,12 +331,12 @@ public class MapScreen extends Screen
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         int oldBlockSize = blockSize;
-        if (scrollY > 0 && blockSize < MAX_BLOCK_SIZE) {
+        if (delta > 0 && blockSize < MAX_BLOCK_SIZE) {
             blockSize++;
             renderDistance = Math.max(1, renderDistance - 1);
-        } else if (scrollY < 0) {
+        } else if (delta < 0) {
             int minBlockSize = Math.max(MIN_BLOCK_SIZE, this.width / (renderDistance * 2 * CHUNK_SIZE));
             if (blockSize > minBlockSize) {
                 blockSize--;
@@ -356,22 +356,22 @@ public class MapScreen extends Screen
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (showFastTravelPopup) {
-            if (KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode) || KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode)) {
+            if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode) || KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
                 selectedOption = 1 - selectedOption; // Toggle between 0 and 1
                 return true;
-            } else if (KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
                 handleFastTravelChoice(selectedOption == 0);
                 return true;
             }
         } else {
             int moveAmount = 16; // Move by one chunk
-            if (KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+            if (KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
                 mapOffsetZ -= moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
                 mapOffsetZ += moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode)) {
                 mapOffsetX -= moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
                 mapOffsetX += moveAmount;
             } else {
                 return super.keyPressed(keyCode, scanCode, modifiers);
