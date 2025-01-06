@@ -7,13 +7,8 @@ import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,18 +16,19 @@ import net.minecraft.world.entity.player.Player;
 
 public record UpdateShoutCooldown(ResourceKey<Spell> spell, float cooldown)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updateshoutcooldown");
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateShoutCooldown> CODEC = StreamCodec.composite(
-            ResourceKey.streamCodec(SpellRegistry.SPELLS_KEY),
-            UpdateShoutCooldown::spell,
-            ByteBufCodecs.FLOAT,
-            UpdateShoutCooldown::cooldown,
-            UpdateShoutCooldown::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updateshoutcooldown");
 
     public UpdateShoutCooldown(final FriendlyByteBuf buffer) {
         this(buffer.readResourceKey(SpellRegistry.SPELLS_KEY), buffer.readFloat());
+    }
+
+    public static UpdateShoutCooldown decode(FriendlyByteBuf buf) {
+        return new UpdateShoutCooldown(buf.readResourceKey(SpellRegistry.SPELLS_KEY), buf.readFloat());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeResourceKey(spell);
+        buf.writeFloat(cooldown);
     }
 
     public static void handle(PacketContext<UpdateShoutCooldown> context) {
@@ -62,9 +58,5 @@ public record UpdateShoutCooldown(ResourceKey<Spell> spell, float cooldown)
             Character character = Character.get(player);
             character.addSpellAndCooldown(SpellRegistry.SPELLS_REGISTRY.get(data.spell), data.cooldown);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

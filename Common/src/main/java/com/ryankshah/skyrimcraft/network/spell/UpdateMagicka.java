@@ -7,29 +7,26 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public record UpdateMagicka(float magicka, float maxMagicka, float magickaRegenModifier)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updatemagicka");
-
-    public static final StreamCodec<FriendlyByteBuf, UpdateMagicka> CODEC = StreamCodec.composite(
-            ByteBufCodecs.FLOAT,
-            UpdateMagicka::magicka,
-            ByteBufCodecs.FLOAT,
-            UpdateMagicka::maxMagicka,
-            ByteBufCodecs.FLOAT,
-            UpdateMagicka::magickaRegenModifier,
-            UpdateMagicka::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updatemagicka");
 
     public UpdateMagicka(final FriendlyByteBuf buffer) {
         this(buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
+    }
+
+    public static UpdateMagicka decode(FriendlyByteBuf buf) {
+        return new UpdateMagicka(buf.readFloat(), buf.readFloat(), buf.readFloat());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeFloat(magicka);
+        buf.writeFloat(maxMagicka);
+        buf.writeFloat(magickaRegenModifier);
     }
 
     public static void handle(PacketContext<UpdateMagicka> context) {
@@ -73,9 +70,5 @@ public record UpdateMagicka(float magicka, float maxMagicka, float magickaRegenM
             character.setMaxMagicka(data.maxMagicka);
             character.setMagickaRegenModifier(data.magickaRegenModifier);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

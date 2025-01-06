@@ -6,9 +6,6 @@ pluginManagement {
             url = 'https://maven.minecraftforge.net/'
         }
         maven {
-            url = 'https://maven.parchmentmc.org'
-        }
-        maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
@@ -17,14 +14,14 @@ pluginManagement {
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
     }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.toString() == 'org.spongepowered.mixin') {
-                useModule("org.spongepowered:mixingradle:${requested.version}")
-            }
-        }
-    }
 }
 
-rootProject.name = "skyrimcraft-1.20.1"
-include("Common", "Fabric", "Forge")
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
+// This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
+rootProject.name = 'skyrimcraft-1.20.1'
+include("common")
+include("fabric")
+include("forge")

@@ -19,11 +19,9 @@ import com.ryankshah.skyrimcraft.util.CompassFeature;
 import com.ryankshah.skyrimcraft.util.LevelUpdate;
 import com.ryankshah.skyrimcraft.util.RenderUtil;
 import net.minecraft.client.AttackIndicatorStatus;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -73,12 +71,11 @@ public class SkyrimGuiOverlay
         showShoutBar = show;
     }
 
-    public static class SkyrimLevelUpdates implements LayeredDraw.Layer
+    public static class SkyrimLevelUpdates
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
-
-        @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
+        
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -94,17 +91,17 @@ public class SkyrimGuiOverlay
                 if(levelUpdate.getUpdateName().equalsIgnoreCase("characterLevel"))
                     renderCharacterLevelUpdate(guiGraphics, poseStack, mc.font, scaledWidth, scaledHeight, partialTick, levelUpdate.getLevel(), levelUpdate.getLevelUpRenderTime());
                 else
-                    renderLevelUpdate(guiGraphics, poseStack, mc.font, mc.player, scaledWidth, scaledHeight, partialTick.getGameTimeDeltaTicks(), levelUpdate.getUpdateName(), levelUpdate.getLevel(), levelUpdate.getLevelUpRenderTime());
+                    renderLevelUpdate(guiGraphics, poseStack, mc.font, mc.player, scaledWidth, scaledHeight, partialTick, levelUpdate.getUpdateName(), levelUpdate.getLevel(), levelUpdate.getLevelUpRenderTime());
 
                 levelUpdate.setLevelUpRenderTime(levelUpdate.getLevelUpRenderTime() - 1);
             }
         }
 
-        private void renderCharacterLevelUpdate(GuiGraphics graphics, PoseStack poseStack, Font fontRenderer, int width, int height, DeltaTracker partialTicks, int level, int levelUpRenderTime) {
+        private void renderCharacterLevelUpdate(GuiGraphics graphics, PoseStack poseStack, Font fontRenderer, int width, int height, float partialTicks, int level, int levelUpRenderTime) {
             String characterLevel = ""+level;
             String levelProgressString = "Progress";
 
-            float hue = (float)levelUpRenderTime - partialTicks.getGameTimeDeltaTicks();
+            float hue = (float)levelUpRenderTime - partialTicks;
             int opacity = (int)(hue * 255.0F / 20.0F);
             if (opacity > 255) opacity = 255;
 
@@ -177,12 +174,11 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimTargetHealth implements LayeredDraw.Layer
+    public static class SkyrimTargetHealth
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -222,16 +218,16 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimCrosshair implements LayeredDraw.Layer
+    public static class SkyrimCrosshair
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 //        protected static final ResourceLocation CROSSHAIR_SPRITE = new ResourceLocation("hud/crosshair");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE = ResourceLocation.withDefaultNamespace("hud/crosshair_attack_indicator_full");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("hud/crosshair_attack_indicator_background");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE = ResourceLocation.withDefaultNamespace("hud/crosshair_attack_indicator_progress");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_full");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_background");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_progress");
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -256,7 +252,7 @@ public class SkyrimGuiOverlay
                         || block instanceof AbstractChestBlock<?>
                         || block instanceof CartographyTableBlock
                         || block instanceof CraftingTableBlock
-                        || block instanceof EnchantingTableBlock
+                        || block instanceof EnchantmentTableBlock
                         || block instanceof GrindstoneBlock
                         || block instanceof LoomBlock
                         || block instanceof BrewingStandBlock
@@ -343,15 +339,15 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimSpells implements LayeredDraw.Layer
+    public static class SkyrimSpells
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
         private int SLOT_WIDTH = 22, SLOT_HEIGHT = 22;
         private int DOUBLE_SLOT_WIDTH = 22, DOUBLE_SLOT_HEIGHT = 41;
         private int ICON_WIDTH = 16, ICON_HEIGHT = 16;
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -359,7 +355,7 @@ public class SkyrimGuiOverlay
             int scaledHeight = window.getGuiScaledHeight();
 
             Character character = Character.get(mc.player);
-            
+
             Spell selectedSpell1 = character.getSelectedSpell1();
             Spell selectedSpell2 = character.getSelectedSpell2();
             Map<Spell, Float> spellCooldowns = character.getSpellsOnCooldown();
@@ -502,12 +498,12 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimStamina implements LayeredDraw.Layer
+    public static class SkyrimStamina
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -526,18 +522,18 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimAir implements LayeredDraw.Layer
+    public static class SkyrimAir
     {
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
 
-            final ResourceLocation AIR_SPRITE = ResourceLocation.withDefaultNamespace("hud/air");
-            final ResourceLocation AIR_BURSTING_SPRITE = ResourceLocation.withDefaultNamespace("hud/air_bursting");
+            final ResourceLocation AIR_SPRITE = new ResourceLocation("hud/air");
+            final ResourceLocation AIR_BURSTING_SPRITE = new ResourceLocation("hud/air_bursting");
 
             mc.getProfiler().push("air");
             Player player = (Player)mc.getCameraEntity();
@@ -563,17 +559,17 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimXPBar implements LayeredDraw.Layer
+    public static class SkyrimXPBar
     {
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
-            final ResourceLocation EXPERIENCE_BAR_BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("hud/experience_bar_background");
-            final ResourceLocation EXPERIENCE_BAR_PROGRESS_SPRITE = ResourceLocation.withDefaultNamespace("hud/experience_bar_progress");
+            final ResourceLocation EXPERIENCE_BAR_BACKGROUND_SPRITE = new ResourceLocation("hud/experience_bar_background");
+            final ResourceLocation EXPERIENCE_BAR_PROGRESS_SPRITE = new ResourceLocation("hud/experience_bar_progress");
 
             RenderSystem.enableBlend();
             guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -612,19 +608,19 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimArmorIcons implements LayeredDraw.Layer
+    public static class SkyrimArmorIcons
     {
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
 
-            final ResourceLocation ARMOR_EMPTY_SPRITE = ResourceLocation.withDefaultNamespace("hud/armor_empty");
-            final ResourceLocation ARMOR_HALF_SPRITE = ResourceLocation.withDefaultNamespace("hud/armor_half");
-            final ResourceLocation ARMOR_FULL_SPRITE = ResourceLocation.withDefaultNamespace("hud/armor_full");
+            final ResourceLocation ARMOR_EMPTY_SPRITE = new ResourceLocation("hud/armor_empty");
+            final ResourceLocation ARMOR_HALF_SPRITE = new ResourceLocation("hud/armor_half");
+            final ResourceLocation ARMOR_FULL_SPRITE = new ResourceLocation("hud/armor_full");
 
             mc.getProfiler().push("armor");
             RenderSystem.enableBlend();
@@ -649,12 +645,12 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimMagicka implements LayeredDraw.Layer
+    public static class SkyrimMagicka
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -672,12 +668,12 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimHealth implements LayeredDraw.Layer
+    public static class SkyrimHealth
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -702,12 +698,12 @@ public class SkyrimGuiOverlay
         }
     }
 
-    public static class SkyrimCompass implements LayeredDraw.Layer
+    public static class SkyrimCompass
     {
-        private final ResourceLocation OVERLAY_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/overlay_icons.png");
+        private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
         @Override
-        public void render(GuiGraphics guiGraphics, DeltaTracker partialTick) {
+        public void render(GuiGraphics guiGraphics, float partialTick) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -722,7 +718,7 @@ public class SkyrimGuiOverlay
 //        guiGraphics.blit(scaledWidth / 2 - 110, 10, 0, 37, 221, compassBackground);
 
             assert mc.player != null;
-            float yaw = Mth.lerp(mc.getTimer().getRealtimeDeltaTicks(), mc.player.yHeadRotO, mc.player.yHeadRot) % 360;
+            float yaw = Mth.lerp(mc.getDeltaFrameTime(), mc.player.yHeadRotO, mc.player.yHeadRot) % 360;
             if (yaw < 0) yaw += 360;
 
             drawCardinalDirection(guiGraphics, yaw, 0, scaledWidth / 2, "S");
@@ -733,9 +729,9 @@ public class SkyrimGuiOverlay
 //        double playerPosX = Mth.lerp(mc.getFrameTime(), mc.player.xo, mc.player.getX());
 //        double playerPosY = Mth.lerp(mc.getFrameTime(), mc.player.yo, mc.player.getY());
 //        double playerPosZ = Mth.lerp(mc.getFrameTime(), mc.player.zo, mc.player.getZ());
-            double playerPosX = Mth.lerp(mc.getTimer().getRealtimeDeltaTicks(), mc.player.xo, mc.player.getX());
-            double playerPosY = Mth.lerp(mc.getTimer().getRealtimeDeltaTicks(), mc.player.yo, mc.player.getY());
-            double playerPosZ = Mth.lerp(mc.getTimer().getRealtimeDeltaTicks(), mc.player.zo, mc.player.getZ());
+            double playerPosX = Mth.lerp(mc.getDeltaFrameTime(), mc.player.xo, mc.player.getX());
+            double playerPosY = Mth.lerp(mc.getDeltaFrameTime(), mc.player.yo, mc.player.getY());
+            double playerPosZ = Mth.lerp(mc.getDeltaFrameTime(), mc.player.zo, mc.player.getZ());
             final float finalYaw = yaw;
 
             List<CompassFeature> compassFeatures = character.getCompassFeatures();

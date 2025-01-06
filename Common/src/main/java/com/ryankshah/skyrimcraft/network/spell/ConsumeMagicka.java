@@ -7,22 +7,21 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public record ConsumeMagicka(float amount)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "consumemagicka");
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "consumemagicka");
 
-    public static final StreamCodec<FriendlyByteBuf, ConsumeMagicka> CODEC = StreamCodec.composite(
-            ByteBufCodecs.FLOAT,
-            ConsumeMagicka::amount,
-            ConsumeMagicka::new
-    );
+    public static ConsumeMagicka decode(FriendlyByteBuf buf) {
+        return new ConsumeMagicka(buf.readFloat());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeFloat(amount);
+    }
 
     public ConsumeMagicka(final FriendlyByteBuf buffer) {
         this(buffer.readFloat());
@@ -55,9 +54,5 @@ public record ConsumeMagicka(float amount)
             Character character = Character.get(player);
             character.setMagicka(context.message().amount);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

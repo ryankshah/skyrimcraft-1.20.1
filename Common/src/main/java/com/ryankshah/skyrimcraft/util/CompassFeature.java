@@ -3,12 +3,9 @@ package com.ryankshah.skyrimcraft.util;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ryankshah.skyrimcraft.registry.TagsRegistry;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.tags.TagKey;
@@ -27,16 +24,6 @@ public class CompassFeature
             TagKey.codec(Registries.STRUCTURE).fieldOf("feature").forGetter(CompassFeature::getFeature),
             BlockPos.CODEC.fieldOf("blockPos").forGetter(CompassFeature::getBlockPos)
     ).apply(cf, CompassFeature::new));
-
-    public static StreamCodec<ByteBuf, CompassFeature> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8,
-            CompassFeature::getId,
-            ByteBufCodecs.fromCodec(TagKey.codec(Registries.STRUCTURE)),
-            CompassFeature::getFeature,
-            BlockPos.STREAM_CODEC,
-            CompassFeature::getBlockPos,
-            CompassFeature::new
-    );
 
     public static final int ICON_WIDTH = 12, ICON_HEIGHT = 16;
 
@@ -104,7 +91,7 @@ public class CompassFeature
 
     public static CompassFeature deserialise(CompoundTag nbt) {
         String id = nbt.getString("id");
-        ResourceLocation feature = ResourceLocation.parse(nbt.getString("resourcelocation"));
+        ResourceLocation feature = ResourceLocation.tryParse(nbt.getString("resourcelocation"));
         int x = nbt.getInt("xPos");
         int y = nbt.getInt("yPos");
         int z = nbt.getInt("zPos");

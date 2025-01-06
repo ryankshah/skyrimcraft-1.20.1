@@ -2,11 +2,8 @@ package com.ryankshah.skyrimcraft.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 
 public class Waypoint
 {
@@ -17,14 +14,6 @@ public class Waypoint
             Codec.STRING.fieldOf("name").forGetter(Waypoint::getName),
             BlockPos.CODEC.fieldOf("blockPos").forGetter(Waypoint::getBlockPos)
     ).apply(cf, Waypoint::new));
-
-    public static StreamCodec<ByteBuf, Waypoint> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8,
-            Waypoint::getName,
-            BlockPos.STREAM_CODEC,
-            Waypoint::getBlockPos,
-            Waypoint::new
-    );
 
     public static final int ICON_WIDTH = 12, ICON_HEIGHT = 16;
 

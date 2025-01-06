@@ -8,23 +8,23 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 public record UpdateExtraCharacter(ExtraCharacter character)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updateextracharacter");
-
-    public static final StreamCodec<FriendlyByteBuf, UpdateExtraCharacter> CODEC = StreamCodec.composite(
-            ExtraCharacter.STREAM_CODEC,
-            UpdateExtraCharacter::character,
-            UpdateExtraCharacter::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updateextracharacter");
 
     public UpdateExtraCharacter(final FriendlyByteBuf buffer) {
         this(buffer.readJsonWithCodec(ExtraCharacter.CODEC));
+    }
+
+    public static UpdateExtraCharacter decode(FriendlyByteBuf buf) {
+        return new UpdateExtraCharacter(buf.readJsonWithCodec(ExtraCharacter.CODEC));
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeJsonWithCodec(ExtraCharacter.CODEC, character);
     }
 
     public static void handle(PacketContext<UpdateExtraCharacter> context) {
@@ -47,9 +47,5 @@ public record UpdateExtraCharacter(ExtraCharacter character)
         minecraft.execute(() -> {
             Services.PLATFORM.setExtraCharacterData(minecraft.player, context.message().character);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

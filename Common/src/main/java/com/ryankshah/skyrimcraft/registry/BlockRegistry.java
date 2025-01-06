@@ -15,12 +15,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -354,7 +357,7 @@ public class BlockRegistry
     public static final BlockSetType DWEMER_METAL = BlockSetType.register(new BlockSetType(Constants.MODID + ":dwemer"));
 
     public static final RegistryObject<TrapDoorBlock> STEEL_TRAPDOOR = registerBlock("steel_trapdoor",
-            () -> new TrapDoorBlock(STEEL, BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR)));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR), STEEL));
     public static final RegistryObject<BlockItem> STEEL_TRAPDOOR_ITEM = ItemRegistry.ITEMS.register("steel_trapdoor",
             () -> new BlockItem(STEEL_TRAPDOOR.get(), new Item.Properties()));
     public static final RegistryObject<SkyrimcraftDoorBlock> STEEL_CELL_DOOR = registerBlock("steel_cell_door",
@@ -371,7 +374,7 @@ public class BlockRegistry
             () -> new BlockItem(STEEL_TALL_GATE.get(), new Item.Properties()));
 
     public static final RegistryObject<TrapDoorBlock> DWEMER_METAL_TRAPDOOR = registerBlock("dwemer_metal_trapdoor",
-            () -> new TrapDoorBlock(DWEMER_METAL, BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR)));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR), DWEMER_METAL));
     public static final RegistryObject<BlockItem> DWEMER_METAL_TRAPDOOR_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_trapdoor",
             () -> new BlockItem(DWEMER_METAL_TRAPDOOR.get(), new Item.Properties()));
 
@@ -395,15 +398,15 @@ public class BlockRegistry
     public static final RegistryObject<BlockItem> DWEMER_METAL_GATE_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_gate",
             () -> new BlockItem(DWEMER_METAL_GATE.get(), new Item.Properties()));
     public static final RegistryObject<TorchBlock> DWEMER_METAL_TORCH = registerBlock("dwemer_metal_torch",
-            () -> new TorchBlock(ParticleTypes.SMALL_FLAME, BlockBehaviour.Properties.copy(Blocks.TORCH)));
+            () -> new TorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH), ParticleTypes.SMALL_FLAME));
     public static final RegistryObject<WallTorchBlock> DWEMER_METAL_WALL_TORCH = registerBlock("dwemer_metal_wall_torch",
-            () -> new WallTorchBlock(ParticleTypes.SMALL_FLAME, BlockBehaviour.Properties.copy(Blocks.TORCH)));
+            () -> new WallTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH), ParticleTypes.SMALL_FLAME));
     public static final RegistryObject<BlockItem> DWEMER_METAL_TORCH_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_torch",
             () -> new BlockItem(DWEMER_METAL_TORCH.get(), new Item.Properties()));
     public static final RegistryObject<TorchBlock> DWEMER_SOUL_TORCH = registerBlock("dwemer_soul_torch",
-            () -> new TorchBlock(ParticleTypes.SOUL_FIRE_FLAME, BlockBehaviour.Properties.copy(Blocks.SOUL_TORCH)));
+            () -> new TorchBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_TORCH), ParticleTypes.SOUL_FIRE_FLAME));
     public static final RegistryObject<WallTorchBlock> DWEMER_SOUL_WALL_TORCH = registerBlock("dwemer_soul_wall_torch",
-            () -> new WallTorchBlock(ParticleTypes.SMALL_FLAME, BlockBehaviour.Properties.copy(Blocks.TORCH)));
+            () -> new WallTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH), ParticleTypes.SMALL_FLAME));
     public static final RegistryObject<BlockItem> DWEMER_SOUL_TORCH_ITEM = ItemRegistry.ITEMS.register("dwemer_soul_torch",
             () -> new BlockItem(DWEMER_SOUL_TORCH.get(), new Item.Properties()));
     public static final RegistryObject<RedstoneTorchBlock> DWEMER_REDSTONE_TORCH = registerBlock("dwemer_redstone_torch", //RedstoneTorchBlock
@@ -560,6 +563,30 @@ public class BlockRegistry
     public static final RegistryObject<BlockItem> DWEMER_SOUL_LANTERN_ITEM = ItemRegistry.ITEMS.register("dwemer_soul_lantern",
             () -> new BlockItem(DWEMER_SOUL_LANTERN.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> DWEMER_METAL_LEVER = registerBlock("dwemer_metal_lever",
+            () -> new DwemerLeverBlock(BlockBehaviour.Properties.copy(Blocks.LEVER)));
+    public static final RegistryObject<Item> DWEMER_METAL_LEVER_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_lever",
+            () -> new BlockItem(DWEMER_METAL_LEVER.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_METAL_BUTTON = registerBlock("dwemer_metal_button",
+            () -> new SkyrimButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), DWEMER_METAL, 40, true));
+    public static final RegistryObject<Item> DWEMER_METAL_BUTTON_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_button",
+            () -> new BlockItem(DWEMER_METAL_BUTTON.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> DWEMER_CHAIR = registerBlock("dwemer_chair",
+            () -> new DwemerChairBlock(BlockBehaviour.Properties.copy(DWEMER_METAL_BRICKS.get()).noOcclusion()));
+    public static final RegistryObject<Item> DWEMER_CHAIR_ITEM = ItemRegistry.ITEMS.register("dwemer_chair",
+            () -> new BlockItem(DWEMER_CHAIR.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> DWEMER_STONE_BUTTON = registerBlock("dwemer_stone_button",
+            () -> new SkyrimButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 40, true));
+    public static final RegistryObject<Item> DWEMER_STONE_BUTTON_ITEM = ItemRegistry.ITEMS.register("dwemer_stone_button",
+            () -> new BlockItem(DWEMER_STONE_BUTTON.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> DWEMER_METAL_CHAIN = registerBlock("dwemer_metal_chain",
+            () -> new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)));
+    public static final RegistryObject<Item> DWEMER_METAL_CHAIN_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_chain",
+            () -> new BlockItem(DWEMER_METAL_CHAIN.get(), new Item.Properties()));
+
     // Dwemer metal bars and steel bars
     public static final RegistryObject<SkyrimBarsBlock> DWEMER_METAL_BARS = registerBlock("dwemer_metal_bars",
             () -> new SkyrimBarsBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
@@ -569,6 +596,148 @@ public class BlockRegistry
             () -> new SkyrimBarsBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
     public static final RegistryObject<BlockItem> STEEL_BARS_ITEM = ItemRegistry.ITEMS.register("steel_bars",
             () -> new BlockItem(STEEL_BARS.get(), new Item.Properties()));
+
+    static BlockBehaviour.Properties woolProps = BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.GUITAR).strength(0.8F).sound(SoundType.WOOL);
+    static BlockBehaviour.Properties carpetProps = BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY);
+
+    public static final RegistryObject<Block> DWEMER_WOOL_BROWN = registerBlock("dwemer_wool_brown",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BROWN_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_brown",
+            () -> new BlockItem(DWEMER_WOOL_BROWN.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_BROWN_CARPET = registerBlock("dwemer_wool_brown_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BROWN_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_brown_carpet",
+            () -> new BlockItem(DWEMER_WOOL_BROWN_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_BED_BROWN = registerBlock("dwemer_bed_brown",
+            () -> bed(DyeColor.BROWN));
+    public static final RegistryObject<Item> DWEMER_BED_BROWN_ITEM = ItemRegistry.ITEMS.register("dwemer_bed_brown",
+            () -> new BlockItem(DWEMER_BED_BROWN.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> DWEMER_WOOL_ORANGE = registerBlock("dwemer_wool_orange",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_ORANGE_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_orange",
+            () -> new BlockItem(DWEMER_WOOL_ORANGE.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_ORANGE_CARPET = registerBlock("dwemer_wool_orange_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_ORANGE_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_orange_carpet",
+            () -> new BlockItem(DWEMER_WOOL_ORANGE_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_BED_ORANGE = registerBlock("dwemer_bed_orange",
+            () -> bed(DyeColor.ORANGE));
+    public static final RegistryObject<Item> DWEMER_BED_ORANGE_ITEM = ItemRegistry.ITEMS.register("dwemer_bed_orange",
+            () -> new BlockItem(DWEMER_BED_ORANGE.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> DWEMER_WOOL_RED = registerBlock("dwemer_wool_red",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_RED_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_red",
+            () -> new BlockItem(DWEMER_WOOL_RED.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_RED_CARPET = registerBlock("dwemer_wool_red_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_RED_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_red_carpet",
+            () -> new BlockItem(DWEMER_WOOL_RED_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_MAGENTA = registerBlock("dwemer_wool_magenta",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_MAGENTA_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_magenta",
+            () -> new BlockItem(DWEMER_WOOL_MAGENTA.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_MAGENTA_CARPET = registerBlock("dwemer_wool_magenta_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_MAGENTA_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_magenta_carpet",
+            () -> new BlockItem(DWEMER_WOOL_MAGENTA_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_PINK = registerBlock("dwemer_wool_pink",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_PINK_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_pink",
+            () -> new BlockItem(DWEMER_WOOL_PINK.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_PINK_CARPET = registerBlock("dwemer_wool_pink_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_PINK_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_pink_carpet",
+            () -> new BlockItem(DWEMER_WOOL_PINK_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_PURPLE = registerBlock("dwemer_wool_purple",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_PURPLE_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_purple",
+            () -> new BlockItem(DWEMER_WOOL_PURPLE.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_PURPLE_CARPET = registerBlock("dwemer_wool_purple_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_PURPLE_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_purple_carpet",
+            () -> new BlockItem(DWEMER_WOOL_PURPLE_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_BLUE = registerBlock("dwemer_wool_blue",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BLUE_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_blue",
+            () -> new BlockItem(DWEMER_WOOL_BLUE.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_BLUE_CARPET = registerBlock("dwemer_wool_blue_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BLUE_ITEM_CARPET = ItemRegistry.ITEMS.register("dwemer_wool_blue_carpet",
+            () -> new BlockItem(DWEMER_WOOL_BLUE_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIGHT_BLUE = registerBlock("dwemer_wool_light_blue",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIGHT_BLUE_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_light_blue",
+            () -> new BlockItem(DWEMER_WOOL_LIGHT_BLUE.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIGHT_BLUE_CARPET = registerBlock("dwemer_wool_light_blue_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIGHT_BLUE_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_light_blue_carpet",
+            () -> new BlockItem(DWEMER_WOOL_LIGHT_BLUE_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_CYAN = registerBlock("dwemer_wool_cyan",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_CYAN_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_cyan",
+            () -> new BlockItem(DWEMER_WOOL_CYAN.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_CYAN_CARPET = registerBlock("dwemer_wool_cyan_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_CYAN_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_cyan_carpet",
+            () -> new BlockItem(DWEMER_WOOL_CYAN_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_GREEN = registerBlock("dwemer_wool_green",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_GREEN_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_green",
+            () -> new BlockItem(DWEMER_WOOL_GREEN.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_GREEN_CARPET = registerBlock("dwemer_wool_green_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_GREEN_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_green_carpet",
+            () -> new BlockItem(DWEMER_WOOL_GREEN_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIME_GREEN = registerBlock("dwemer_wool_lime_green",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIME_GREEN_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_lime_green",
+            () -> new BlockItem(DWEMER_WOOL_LIME_GREEN.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIME_GREEN_CARPET = registerBlock("dwemer_wool_lime_green_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIME_GREEN_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_lime_green_carpet",
+            () -> new BlockItem(DWEMER_WOOL_LIME_GREEN_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_YELLOW = registerBlock("dwemer_wool_yellow",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_YELLOW_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_yellow",
+            () -> new BlockItem(DWEMER_WOOL_YELLOW.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_YELLOW_CARPET = registerBlock("dwemer_wool_yellow_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_YELLOW_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_yellow_carpet",
+            () -> new BlockItem(DWEMER_WOOL_YELLOW_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_BLACK = registerBlock("dwemer_wool_black",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BLACK_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_black",
+            () -> new BlockItem(DWEMER_WOOL_BLACK.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_BLACK_CARPET = registerBlock("dwemer_wool_black_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_BLACK_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_black_carpet",
+            () -> new BlockItem(DWEMER_WOOL_BLACK_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_GREY = registerBlock("dwemer_wool_grey",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_GREY_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_grey",
+            () -> new BlockItem(DWEMER_WOOL_GREY.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_GREY_CARPET = registerBlock("dwemer_wool_grey_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_GREY_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_grey_carpet",
+            () -> new BlockItem(DWEMER_WOOL_GREY_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIGHT_GREY = registerBlock("dwemer_wool_light_grey",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIGHT_GREY_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_light_grey",
+            () -> new BlockItem(DWEMER_WOOL_LIGHT_GREY.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_LIGHT_GREY_CARPET = registerBlock("dwemer_wool_light_grey_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_LIGHT_GREY_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_light_grey_carpet",
+            () -> new BlockItem(DWEMER_WOOL_LIGHT_GREY_CARPET.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_WHITE = registerBlock("dwemer_wool_white",
+            () -> new Block(woolProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_WHITE_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_white",
+            () -> new BlockItem(DWEMER_WOOL_WHITE.get(), new Item.Properties()));
+    public static final RegistryObject<Block> DWEMER_WOOL_WHITE_CARPET = registerBlock("dwemer_wool_white_carpet",
+            () -> new CarpetBlock(carpetProps));
+    public static final RegistryObject<Item> DWEMER_WOOL_WHITE_CARPET_ITEM = ItemRegistry.ITEMS.register("dwemer_wool_white_carpet",
+            () -> new BlockItem(DWEMER_WOOL_WHITE_CARPET.get(), new Item.Properties()));
 
     public static final RegistryObject<DwemerMovingPistonBlock> DWEMER_MOVING_PISTON = registerBlock("dwemer_moving_piston",
             () -> new DwemerMovingPistonBlock(
@@ -623,6 +792,12 @@ public class BlockRegistry
             return !(Boolean)p_152641_.getValue(DwemerPistonBase.EXTENDED);
         };
         return new DwemerPistonBase(isSticky, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(1.5F).isRedstoneConductor(BlockRegistry::never).isSuffocating(blockbehaviour$statepredicate).isViewBlocking(blockbehaviour$statepredicate).pushReaction(PushReaction.BLOCK));
+    }
+
+    private static DwemerBed bed(DyeColor color) {
+        return new DwemerBed(color, BlockBehaviour.Properties.of().mapColor((p_284863_) -> {
+            return p_284863_.getValue(DwemerBed.PART) == BedPart.FOOT ? color.getMapColor() : MapColor.WOOL;
+        }).sound(SoundType.ANVIL).strength(0.2F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY));
     }
 
     private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos) {

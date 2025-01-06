@@ -27,18 +27,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class SabreCat extends PathfinderMob implements GeoEntity
 {
@@ -51,11 +46,10 @@ public class SabreCat extends PathfinderMob implements GeoEntity
     private NearestAttackableTargetGoal<? extends LivingEntity> sprintToNearestPlayerGoal;
     private NearestAttackableTargetGoal<? extends LivingEntity> sprintToNearestAnimalGoal;
 
-    protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.sabre_cat.idle");
-    protected static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.sabre_cat.walk");
-    protected static final RawAnimation RUN = RawAnimation.begin().thenLoop("animation.sabre_cat.run");
-    protected static final RawAnimation CLAW = RawAnimation.begin().thenLoop("animation.sabre_cat.claw");
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    protected static final AnimationBuilder IDLE = AnimationBuilder.begin().thenLoop("animation.sabre_cat.idle");
+    protected static final AnimationBuilder WALK = AnimationBuilder.begin().thenLoop("animation.sabre_cat.walk");
+    protected static final AnimationBuilder RUN = AnimationBuilder.begin().thenLoop("animation.sabre_cat.run");
+    protected static final AnimationBuilder CLAW = AnimationBuilder.begin().thenLoop("animation.sabre_cat.claw");
 
     public SabreCat(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
@@ -63,9 +57,9 @@ public class SabreCat extends PathfinderMob implements GeoEntity
         this.xpReward = 5;
 //        this.setMaxUpStep(1.25f); // 1.5 works.. but does 1.25f? if so then this comment may still be here xox
 
-        this.setPathfindingMalus(PathType.WATER, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
         this.setBiomeType(Biomes.PLAINS);
     }
 
@@ -174,11 +168,11 @@ public class SabreCat extends PathfinderMob implements GeoEntity
         return true;
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(BIOME_TYPE, Biomes.PLAINS.location().toString());
-        pBuilder.define(ANIMATION_STATE, 0);
-        pBuilder.define(PREV_ANIMATION_STATE, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(BIOME_TYPE, Biomes.PLAINS.location().toString());
+        this.entityData.define(ANIMATION_STATE, 0);
+        this.entityData.define(PREV_ANIMATION_STATE, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag p_213281_1_) {
@@ -200,7 +194,7 @@ public class SabreCat extends PathfinderMob implements GeoEntity
     }
 
     public ResourceKey<Biome> getBiomeType() {
-        return ResourceKey.create(Registries.BIOME, ResourceLocation.parse(this.entityData.get(BIOME_TYPE)));
+        return ResourceKey.create(Registries.BIOME, Objects.requireNonNull(ResourceLocation.tryParse(this.entityData.get(BIOME_TYPE))));
     }
 
     public void setAnimationState(int animationState) {

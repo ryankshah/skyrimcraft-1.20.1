@@ -241,7 +241,7 @@ public class OvenScreen extends Screen
                 return false;
             }
 
-            final FinishOvenRecipe finishRecipe = new FinishOvenRecipe(currentRecipeObject);
+            final FinishOvenRecipe finishRecipe = new FinishOvenRecipe(currentRecipeObject.getId(), currentRecipeObject);
             Dispatcher.sendToServer(finishRecipe);
 //            PacketDistributor.SERVER.noArg().send(finishRecipe);
         }

@@ -6,24 +6,24 @@ import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public record FastTravel(BlockPos blockPos)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "fasttravel");
-
-    public static final StreamCodec<FriendlyByteBuf, FastTravel> CODEC = StreamCodec.composite(
-            BlockPos.STREAM_CODEC,
-            FastTravel::blockPos,
-            FastTravel::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "fasttravel");
 
     public FastTravel(final FriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
+    }
+
+    public static FastTravel decode(FriendlyByteBuf buf) {
+        return new FastTravel(buf.readBlockPos());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeBlockPos(blockPos);
     }
 
     public static void handle(PacketContext<FastTravel> context) {
@@ -44,10 +44,6 @@ public record FastTravel(BlockPos blockPos)
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> {
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }
 

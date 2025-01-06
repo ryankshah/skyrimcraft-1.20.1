@@ -241,7 +241,7 @@ public class BlacksmithForgeScreen extends Screen
                 return false;
             }
 
-            final FinishForgeRecipe finishRecipe = new FinishForgeRecipe(currentRecipeObject);
+            final FinishForgeRecipe finishRecipe = new FinishForgeRecipe(currentRecipeObject.getId(), currentRecipeObject);
             Dispatcher.sendToServer(finishRecipe);
 //            PacketDistributor.SERVER.noArg().send(finishRecipe);
         }

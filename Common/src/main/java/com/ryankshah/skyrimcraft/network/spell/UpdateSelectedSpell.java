@@ -7,13 +7,8 @@ import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,18 +16,19 @@ import net.minecraft.world.entity.player.Player;
 
 public record UpdateSelectedSpell(int position, ResourceKey<Spell> spell)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updateselectedspells");
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateSelectedSpell> CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT,
-            UpdateSelectedSpell::position,
-            ResourceKey.streamCodec(SpellRegistry.SPELLS_KEY),
-            UpdateSelectedSpell::spell,
-            UpdateSelectedSpell::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updateselectedspells");
 
     public UpdateSelectedSpell(final FriendlyByteBuf buffer) {
         this(buffer.readInt(), buffer.readResourceKey(SpellRegistry.SPELLS_KEY));
+    }
+
+    public static UpdateSelectedSpell decode(FriendlyByteBuf buf) {
+        return new UpdateSelectedSpell(buf.readInt(), buf.readResourceKey(SpellRegistry.SPELLS_KEY));
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(position);
+        buf.writeResourceKey(spell);
     }
 
     public static void handle(PacketContext<UpdateSelectedSpell> context) {
@@ -73,10 +69,6 @@ public record UpdateSelectedSpell(int position, ResourceKey<Spell> spell)
                     character.setSelectedSpell2(spell);
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }
 

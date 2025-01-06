@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SkillWidget extends AbstractWidget implements Renderable
 {
-    protected static final ResourceLocation SKILL_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/skill_icons.png");
+    protected static final ResourceLocation SKILL_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/skill_icons.png");
 
     public static final int DEFAULT_WIDTH = 150;
     public static final int DEFAULT_HEIGHT = 20;

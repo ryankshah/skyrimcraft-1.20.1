@@ -5,8 +5,6 @@ import commonnetwork.networking.data.PacketContext;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,16 +14,18 @@ import net.minecraft.world.entity.player.Player;
 
 public record DetectLife(IntList ids)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "detectlife");
-
-    public static final StreamCodec<FriendlyByteBuf, DetectLife> CODEC = StreamCodec.composite(
-            StreamCodec.of(FriendlyByteBuf::writeIntIdList, FriendlyByteBuf::readIntIdList),
-            DetectLife::ids,
-            DetectLife::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "detectlife");
 
     public DetectLife(final FriendlyByteBuf buffer) {
         this(buffer.readIntIdList());
+    }
+
+    public static DetectLife decode(FriendlyByteBuf buf) {
+        return new DetectLife(buf.readIntIdList());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeIntIdList(ids);
     }
 
     public static void handle(PacketContext<DetectLife> context) {
@@ -38,9 +38,5 @@ public record DetectLife(IntList ids)
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 2, 1, true, false, false));
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

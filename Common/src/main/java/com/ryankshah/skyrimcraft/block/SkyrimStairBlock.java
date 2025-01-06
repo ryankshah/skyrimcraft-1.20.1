@@ -81,7 +81,7 @@ public class SkyrimStairBlock extends Block implements SimpleWaterloggedBlock {
         return voxelshape;
     }
 
-    protected SkyrimStairBlock(BlockState pBaseState, BlockBehaviour.Properties pProperties) {
+    public SkyrimStairBlock(BlockState pBaseState, BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, Half.BOTTOM).setValue(SHAPE, StairsShape.STRAIGHT).setValue(WATERLOGGED, Boolean.valueOf(false)));
         this.base = pBaseState.getBlock();

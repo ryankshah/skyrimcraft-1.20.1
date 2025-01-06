@@ -7,13 +7,8 @@ import com.ryankshah.skyrimcraft.registry.EntityRegistry;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -28,16 +23,18 @@ import java.util.List;
 
 public record HandlePickpocket(int entity) //(int raceID, String raceName, Map<Integer, IntList> skills)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "handlepickpocket");
-
-    public static final StreamCodec<FriendlyByteBuf, HandlePickpocket> CODEC = StreamCodec.composite(
-            ByteBufCodecs.VAR_INT,
-            HandlePickpocket::entity,
-            HandlePickpocket::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "handlepickpocket");
 
     public HandlePickpocket(final FriendlyByteBuf buf) {
         this(buf.readInt()); //, buf.readUtf(), buf.readMap(FriendlyByteBuf::readInt, FriendlyByteBuf::readIntIdList));
+    }
+
+    public static HandlePickpocket decode(FriendlyByteBuf buf) {
+        return new HandlePickpocket(buf.readInt());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(entity);
     }
 
     public static void handle(PacketContext<HandlePickpocket> context) {
@@ -54,7 +51,7 @@ public record HandlePickpocket(int entity) //(int raceID, String raceName, Map<I
 
         LivingEntity livingEntity = (LivingEntity) player.level().getEntity(data.entity);
 
-        LootTable loottable = player.level().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "pickpocket")));
+        LootTable loottable = player.level().getServer().getLootData().getLootTable(new ResourceLocation(Constants.MODID, "pickpocket"));
         LootParams lootparams = new LootParams.Builder(player.serverLevel())
                 .withParameter(LootContextParams.THIS_ENTITY, player)
                 .withParameter(LootContextParams.ORIGIN, player.position())
@@ -79,9 +76,5 @@ public record HandlePickpocket(int entity) //(int raceID, String raceName, Map<I
     }
 
     public static void handleClient(PacketContext<HandlePickpocket> context) {
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

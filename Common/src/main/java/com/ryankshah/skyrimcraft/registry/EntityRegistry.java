@@ -3,18 +3,15 @@ package com.ryankshah.skyrimcraft.registry;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.magic.entity.*;
 import com.ryankshah.skyrimcraft.entity.boss.dragon.SkyrimDragon;
-import com.ryankshah.skyrimcraft.entity.creature.*;
+import com.ryankshah.skyrimcraft.entity.furniture.DwemerBench;
+import com.ryankshah.skyrimcraft.entity.furniture.DwemerChair;
 import com.ryankshah.skyrimcraft.entity.npc.Falmer;
 import com.ryankshah.skyrimcraft.entity.npc.Khajiit;
-import com.ryankshah.skyrimcraft.entity.passive.flying.*;
 import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
 import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -146,6 +143,17 @@ public class EntityRegistry
             () -> EntityType.Builder.of(CyrodilicSpadetail::new, MobCategory.WATER_CREATURE)
                     .sized(1.0f, 1.0f) // Hitbox Size
                     .build(new ResourceLocation(Constants.MODID,  "cyrodilic_spadetail").toString()));
+
+    // Furniture
+    public static final RegistryObject<EntityType<Entity>> DWEMER_CHAIR = ENTITY_TYPES.register("dwemer_chair",
+            () -> EntityType.Builder.of(DwemerChair::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f) // Hitbox Size
+                    .build(new ResourceLocation(Constants.MODID,  "dwemer_chair").toString()));
+    public static final RegistryObject<EntityType<Entity>> DWEMER_BENCH = ENTITY_TYPES.register("dwemer_metal_bench",
+            () -> EntityType.Builder.of(DwemerBench::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f) // Hitbox Size
+                    .build(new ResourceLocation(Constants.MODID,  "dwemer_metal_bench").toString()));
+
 
     public static void registerEntityAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier> registrar) {
         AttributeSupplier.Builder genericAttribs = PathfinderMob.createMobAttributes()

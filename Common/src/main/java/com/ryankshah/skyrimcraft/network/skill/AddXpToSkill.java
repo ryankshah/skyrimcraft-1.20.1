@@ -6,38 +6,31 @@ import com.ryankshah.skyrimcraft.character.skill.Skill;
 import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
 import com.ryankshah.skyrimcraft.character.skill.SkillWrapper;
 import com.ryankshah.skyrimcraft.network.character.AddToLevelUpdates;
-import com.ryankshah.skyrimcraft.registry.AdvancementTriggersRegistry;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.Optional;
-
 public record AddXpToSkill(ResourceKey<Skill> skill, int baseXp)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "addxptoskill");
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, AddXpToSkill> CODEC = StreamCodec.composite(
-            ResourceKey.streamCodec(SkillRegistry.SKILLS_KEY),
-            AddXpToSkill::skill,
-            ByteBufCodecs.VAR_INT,
-            AddXpToSkill::baseXp,
-            AddXpToSkill::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "addxptoskill");
 
     public AddXpToSkill(final FriendlyByteBuf buffer) {
         this(buffer.readResourceKey(SkillRegistry.SKILLS_KEY), buffer.readInt());
+    }
+
+    public static AddXpToSkill decode(FriendlyByteBuf buf) {
+        return new AddXpToSkill(buf.readResourceKey(SkillRegistry.SKILLS_KEY), buf.readInt());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeResourceKey(SkillRegistry.SKILLS_KEY);
+        buf.writeInt(baseXp);
     }
 
     public static void handle(PacketContext<AddXpToSkill> context) {
@@ -71,8 +64,9 @@ public record AddXpToSkill(ResourceKey<Skill> skill, int baseXp)
             int totalXp = character.getCharacterTotalXp();
             int newLevel = (int)Math.floor(-2.5 + Math.sqrt(8 * totalXp + 1225) / 10);
 
-            if(newLevel == 10)
-                AdvancementTriggersRegistry.LEVEL_UP.get().trigger(player, Optional.of(skill), Optional.of(10));
+            // TODO: add triggers in AdvancementTriggersRegistry and fix this!
+//            if(newLevel == 10)
+//                AdvancementTriggersRegistry.LEVEL_UP.get().trigger(player, Optional.of(skill), Optional.of(10));
 
             character.setCharacterTotalXp(totalXp + skill.getLevel());
             if(newLevel > level) {
@@ -107,9 +101,5 @@ public record AddXpToSkill(ResourceKey<Skill> skill, int baseXp)
                 }
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

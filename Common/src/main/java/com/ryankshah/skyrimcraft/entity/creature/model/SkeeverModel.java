@@ -1,9 +1,6 @@
 package com.ryankshah.skyrimcraft.entity.creature.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.ryankshah.skyrimcraft.Constants;
-import com.ryankshah.skyrimcraft.entity.creature.Skeever;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,7 +8,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.monster.Monster;
 
 public class SkeeverModel<T extends PathfinderMob> extends QuadrupedModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "skeever"), "main");

@@ -1,26 +1,23 @@
-buildscript {
-    repositories {
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-        maven { url = 'https://maven.minecraftforge.net/' }
-    }
-}
-
 plugins {
-    id 'com.matyrobbrt.mc.registrationutils' version "$regutils_version" // The plugin is located at the Gradle plugin portal
+    id 'fabric-loom' version '1.6-SNAPSHOT' apply(false)
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)' apply(false)
+    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
+    id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply(false)
+    id 'com.matyrobbrt.mc.registrationutils' version "$regutils_version"
 }
 
 registrationUtils {
-    group "com.ryankshah.${mod_id}.registration"
+    group 'com.ryankshah.skyrimcraft.registration'
     projects {
-        Fabric { type 'fabric' } // The fabric project
-        Forge { type 'forge' } // The forge project
-        Common { type 'common' } // The common project
+        fabric { type 'fabric' } // The fabric project
+        forge { type 'forge' } // The forge project
+        common { type 'common' } // The common project
     }
 }
+
 subprojects {
-    
     apply plugin: 'java'
-    
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
     java.withJavadocJar()
@@ -52,35 +49,59 @@ subprojects {
     }
 
     repositories {
-
         mavenCentral()
-        maven { url 'https://jitpack.io' }
         maven {
             name = 'Sponge / Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
-        maven { url = 'https://maven.minecraftforge.net/' }
         maven {
-            name = 'BlameJared Maven (CrT / Bookshelf)'
+            name = 'BlameJared Maven (JEI / CraftTweaker / Bookshelf)'
             url = 'https://maven.blamejared.com'
         }
         maven {
-            name = "Fuzs Mod Resources"
-            url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+            url = "https://jm.gserv.me/repository/maven-public/"
         }
+        maven {
+            name = 'GeckoLib'
+            url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+            content {
+                includeGroupByRegex("software\\.bernie.*")
+                includeGroup("com.eliotlash.mclib")
+            }
+        }
+        maven { url = 'https://maven.minecraftforge.net/' }
     }
 
     tasks.withType(JavaCompile).configureEach {
-    
+
         it.options.encoding = 'UTF-8'
-        it.options.release = 17
+        it.options.getRelease().set(17)
     }
 
-    // Disables Gradle's custom module metadata from being published to maven. The
-    // metadata includes mapped dependencies which are not reasonably consumable by
-    // other mod developers.
-    tasks.withType(GenerateModuleMetadata) {
+    processResources {
+        def expandProps = [
+                "version": version,
+                "group": project.group, //Else we target the task's group.
+                "minecraft_version": minecraft_version,
+                "forge_version": forge_version,
+                "forge_loader_version_range": forge_loader_version_range,
+                "forge_version_range": forge_version_range,
+                "minecraft_version_range": minecraft_version_range,
+                "fabric_version": fabric_version,
+                "fabric_loader_version": fabric_loader_version,
+                "mod_name": mod_name,
+                "mod_author": mod_author,
+                "mod_id": mod_id,
+                "license": license,
+                "description": project.description,
+                "regutils_version": regutils_version,
+                "terrablender_version": terrablender_version,
+                "geckolib_version": geckolib_version
+        ]
 
-        enabled = false
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
+            expand expandProps
+        }
+        inputs.properties(expandProps)
     }
 }

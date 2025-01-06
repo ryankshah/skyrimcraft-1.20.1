@@ -1,6 +1,5 @@
 package com.ryankshah.skyrimcraft.world;
 
-import com.ryankshah.skyrimcraft.entity.creature.*;
 import com.ryankshah.skyrimcraft.registry.EntityRegistry;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementTypes;

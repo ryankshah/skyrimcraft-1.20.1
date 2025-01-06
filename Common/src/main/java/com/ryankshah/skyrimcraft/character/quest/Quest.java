@@ -2,14 +2,9 @@ package com.ryankshah.skyrimcraft.character.quest;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class Quest
@@ -20,18 +15,6 @@ public class Quest
             QuestStep.CODEC.listOf().fieldOf("steps").forGetter(Quest::getSteps),
             Codec.STRING.fieldOf("questID").forGetter(Quest::getQuestID)
     ).apply(questInstance, Quest::new));
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, Quest> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8,
-            Quest::getTitle,
-            ByteBufCodecs.STRING_UTF8,
-            Quest::getTypeString,
-            QuestStep.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            Quest::getSteps,
-            ByteBufCodecs.STRING_UTF8,
-            Quest::getQuestID,
-            Quest::new
-    );
 
     private final String title;
     private final QuestType type;

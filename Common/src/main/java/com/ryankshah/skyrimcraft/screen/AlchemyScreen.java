@@ -237,7 +237,7 @@ public class AlchemyScreen extends Screen
                 return false;
             }
 
-            final FinishAlchemyRecipe finishRecipe = new FinishAlchemyRecipe(currentRecipeObject);
+            final FinishAlchemyRecipe finishRecipe = new FinishAlchemyRecipe(currentRecipeObject.getId(), currentRecipeObject);
             Dispatcher.sendToServer(finishRecipe);
 //            PacketDistributor.SERVER.noArg().send(finishRecipe);
         }

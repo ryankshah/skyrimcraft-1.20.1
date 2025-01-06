@@ -1,31 +1,30 @@
 package com.ryankshah.skyrimcraft.network.character;
 
 import com.ryankshah.skyrimcraft.Constants;
-import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.PlayerQuests;
 import com.ryankshah.skyrimcraft.platform.Services;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 public record UpdatePlayerQuests(PlayerQuests quests)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updateplayerquests");
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updateplayerquests");
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, UpdatePlayerQuests> CODEC = StreamCodec.composite(
-            PlayerQuests.STREAM_CODEC,
-            UpdatePlayerQuests::quests,
-            UpdatePlayerQuests::new
-    );
-
-    public UpdatePlayerQuests(final RegistryFriendlyByteBuf buffer) {
+    public UpdatePlayerQuests(final FriendlyByteBuf buffer) {
         this(buffer.readJsonWithCodec(PlayerQuests.CODEC));
+    }
+
+    public static UpdatePlayerQuests decode(FriendlyByteBuf buf) {
+        return new UpdatePlayerQuests(buf.readJsonWithCodec(PlayerQuests.CODEC));
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeJsonWithCodec(PlayerQuests.CODEC, quests);
     }
 
     public static void handle(PacketContext<UpdatePlayerQuests> context) {
@@ -48,9 +47,5 @@ public record UpdatePlayerQuests(PlayerQuests quests)
         minecraft.execute(() -> {
             Services.PLATFORM.setQuestData(minecraft.player, context.message().quests);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

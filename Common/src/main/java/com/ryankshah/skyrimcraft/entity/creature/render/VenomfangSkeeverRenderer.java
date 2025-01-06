@@ -2,9 +2,7 @@ package com.ryankshah.skyrimcraft.entity.creature.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.ryankshah.skyrimcraft.Constants;
-import com.ryankshah.skyrimcraft.entity.creature.Skeever;
 import com.ryankshah.skyrimcraft.entity.creature.VenomfangSkeever;
-import com.ryankshah.skyrimcraft.entity.creature.model.SkeeverModel;
 import com.ryankshah.skyrimcraft.entity.creature.model.VenomfangSkeeverModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

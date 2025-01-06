@@ -1,36 +1,31 @@
 package com.ryankshah.skyrimcraft.network.spell;
 
 import com.ryankshah.skyrimcraft.Constants;
-import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public record UpdateTelekinesisItem(int entityId, Vector3f position)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "update_telekinesis_item");
-
-    public static final StreamCodec<FriendlyByteBuf, UpdateTelekinesisItem> CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT,
-            UpdateTelekinesisItem::entityId,
-            ByteBufCodecs.VECTOR3F,
-            UpdateTelekinesisItem::position,
-            UpdateTelekinesisItem::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "update_telekinesis_item");
 
     public UpdateTelekinesisItem(final FriendlyByteBuf buffer) {
         this(buffer.readInt(), buffer.readVector3f());
+    }
+
+    public static UpdateTelekinesisItem decode(FriendlyByteBuf buf) {
+        return new UpdateTelekinesisItem(buf.readInt(), buf.readVector3f());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(entityId);
+        buf.writeVector3f(position);
     }
 
     public static void handle(PacketContext<UpdateTelekinesisItem> context) {
@@ -46,7 +41,7 @@ public record UpdateTelekinesisItem(int entityId, Vector3f position)
         Entity entity = player.level().getEntity(data.entityId);
         if (entity instanceof ItemEntity) {
             entity.setPos(data.position.x, data.position.y, data.position.z);
-            Dispatcher.sendToAllClients(data, player.level().getServer());
+//            Dispatcher.sendToAllClients(data, player.level().getServer());
         }
     }
 
@@ -59,9 +54,5 @@ public record UpdateTelekinesisItem(int entityId, Vector3f position)
                 entity.setPos(data.position.x, data.position.y, data.position.z);
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

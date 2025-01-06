@@ -8,25 +8,24 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public record OpenCharacterCreationScreen(boolean hasSetup)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "opencharactercreationscreen");
-
-    public static final StreamCodec<FriendlyByteBuf, OpenCharacterCreationScreen> CODEC = StreamCodec.composite(
-            ByteBufCodecs.BOOL,
-            OpenCharacterCreationScreen::hasSetup,
-            OpenCharacterCreationScreen::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "opencharactercreationscreen");
 
     public OpenCharacterCreationScreen(final FriendlyByteBuf buffer) {
         this(buffer.readBoolean());
+    }
+
+    public static OpenCharacterCreationScreen decode(FriendlyByteBuf buf) {
+        return new OpenCharacterCreationScreen(buf.readBoolean());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeBoolean(hasSetup);
     }
 
     public static void handle(PacketContext<OpenCharacterCreationScreen> context) {
@@ -55,9 +54,5 @@ public record OpenCharacterCreationScreen(boolean hasSetup)
             character.setHasSetup(true);
             Minecraft.getInstance().setScreen(new CharacterCreationScreen());
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

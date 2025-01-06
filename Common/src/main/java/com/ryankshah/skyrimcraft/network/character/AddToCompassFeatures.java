@@ -6,14 +6,10 @@ import com.ryankshah.skyrimcraft.util.CompassFeature;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -21,19 +17,20 @@ import net.minecraft.world.entity.player.Player;
 
 public record AddToCompassFeatures(String uuid, ResourceLocation location, BlockPos blockPos)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "addtocompassfeatures");
-    public static final StreamCodec<FriendlyByteBuf, AddToCompassFeatures> CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8,
-            AddToCompassFeatures::uuid,
-            ResourceLocation.STREAM_CODEC,
-            AddToCompassFeatures::location,
-            BlockPos.STREAM_CODEC,
-            AddToCompassFeatures::blockPos,
-            AddToCompassFeatures::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "addtocompassfeatures");
 
     public AddToCompassFeatures(final FriendlyByteBuf buffer) {
         this(buffer.readUtf(), buffer.readResourceLocation(), buffer.readBlockPos());
+    }
+
+    public static AddToCompassFeatures decode(FriendlyByteBuf buf) {
+        return new AddToCompassFeatures(buf.readUtf(), buf.readResourceLocation(), buf.readBlockPos());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeUtf(uuid);
+        buf.writeResourceLocation(location);
+        buf.writeBlockPos(blockPos);
     }
 
     public static void handle(PacketContext<AddToCompassFeatures> context) {
@@ -63,10 +60,6 @@ public record AddToCompassFeatures(String uuid, ResourceLocation location, Block
                 character.addCompassFeature(new CompassFeature(data.uuid, TagKey.create(Registries.STRUCTURE, data.location), data.blockPos));
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }
 

@@ -7,12 +7,10 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -41,10 +39,10 @@ public class SkyrimcraftProjectile extends AbstractHurtingProjectile
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        pBuilder.define(DATA_TIME, 0);
-        pBuilder.define(DATA_POWER, 0.0F);
-        pBuilder.define(DATA_DOMAIN, false);
+    protected void defineSynchedData() {
+        this.entityData.define(DATA_TIME, 0);
+        this.entityData.define(DATA_POWER, 0.0F);
+        this.entityData.define(DATA_DOMAIN, false);
     }
 
     public int getTime() {
@@ -90,7 +88,7 @@ public class SkyrimcraftProjectile extends AbstractHurtingProjectile
     }
 
     @Override
-    public boolean ignoreExplosion(@NotNull Explosion pExplosion) {
+    public boolean ignoreExplosion() {
         return true;
     }
 
@@ -148,7 +146,7 @@ public class SkyrimcraftProjectile extends AbstractHurtingProjectile
     }
 
     @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity p_352459_) {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         Entity entity = this.getOwner();
         int i = entity == null ? 0 : entity.getId();
         return new ClientboundAddEntityPacket(this.getId(), this.getUUID(), this.getX(), this.getY(), this.getZ(),

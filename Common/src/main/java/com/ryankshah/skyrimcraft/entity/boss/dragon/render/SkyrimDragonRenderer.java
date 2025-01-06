@@ -2,14 +2,11 @@ package com.ryankshah.skyrimcraft.entity.boss.dragon.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import com.ryankshah.skyrimcraft.entity.boss.dragon.SkyrimDragon;
 import com.ryankshah.skyrimcraft.entity.boss.dragon.model.SkyrimDragonModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import org.jetbrains.annotations.Nullable;
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

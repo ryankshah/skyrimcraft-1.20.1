@@ -36,8 +36,8 @@ public class SabreCatRenderer extends GeoEntityRenderer<SabreCat>
     class SabreCatEyesLayer extends GeoRenderLayer<SabreCat>
     {
         private final Int2ObjectMap<ResourceLocation> EYES_MAP = Util.make(new Int2ObjectOpenHashMap<>(), (p_215348_0_) -> {
-            p_215348_0_.put(1, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/sabre_cat_e.png"));
-            p_215348_0_.put(2, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/snowy_sabre_cat_e.png"));
+            p_215348_0_.put(1, new ResourceLocation(Constants.MODID, "textures/entity/sabre_cat_e.png"));
+            p_215348_0_.put(2, new ResourceLocation(Constants.MODID, "textures/entity/snowy_sabre_cat_e.png"));
         });
         private final List<ResourceKey<Biome>> SNOWY_BIOMES = Arrays.asList(
                 Biomes.SNOWY_BEACH, Biomes.SNOWY_TAIGA,
@@ -54,13 +54,13 @@ public class SabreCatRenderer extends GeoEntityRenderer<SabreCat>
         }
 
         protected ResourceLocation getTextureResource(SabreCat animatable) {
-            return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/sabre_cat_e.png");
+            return new ResourceLocation(Constants.MODID, "textures/entity/sabre_cat_e.png");
         }
 
         @Override
         public void render(PoseStack poseStack, SabreCat animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
 //            ResourceLocation eyes = ResourceLocation.fromNamespaceAndPath(Skyrimcraft.MODID, "textures/entity/sabre_cat_e.png");
-            ResourceLocation eyes = EYES_MAP.getOrDefault(SNOWY_BIOMES.contains(animatable.getBiomeType()) ? 2 : 1, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/sabre_cat_e.png"));
+            ResourceLocation eyes = EYES_MAP.getOrDefault(SNOWY_BIOMES.contains(animatable.getBiomeType()) ? 2 : 1, new ResourceLocation(Constants.MODID, "textures/entity/sabre_cat_e.png"));
             if(animatable.level().getDayTime() > 12542) {
                 RenderType type = RenderType.eyes(eyes);
                 getRenderer().reRender(getDefaultBakedModel(animatable), poseStack, bufferSource, animatable, type,

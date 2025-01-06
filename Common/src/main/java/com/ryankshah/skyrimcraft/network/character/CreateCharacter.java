@@ -10,9 +10,6 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -22,18 +19,19 @@ import java.util.function.Supplier;
 
 public record CreateCharacter(int raceID, boolean fin) //(int raceID, String raceName, Map<Integer, IntList> skills)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "createcharacter");
-
-    public static final StreamCodec<FriendlyByteBuf, CreateCharacter> CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT,
-            CreateCharacter::raceID,
-            ByteBufCodecs.BOOL,
-            CreateCharacter::fin,
-            CreateCharacter::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "createcharacter");
 
     public CreateCharacter(final FriendlyByteBuf buf) {
         this(buf.readInt(), buf.readBoolean()); //, buf.readUtf(), buf.readMap(FriendlyByteBuf::readInt, FriendlyByteBuf::readIntIdList));
+    }
+
+    public static CreateCharacter decode(FriendlyByteBuf buf) {
+        return new CreateCharacter(buf.readInt(), buf.readBoolean());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(raceID);
+        buf.writeBoolean(fin);
     }
 
     public static void handle(PacketContext<CreateCharacter> context) {
@@ -81,9 +79,5 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
                 }
             }
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }

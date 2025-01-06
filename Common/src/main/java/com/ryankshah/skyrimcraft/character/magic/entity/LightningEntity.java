@@ -9,8 +9,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -137,9 +135,10 @@ public class LightningEntity extends SkyrimcraftProjectile {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        pBuilder.define(DATA_YAW, 0.0F);
-        pBuilder.define(DATA_PITCH, 0.0F);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_YAW, 0.0F);
+        this.entityData.define(DATA_PITCH, 0.0F);
     }
 
     public float getYaw() {

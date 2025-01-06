@@ -5,28 +5,26 @@ import com.ryankshah.skyrimcraft.character.attachment.Character;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public record RemoveFromTargetingEntities(int entityId)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "removefromtargetingentities");
-
-    public static final StreamCodec<FriendlyByteBuf, RemoveFromTargetingEntities> CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT,
-            RemoveFromTargetingEntities::entityId,
-            RemoveFromTargetingEntities::new
-    );
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "removefromtargetingentities");
 
     public RemoveFromTargetingEntities(final FriendlyByteBuf buffer) {
         this(buffer.readInt());
+    }
+
+    public static RemoveFromTargetingEntities decode(FriendlyByteBuf buf) {
+        return new RemoveFromTargetingEntities(buf.readInt());
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(entityId);
     }
 
     public static void handle(PacketContext<RemoveFromTargetingEntities> context) {
@@ -54,10 +52,6 @@ public record RemoveFromTargetingEntities(int entityId)
             Character character = Character.get(player);
             character.removeTarget(context.message().entityId);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }
 

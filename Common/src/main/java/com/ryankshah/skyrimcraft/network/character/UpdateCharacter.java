@@ -8,24 +8,23 @@ import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 public record UpdateCharacter(Character character)
 {
-    public static final ResourceLocation TYPE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "updatecharacter");
+    public static final ResourceLocation TYPE = new ResourceLocation(Constants.MODID, "updatecharacter");
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateCharacter> CODEC = StreamCodec.composite(
-            Character.STREAM_CODEC,
-            UpdateCharacter::character,
-            UpdateCharacter::new
-    );
-
-    public UpdateCharacter(final RegistryFriendlyByteBuf buffer) {
+    public UpdateCharacter(final FriendlyByteBuf buffer) {
         this(buffer.readJsonWithCodec(Character.CODEC));
+    }
+
+    public static UpdateCharacter decode(FriendlyByteBuf buf) {
+        return new UpdateCharacter(buf.readJsonWithCodec(Character.CODEC));
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeJsonWithCodec(Character.CODEC, character);
     }
 
     public static void handle(PacketContext<UpdateCharacter> context) {
@@ -48,9 +47,5 @@ public record UpdateCharacter(Character character)
         minecraft.execute(() -> {
             Services.PLATFORM.setCharacterData(minecraft.player, context.message().character);
         });
-    }
-
-    public static CustomPacketPayload.Type<CustomPacketPayload> type() {
-        return new CustomPacketPayload.Type<>(TYPE);
     }
 }
