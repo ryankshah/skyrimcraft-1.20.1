@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 public class SkyrimcraftOverworldRegion extends Region
 {
-    public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "skyrimcraft_overworld");
+    public static final ResourceLocation LOCATION = new ResourceLocation(Constants.MODID, "skyrimcraft_overworld");
 
     public SkyrimcraftOverworldRegion(int weight) {
         super(LOCATION, RegionType.OVERWORLD, weight);

@@ -10,16 +10,16 @@ public class ValeSabreCatModel extends GeoModel<ValeSabreCat>
 {
     @Override
     public ResourceLocation getModelResource(ValeSabreCat animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/sabre_cat.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/sabre_cat.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ValeSabreCat animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/vale_sabre_cat.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/vale_sabre_cat.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ValeSabreCat animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/sabre_cat.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/sabre_cat.animation.json");
     }
 }

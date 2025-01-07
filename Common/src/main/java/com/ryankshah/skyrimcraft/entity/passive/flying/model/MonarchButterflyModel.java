@@ -11,18 +11,18 @@ public class MonarchButterflyModel extends GeoModel<MonarchButterfly>
     @Override
     public ResourceLocation getModelResource(MonarchButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/monarchbutterfly.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/monarchbutterfly.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(MonarchButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/monarchbutterfly.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/monarchbutterfly.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(MonarchButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/monarchbutterfly.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/monarchbutterfly.animation.json");
     }
 }

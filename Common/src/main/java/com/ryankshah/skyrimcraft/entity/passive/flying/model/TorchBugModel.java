@@ -11,18 +11,18 @@ public class TorchBugModel extends GeoModel<TorchBug>
     @Override
     public ResourceLocation getModelResource(TorchBug object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/torchbug.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/torchbug.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TorchBug object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/torchbug.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/torchbug.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(TorchBug object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/torchbug.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/torchbug.animation.json");
     }
 }

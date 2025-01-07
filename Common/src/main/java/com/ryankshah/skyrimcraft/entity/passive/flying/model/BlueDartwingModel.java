@@ -11,18 +11,18 @@ public class BlueDartwingModel extends GeoModel<BlueDartwing>
     @Override
     public ResourceLocation getModelResource(BlueDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/bluedartwing.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/bluedartwing.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(BlueDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/bluedartwing.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/bluedartwing.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(BlueDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/bluedartwing.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/bluedartwing.animation.json");
     }
 }

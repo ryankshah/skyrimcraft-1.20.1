@@ -6,7 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PoiTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.PoiTypeTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -19,6 +19,6 @@ public class SkyrimcraftPoiTypeTagsProvider extends PoiTypeTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         tag(PoiTypeTags.ACQUIRABLE_JOB_SITE)
-                .addOptional(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "warrior_poi"));
+                .addOptional(new ResourceLocation(Constants.MODID, "warrior_poi"));
     }
 }

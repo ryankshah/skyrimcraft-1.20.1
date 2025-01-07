@@ -9,13 +9,12 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DwemerChairModel<T extends LivingEntity> extends EntityModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "dwemer_chair"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "dwemer_chair"), "main");
     private final ModelPart dwemer_chair;
 
     public DwemerChairModel(ModelPart root) {
@@ -39,7 +38,7 @@ public class DwemerChairModel<T extends LivingEntity> extends EntityModel<T>
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, int i2) {
-        dwemer_chair.render(poseStack, vertexConsumer, i, i1, i2);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, float v, float v1, float v2, float v3) {
+        dwemer_chair.render(poseStack, vertexConsumer, i, i1, v, v1, v2, v3);
     }
 }

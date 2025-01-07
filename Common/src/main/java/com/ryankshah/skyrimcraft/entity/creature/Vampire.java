@@ -40,7 +40,7 @@ public class Vampire extends Monster
             if (entityIn instanceof Player player) {
                 // 10% chance to infect the player
                 if (this.random.nextFloat() < 0.1F) {
-                    player.addEffect(new MobEffectInstance(ModEffects.SANGUINARE_VAMPIRIS.asHolder(), 72 * 60 * 20)); // 72 hours * 60 minutes * 20 ticks
+                    player.addEffect(new MobEffectInstance(ModEffects.SANGUINARE_VAMPIRIS.get(), 72 * 60 * 20)); // 72 hours * 60 minutes * 20 ticks
                 }
             }
             return true;

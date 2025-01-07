@@ -11,18 +11,18 @@ public class BlueButterflyModel extends GeoModel<BlueButterfly>
     @Override
     public ResourceLocation getModelResource(BlueButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/bluebutterfly.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/bluebutterfly.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(BlueButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/bluebutterfly.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/bluebutterfly.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(BlueButterfly object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/bluebutterfly.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/bluebutterfly.animation.json");
     }
 }

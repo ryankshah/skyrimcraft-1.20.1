@@ -3,15 +3,14 @@ package com.ryankshah.skyrimcraft.data.loot_table;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -27,100 +26,100 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
     }
 
     @Override
-    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pOutput) {
+    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> pOutput) {
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "grasspod")),
+                new ResourceLocation(Constants.MODID, "grasspod"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.GRASS_POD.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "oregemdrops")),
+                new ResourceLocation(Constants.MODID, "oregemdrops"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .name("oresGemPool")
                         .setRolls(UniformGenerator.between(0.125F, 1.0F))
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWED_RUBY.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWED_EMERALD.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWED_DIAMOND.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_RUBY.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWED_GARNET.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_GARNET.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                         .add(LootItem.lootTableItem(ItemRegistry.FLAWED_AMETHYST.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "beehive")),
+                new ResourceLocation(Constants.MODID, "beehive"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.BEEHIVE_HUSK.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "spider")),
+                new ResourceLocation(Constants.MODID, "spider"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.SPIDER_EGG.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(0.85F, 1.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "salmon")),
+                new ResourceLocation(Constants.MODID, "salmon"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.SALMON_ROE.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(0.85F, 1.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "bee")),
+                new ResourceLocation(Constants.MODID, "bee"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.BEE.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "evoker")),
+                new ResourceLocation(Constants.MODID, "evoker"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.CONJURE_FAMILIAR_SPELLBOOK.get())
@@ -163,7 +162,7 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "witch")),
+                new ResourceLocation(Constants.MODID, "witch"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.CONJURE_FAMILIAR_SPELLBOOK.get())
@@ -394,7 +393,7 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/village")),
+                new ResourceLocation(Constants.MODID, "chests/village"),
                 villageTable);
 
         LootTable.Builder watchtowerTable = LootTable.lootTable().withPool(LootPool.lootPool()
@@ -453,36 +452,36 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_RUBY.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_EMERALD.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_DIAMOND.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_RUBY.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_GARNET.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_GARNET.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_AMETHYST.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/watchtower")),
+                new ResourceLocation(Constants.MODID, "chests/watchtower"),
                 watchtowerTable);
 
         LootTable.Builder dungeonTable = LootTable.lootTable().withPool(LootPool.lootPool()
@@ -556,31 +555,31 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_RUBY.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_EMERALD.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_DIAMOND.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_RUBY.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_GARNET.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWLESS_GARNET.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_AMETHYST.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.TOMATO_SEEDS.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
@@ -593,7 +592,7 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
                 )
         );
 
-        pOutput.accept(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/skyrim_dungeon")), dungeonTable);
+        pOutput.accept(new ResourceLocation(Constants.MODID, "chests/skyrim_dungeon"), dungeonTable);
 
 
         LootTable.Builder altarTable = LootTable.lootTable().withPool(LootPool.lootPool()
@@ -655,30 +654,30 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
                 )
                 .add(LootItem.lootTableItem(ItemRegistry.FLAWED_EMERALD.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                 )
         );
 
-        pOutput.accept(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/altar")), altarTable);
+        pOutput.accept(new ResourceLocation(Constants.MODID, "chests/altar"), altarTable);
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "goat")),
+                new ResourceLocation(Constants.MODID, "goat"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.LEG_OF_GOAT.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "horse")),
+                new ResourceLocation(Constants.MODID, "horse"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.HORSE_MEAT.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(pRegistries, UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.MOB_LOOTING))
                         )
                 )
         );
@@ -767,35 +766,35 @@ public class SkyrimcraftLootTableProvider implements LootTableSubProvider
         );
 
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/simple_dungeon")),
+                new ResourceLocation(Constants.MODID, "chests/simple_dungeon"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/abandoned_mineshaft")),
+                new ResourceLocation(Constants.MODID, "chests/abandoned_mineshaft"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/buried_treasure")),
+                new ResourceLocation(Constants.MODID, "chests/buried_treasure"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/desert_pyramid")),
+                new ResourceLocation(Constants.MODID, "chests/desert_pyramid"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/shipwreck_supply")),
+                new ResourceLocation(Constants.MODID, "chests/shipwreck_supply"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/stronghold_corridor")),
+                new ResourceLocation(Constants.MODID, "chests/stronghold_corridor"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "gameplay/piglin_bartering")),
+                new ResourceLocation(Constants.MODID, "gameplay/piglin_bartering"),
                 chestPool
         );
         pOutput.accept(
-                ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "gameplay/sniffer_digging")),
+                new ResourceLocation(Constants.MODID, "gameplay/sniffer_digging"),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(UniformGenerator.between(1.0F, 3.0F))
                         .add(LootItem.lootTableItem(ItemRegistry.TAPROOT.get())

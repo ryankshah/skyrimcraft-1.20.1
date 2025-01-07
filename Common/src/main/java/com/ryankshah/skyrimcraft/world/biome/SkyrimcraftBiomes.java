@@ -5,7 +5,7 @@ import com.ryankshah.skyrimcraft.world.WorldGenConstants;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
@@ -21,10 +21,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class SkyrimcraftBiomes
 {
-    public static final ResourceKey<Biome> ASH_WASTES = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "ash_wastes"));
-    public static final ResourceKey<Biome> PINE_FOREST = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "pine_forest"));
+    public static final ResourceKey<Biome> ASH_WASTES = ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MODID, "ash_wastes"));
+    public static final ResourceKey<Biome> PINE_FOREST = ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MODID, "pine_forest"));
 
-    public static void biomes(BootstrapContext<Biome> context) {
+    public static void biomes(BootstapContext<Biome> context) {
         MobSpawnSettings.Builder ashwasteBuilder = new MobSpawnSettings.Builder();
         context.register(ASH_WASTES,
                 new Biome.BiomeBuilder()
@@ -94,7 +94,7 @@ public class SkyrimcraftBiomes
         );
     }
 
-    public static BiomeGenerationSettings.PlainBuilder ashWastesSettings(BootstrapContext < Biome > context) {
+    public static BiomeGenerationSettings.PlainBuilder ashWastesSettings(BootstapContext < Biome > context) {
         return new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER))
                 .addFeature(GenerationStep.Decoration.LAKES, context.lookup(Registries.PLACED_FEATURE).get(MiscOverworldPlacements.LAKE_LAVA_UNDERGROUND).get())
                 .addFeature(GenerationStep.Decoration.LAKES, context.lookup(Registries.PLACED_FEATURE).get(MiscOverworldPlacements.LAKE_LAVA_SURFACE).get())
@@ -130,7 +130,7 @@ public class SkyrimcraftBiomes
                 .addFeature(GenerationStep.Decoration.FLUID_SPRINGS, context.lookup(Registries.PLACED_FEATURE).get(MiscOverworldPlacements.SPRING_LAVA).get());
     }
 
-    public static BiomeGenerationSettings.PlainBuilder baseSettings(BootstrapContext<Biome> context) {
+    public static BiomeGenerationSettings.PlainBuilder baseSettings(BootstapContext<Biome> context) {
         return new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER))
                 .addFeature(GenerationStep.Decoration.LAKES, context.lookup(Registries.PLACED_FEATURE).get(MiscOverworldPlacements.LAKE_LAVA_UNDERGROUND).get())
                 .addFeature(GenerationStep.Decoration.LAKES, context.lookup(Registries.PLACED_FEATURE).get(MiscOverworldPlacements.LAKE_LAVA_SURFACE).get())

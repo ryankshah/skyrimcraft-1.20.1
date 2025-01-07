@@ -3,10 +3,12 @@ package com.ryankshah.skyrimcraft.registry;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.magic.entity.*;
 import com.ryankshah.skyrimcraft.entity.boss.dragon.SkyrimDragon;
+import com.ryankshah.skyrimcraft.entity.creature.*;
 import com.ryankshah.skyrimcraft.entity.furniture.DwemerBench;
 import com.ryankshah.skyrimcraft.entity.furniture.DwemerChair;
 import com.ryankshah.skyrimcraft.entity.npc.Falmer;
 import com.ryankshah.skyrimcraft.entity.npc.Khajiit;
+import com.ryankshah.skyrimcraft.entity.passive.flying.*;
 import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
 import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -85,6 +87,14 @@ public class EntityRegistry
             () -> EntityType.Builder.of(DwarvenSpider::new, MobCategory.MONSTER)
                     .sized(2.0f, 2.0f) // Hitbox Size
                     .build(new ResourceLocation(Constants.MODID,  "dwarven_spider").toString()));
+    public static final RegistryObject<EntityType<DwemerCreeper>> DWEMER_CREEPER = ENTITY_TYPES.register("dwemer_creeper",
+            () -> EntityType.Builder.of(DwemerCreeper::new, MobCategory.MONSTER)
+                    .sized(1.0f, 2.0f) // Hitbox Size
+                    .build(new ResourceLocation(Constants.MODID,  "dwemer_creeper").toString()));
+    public static final RegistryObject<EntityType<DwemerCube>> DWEMER_CUBE = ENTITY_TYPES.register("dwemer_cube",
+            () -> EntityType.Builder.of(DwemerCube::new, MobCategory.MONSTER)
+                    .sized(1.0f, 2.0f) // Hitbox Size
+                    .build(new ResourceLocation(Constants.MODID,  "dwemer_cube").toString()));
     public static final RegistryObject<EntityType<BlueButterfly>> BLUE_BUTTERFLY = ENTITY_TYPES.register("blue_butterfly",
             () -> EntityType.Builder.of(BlueButterfly::new, MobCategory.AMBIENT)
                     .sized(0.5f, 0.5f) // Hitbox Size
@@ -144,6 +154,11 @@ public class EntityRegistry
                     .sized(1.0f, 1.0f) // Hitbox Size
                     .build(new ResourceLocation(Constants.MODID,  "cyrodilic_spadetail").toString()));
 
+    public static final RegistryObject<EntityType<Slaughterfish>> SLAUGHTERFISH = ENTITY_TYPES.register("slaughterfish",
+            () -> EntityType.Builder.of(Slaughterfish::new, MobCategory.WATER_CREATURE)
+                    .sized(1.0f, 1.0f) // Hitbox Size
+                    .build(new ResourceLocation(Constants.MODID,  "slaughterfish").toString()));
+
     // Furniture
     public static final RegistryObject<EntityType<Entity>> DWEMER_CHAIR = ENTITY_TYPES.register("dwemer_chair",
             () -> EntityType.Builder.of(DwemerChair::new, MobCategory.MISC)
@@ -177,6 +192,8 @@ public class EntityRegistry
         registrar.accept(EntityRegistry.MAMMOTH.get(), Mammoth.createAttributes().build());
         registrar.accept(EntityRegistry.DRAGON.get(), SkyrimDragon.createAttributes().build());
         registrar.accept(EntityRegistry.DWARVEN_SPIDER.get(), DwarvenSpider.createAttributes().build());
+        registrar.accept(EntityRegistry.DWEMER_CREEPER.get(), DwemerCreeper.createAttributes().build());
+        registrar.accept(EntityRegistry.DWEMER_CUBE.get(), DwemerCube.createAttributes().build());
         registrar.accept(EntityRegistry.BLUE_BUTTERFLY.get(), BlueButterfly.createAttributes().build());
         registrar.accept(EntityRegistry.MONARCH_BUTTERFLY.get(), MonarchButterfly.createAttributes().build());
         registrar.accept(EntityRegistry.ORANGE_DARTWING.get(), OrangeDartwing.createAttributes().build());
@@ -192,6 +209,7 @@ public class EntityRegistry
 
         registrar.accept(EntityRegistry.ABECEAN_LONGFIN.get(), AbeceanLongfin.createAttributes().build());
         registrar.accept(EntityRegistry.CYRODILIC_SPADETAIL.get(), AbeceanLongfin.createAttributes().build());
+        registrar.accept(EntityRegistry.SLAUGHTERFISH.get(), Slaughterfish.createAttributes().build());
 
         registrar.accept(EntityRegistry.LIGHTBALL_ENTITY.get(), LightBallEntity.createAttributes().build());
     }

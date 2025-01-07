@@ -29,6 +29,11 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -46,10 +51,12 @@ public class SabreCat extends PathfinderMob implements GeoEntity
     private NearestAttackableTargetGoal<? extends LivingEntity> sprintToNearestPlayerGoal;
     private NearestAttackableTargetGoal<? extends LivingEntity> sprintToNearestAnimalGoal;
 
-    protected static final AnimationBuilder IDLE = AnimationBuilder.begin().thenLoop("animation.sabre_cat.idle");
-    protected static final AnimationBuilder WALK = AnimationBuilder.begin().thenLoop("animation.sabre_cat.walk");
-    protected static final AnimationBuilder RUN = AnimationBuilder.begin().thenLoop("animation.sabre_cat.run");
-    protected static final AnimationBuilder CLAW = AnimationBuilder.begin().thenLoop("animation.sabre_cat.claw");
+    protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.sabre_cat.idle");
+    protected static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.sabre_cat.walk");
+    protected static final RawAnimation RUN = RawAnimation.begin().thenLoop("animation.sabre_cat.run");
+    protected static final RawAnimation CLAW = RawAnimation.begin().thenLoop("animation.sabre_cat.claw");
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public SabreCat(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
@@ -72,8 +79,8 @@ public class SabreCat extends PathfinderMob implements GeoEntity
             }
 
             @Override
-            protected void checkAndPerformAttack(LivingEntity pTarget) {
-                if (this.canPerformAttack(pTarget)) {
+            protected void checkAndPerformAttack(LivingEntity pTarget, double huh) {
+                if (this.mob.canAttack(pTarget)) {
                     if (getTicksUntilNextAttack() <= 0) {
                         this.resetAttackCooldown();
                         this.mob.swing(InteractionHand.MAIN_HAND);
@@ -184,7 +191,7 @@ public class SabreCat extends PathfinderMob implements GeoEntity
 
     public void readAdditionalSaveData(CompoundTag p_70037_1_) {
         super.readAdditionalSaveData(p_70037_1_);
-        this.setBiomeType(ResourceKey.create(Registries.BIOME, ResourceLocation.parse(p_70037_1_.getString("BiomeType"))));
+        this.setBiomeType(ResourceKey.create(Registries.BIOME, ResourceLocation.tryParse(p_70037_1_.getString("BiomeType"))));
         this.setAnimationState(p_70037_1_.getInt("AnimationState"));
         this.setPrevAnimationState(p_70037_1_.getInt("PrevAnimationState"));
     }
@@ -212,38 +219,33 @@ public class SabreCat extends PathfinderMob implements GeoEntity
     public int getPrevAnimationState() { return this.entityData.get(PREV_ANIMATION_STATE); }
 
     @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData) {
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData, @Nullable CompoundTag pCompoundTag) {
         pLevel.getBiome(this.blockPosition()).unwrapKey().ifPresent(this::setBiomeType);
         this.setAnimationState(0);
         this.setPrevAnimationState(0);
-        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData);
+        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData, pCompoundTag);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "sabre_cat_controller", 0, state -> {
+            if(this.getAnimationState() == 0) {
+                return state.setAndContinue(IDLE);
+            } else if (this.getAnimationState() == 1 && state.isMoving()) {
+                return state.setAndContinue(WALK);
+            } else if(this.getAnimationState() == 2 && state.isMoving()) {
+                return state.setAndContinue(RUN);
+            } else if(this.getAnimationState() == 3) {
+                return state.setAndContinue(CLAW);
+            } else {
+                return state.setAndContinue(IDLE);
+            }
+        }
+        ));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.geoCache;
-    }
-
-    private <E extends SabreCat> PlayState sabreCatController(final software.bernie.geckolib.animation.AnimationState<SabreCat> event) {
-        AnimationController<SabreCat> controller = event.getController();
-        controller.transitionLength(0);
-
-        if(this.getAnimationState() == 0) {
-            return event.setAndContinue(IDLE);
-        } else if (this.getAnimationState() == 1 && event.isMoving()) {
-            return event.setAndContinue(WALK);
-        } else if(this.getAnimationState() == 2 && event.isMoving()) {
-            return event.setAndContinue(RUN);
-        } else if(this.getAnimationState() == 3) {
-            return event.setAndContinue(CLAW);
-        } else {
-            return event.setAndContinue(IDLE);
-        }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "sabre_cat_controller", 0, this::sabreCatController));
     }
 }

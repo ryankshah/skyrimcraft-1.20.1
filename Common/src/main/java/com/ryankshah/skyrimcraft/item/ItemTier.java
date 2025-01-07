@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class ItemTier
 {
-    public static final Tier ANCIENT_NORD = new SimpleTier(
+    public static final Tier ANCIENT_NORD = new SimpleTier(4,
             TagsRegistry.BlockTagsInit.NEEDS_ANCIENT_NORD_TOOL,
             250,
             6.0f,
@@ -18,7 +18,7 @@ public class ItemTier
             () -> Ingredient.EMPTY
     );
 
-    public static final Tier DRAGONBONE = new SimpleTier(
+    public static final Tier DRAGONBONE = new SimpleTier(5,
             TagsRegistry.BlockTagsInit.NEEDS_DRAGONBONE_TOOL,
             250,
             6.0f,
@@ -27,7 +27,7 @@ public class ItemTier
             () -> Ingredient.EMPTY
     );
 
-    public static final Tier STEEL = new SimpleTier(
+    public static final Tier STEEL = new SimpleTier(2,
             TagsRegistry.BlockTagsInit.NEEDS_STEEL_TOOL,
             275,
             6.5f,
@@ -36,7 +36,7 @@ public class ItemTier
             () -> Ingredient.of(ItemRegistry.STEEL_INGOT.get())
     );
 
-    public static final Tier FALMER = new SimpleTier(
+    public static final Tier FALMER = new SimpleTier(2,
             TagsRegistry.BlockTagsInit.NEEDS_FALMER_TOOL,
             250,
             6.0f,
@@ -45,7 +45,7 @@ public class ItemTier
             () -> Ingredient.EMPTY
     );
 
-    public static final Tier GLASS = new SimpleTier(
+    public static final Tier GLASS = new SimpleTier(6,
             TagsRegistry.BlockTagsInit.NEEDS_GLASS_TOOL,
             32,
             12.0f,
@@ -54,7 +54,7 @@ public class ItemTier
             () -> Ingredient.of(ItemRegistry.MALACHITE_INGOT.get())
     );
 
-    public static final Tier ELVEN = new SimpleTier(
+    public static final Tier ELVEN = new SimpleTier(7,
             TagsRegistry.BlockTagsInit.NEEDS_ELVEN_TOOL,
         32,
         12.0f,
@@ -63,7 +63,7 @@ public class ItemTier
         () -> Ingredient.of(ItemRegistry.MOONSTONE_INGOT.get())
     );
 
-    public static final Tier ORCISH = new SimpleTier(
+    public static final Tier ORCISH = new SimpleTier(7,
             TagsRegistry.BlockTagsInit.NEEDS_ORCISH_TOOL,
             250,
             6.0f,
@@ -72,7 +72,7 @@ public class ItemTier
             () -> Ingredient.of(ItemRegistry.ORICHALCUM_INGOT.get())
     );
 
-    public static final Tier DWARVEN = new SimpleTier(
+    public static final Tier DWARVEN = new SimpleTier(8,
             TagsRegistry.BlockTagsInit.NEEDS_DWARVEN_TOOL,
             450,
             6.5f,
@@ -81,7 +81,7 @@ public class ItemTier
             () -> Ingredient.of(ItemRegistry.DWARVEN_METAL_INGOT.get())
     );
 
-    public static final Tier DAEDRIC = new SimpleTier(
+    public static final Tier DAEDRIC = new SimpleTier(10,
             TagsRegistry.BlockTagsInit.NEEDS_DAEDRIC_TOOL,
             2031,
             9.0f,
@@ -90,7 +90,7 @@ public class ItemTier
             () -> Ingredient.of(ItemRegistry.EBONY_INGOT.get())
     );
 
-    public static final Tier EBONY = new SimpleTier(
+    public static final Tier EBONY = new SimpleTier(9,
             TagsRegistry.BlockTagsInit.NEEDS_EBONY_TOOL,
             1743,
             7.0f,

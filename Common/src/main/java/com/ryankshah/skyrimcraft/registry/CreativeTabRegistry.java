@@ -4,7 +4,6 @@ import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
 import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.item.*;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
@@ -24,7 +23,7 @@ public class CreativeTabRegistry
     public static String SKYRIMCRAFT_JEWELLERY_TAB_TITLE = "creativetab.skyrimcraft.jewellery";
     public static String SKYRIMCRAFT_ALL_TITLE = "creativetab.skyrimcraft.all";
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_BLOCKS_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_blocks_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_BLOCKS_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_blocks_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -41,7 +40,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_COMBAT_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_combat_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_COMBAT_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_combat_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -58,7 +57,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_ALL_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_all_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_ALL_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_all_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -74,7 +73,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_MAGIC_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_magic_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_MAGIC_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_magic_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -92,7 +91,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_INGREDIENTS_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_ingredients_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_INGREDIENTS_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_ingredients_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -109,7 +108,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_JEWELLERY_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_jewellery_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_JEWELLERY_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_jewellery_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {ItemRegistry.ITEMS.getEntries()
@@ -125,7 +124,7 @@ public class CreativeTabRegistry
         return builder.build();
     });
 
-    public static final RegistryObject<CreativeModeTab, CreativeModeTab> SKYRIMCRAFT_FOOD_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_food_tab", () -> {
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_FOOD_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_food_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
 
         builder.displayItems((itemDisplayParameters, output) -> {
@@ -136,7 +135,7 @@ public class CreativeTabRegistry
 //                    .filter(item -> item.get().getFoodProperties(new ItemStack(item), null) != null || item.get() instanceof PotionItem) //TODO: item -> item.get().isEdible() ||
                     .map(RegistryObject::get)
                     .map(Item::getDefaultInstance)
-                    .filter(stack -> stack.getComponents().has(DataComponents.FOOD)|| stack.getItem() instanceof PotionItem)
+                    .filter(stack -> stack.getItem().getFoodProperties() != null || stack.getItem() instanceof PotionItem)
                     .forEach(output::accept);
         });
 

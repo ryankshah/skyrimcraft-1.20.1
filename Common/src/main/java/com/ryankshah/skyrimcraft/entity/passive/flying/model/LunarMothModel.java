@@ -11,18 +11,18 @@ public class LunarMothModel extends GeoModel<LunarMoth>
     @Override
     public ResourceLocation getModelResource(LunarMoth object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/lunarmoth.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/lunarmoth.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(LunarMoth object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/lunarmoth.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/lunarmoth.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(LunarMoth object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/lunarmoth.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/lunarmoth.animation.json");
     }
 }

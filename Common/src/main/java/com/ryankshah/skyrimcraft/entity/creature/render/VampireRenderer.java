@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class VampireRenderer extends HumanoidMobRenderer<Vampire, VampireModel>
 {
-    private static final ResourceLocation MODEL_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/vampire.png");
+    private static final ResourceLocation MODEL_TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/vampire.png");
 
     public VampireRenderer(EntityRendererProvider.Context context) {
         super(context, new VampireModel(context.bakeLayer(VampireModel.LAYER_LOCATION)), 1.0f);

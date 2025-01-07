@@ -25,6 +25,6 @@ public class DraugrRenderer extends HumanoidMobRenderer<Draugr, DraugrModel<Drau
 
     @Override
     public ResourceLocation getTextureLocation(Draugr pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/draugr.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/draugr.png");
     }
 }

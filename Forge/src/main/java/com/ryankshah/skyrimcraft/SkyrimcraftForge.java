@@ -1,49 +1,70 @@
 package com.ryankshah.skyrimcraft;
 
-import com.mojang.serialization.Codec;
+import com.ryankshah.skyrimcraft.capability.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.*;
 import com.ryankshah.skyrimcraft.data.DataGenerators;
 import com.ryankshah.skyrimcraft.data.loot_table.SkyrimLootModifiers;
 import com.ryankshah.skyrimcraft.registry.EntityRegistry;
 import com.ryankshah.skyrimcraft.world.CommonSpawning;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
 
 @Mod(Constants.MODID)
 public class SkyrimcraftForge
 {
-    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(ForgeRegistries.ATTACHMENT_TYPES, Constants.MODID);
-
-    public static final Supplier<AttachmentType<Character>> CHARACTER = ATTACHMENT_TYPES.register(
-            "character", () -> AttachmentType.builder(Character::new).serialize(Character.CODEC).copyOnDeath().build());
-    public static final Supplier<AttachmentType<ExtraCharacter>> EXTRA_CHARACTER = ATTACHMENT_TYPES.register(
-            "extra_character", () -> AttachmentType.builder(() -> new ExtraCharacter()).serialize(ExtraCharacter.CODEC).copyOnDeath().build());
-    public static final Supplier<AttachmentType<LevelUpdates>> LEVEL_UPDATES = ATTACHMENT_TYPES.register(
-            "level_updates", () -> AttachmentType.builder(() -> new LevelUpdates()).serialize(LevelUpdates.CODEC).copyOnDeath().build());
-    public static final Supplier<AttachmentType<StatIncreases>> STAT_INCREASES = ATTACHMENT_TYPES.register(
-            "stat_increases", () -> AttachmentType.builder(StatIncreases::new).serialize(StatIncreases.CODEC).copyOnDeath().build());
-    public static final Supplier<AttachmentType<PlayerQuests>> QUESTS = ATTACHMENT_TYPES.register(
-            "quests", () -> AttachmentType.builder(PlayerQuests::new).serialize(PlayerQuests.CODEC).copyOnDeath().build());
-
-    public static final Supplier<AttachmentType<Long>> CONJURE_FAMILIAR_SPELL_DATA = ATTACHMENT_TYPES.register(
-            "conjure_familiar_spell_data", () -> AttachmentType.builder(() -> 0L).serialize(Codec.LONG).build());
-
     public SkyrimcraftForge(IEventBus eventBus) {
         SkyrimcraftCommon.init();
         SkyrimLootModifiers.GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(eventBus);
         eventBus.addListener(DataGenerators::gatherData);
 
-        ATTACHMENT_TYPES.register(eventBus);
-
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::registerEntityAttributes);
+    }
+
+    @SubscribeEvent
+    public void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(Character.class);
+        event.register(ExtraCharacter.class);
+        event.register(LevelUpdates.class);
+        event.register(StatIncreases.class);
+        event.register(PlayerQuests.class);
+    }
+
+    @SubscribeEvent
+    public void attachCaps(AttachCapabilitiesEvent<Entity> event) {
+        if(event.getObject() instanceof Player) {
+            CharacterCapability characterCapability = new CharacterCapability();
+            event.addCapability(CharacterCapability.ID, characterCapability);
+            event.addListener(characterCapability::onInvalidate);
+
+            ExtraCharacterCapability extraCharacterCapability = new ExtraCharacterCapability();
+            event.addCapability(ExtraCharacterCapability.ID, extraCharacterCapability);
+            event.addListener(extraCharacterCapability::onInvalidate);
+
+            StatIncreasesCapability siC = new StatIncreasesCapability();
+            event.addCapability(StatIncreasesCapability.ID, siC);
+            event.addListener(siC::onInvalidate);
+
+            LevelUpdatesCapability lUC = new LevelUpdatesCapability();
+            event.addCapability(LevelUpdatesCapability.ID, lUC);
+            event.addListener(lUC::onInvalidate);
+
+            PlayerQuestsCapability pQC = new PlayerQuestsCapability();
+            event.addCapability(PlayerQuestsCapability.ID, pQC);
+            event.addListener(pQC::onInvalidate);
+
+            ConjureFamiliarCapability cFC = new ConjureFamiliarCapability();
+            event.addCapability(ConjureFamiliarCapability.ID, cFC);
+            event.addListener(cFC::onInvalidate);
+        }
     }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {

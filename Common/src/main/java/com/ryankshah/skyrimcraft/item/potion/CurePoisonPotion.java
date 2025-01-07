@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class CurePoisonPotion extends SkyrimPotion
 
         if(!worldIn.isClientSide) {
             if(playerEntity instanceof ServerPlayer) {
-                playerEntity.addEffect(new MobEffectInstance(ModEffects.CURE_POISON.asHolder(), duration, 0, true, false, false));
+                playerEntity.addEffect(new MobEffectInstance(ModEffects.CURE_POISON.get(), duration, 0, true, false, false));
             }
         }
 
@@ -48,8 +49,8 @@ public class CurePoisonPotion extends SkyrimPotion
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.literal("Stops poison's continuing effects."));
-        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
+        $$2.add(Component.literal("Stops poison's continuing effects."));
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

@@ -16,7 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -142,7 +141,8 @@ public class MapScreen extends Screen
         poseStack.translate(startX, startY, 0);
 
         Matrix4f matrix = poseStack.last().pose();
-        BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         int chunkRadius = renderDistance;
         int centerChunkX = (centerX + mapOffsetX) >> 4;
@@ -153,7 +153,7 @@ public class MapScreen extends Screen
                 renderChunkTopLayer(bufferBuilder, matrix, chunkX, chunkZ);
             }
         }
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+        BufferUploader.drawWithShader(bufferBuilder.end());
 
         // Render chunk grid lines
         renderChunkGridLines(guiGraphics, mapSize);
@@ -458,10 +458,10 @@ public class MapScreen extends Screen
                 int x = startX + blockX * blockSize;
                 int z = startZ + blockZ * blockSize;
 
-                consumer.addVertex(matrix, x, z + blockSize, 0).setColor(color);
-                consumer.addVertex(matrix, x + blockSize, z + blockSize, 0).setColor(color);
-                consumer.addVertex(matrix, x + blockSize, z, 0).setColor(color);
-                consumer.addVertex(matrix, x, z, 0).setColor(color);
+                consumer.vertex(matrix, x, z + blockSize, 0).color(color);
+                consumer.vertex(matrix, x + blockSize, z + blockSize, 0).color(color);
+                consumer.vertex(matrix, x + blockSize, z, 0).color(color);
+                consumer.vertex(matrix, x, z, 0).color(color);
             }
         }
     }

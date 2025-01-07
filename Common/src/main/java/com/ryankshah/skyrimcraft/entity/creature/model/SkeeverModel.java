@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.PathfinderMob;
 
 public class SkeeverModel<T extends PathfinderMob> extends QuadrupedModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "skeever"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "skeever"), "main");
 
     public SkeeverModel(ModelPart root) {
         super(root, false, 8.0F, 4.0F, 2.0F, 2.0F, 24);

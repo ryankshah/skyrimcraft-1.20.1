@@ -14,8 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class WaterWalkingPotion extends SkyrimPotion
@@ -36,7 +36,7 @@ public class WaterWalkingPotion extends SkyrimPotion
         if (!worldIn.isClientSide) {
             if(playerEntity instanceof ServerPlayer) {
                 ServerPlayer serverPlayerEntity = (ServerPlayer) playerEntity;
-                serverPlayerEntity.addEffect(new MobEffectInstance(ModEffects.WATER_WALKING.asHolder(), duration, amplifier, true, true, true));
+                serverPlayerEntity.addEffect(new MobEffectInstance(ModEffects.WATER_WALKING.get(), duration, amplifier, true, true, true));
             }
         }
 
@@ -55,10 +55,8 @@ public class WaterWalkingPotion extends SkyrimPotion
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext pContext, List<Component> tooltip, TooltipFlag flagIn) {
-        String regenValue = "";
-
-        tooltip.add(Component.literal("Grants " + duration/20 + "s of water walking"));
-        super.appendHoverText(stack, pContext, tooltip, flagIn);
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
+        $$2.add(Component.literal("Grants " + duration/20 + "s of water walking"));
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

@@ -11,9 +11,9 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class FalmerModel<T extends LivingEntity> extends HumanoidModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "falmer"), "main");
-    public static final ModelLayerLocation INNER_ARMOR_LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "falmer"), "inner_armor");
-    public static final ModelLayerLocation OUTER_ARMOR_LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "falmer"), "outer_armor");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "falmer"), "main");
+    public static final ModelLayerLocation INNER_ARMOR_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "falmer"), "inner_armor");
+    public static final ModelLayerLocation OUTER_ARMOR_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "falmer"), "outer_armor");
 
     public FalmerModel(ModelPart root) {
         super(root);

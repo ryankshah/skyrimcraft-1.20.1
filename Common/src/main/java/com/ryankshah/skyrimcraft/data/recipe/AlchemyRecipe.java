@@ -1,11 +1,15 @@
 package com.ryankshah.skyrimcraft.data.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.block.inventory.AlchemyInventory;
 import com.ryankshah.skyrimcraft.block.inventory.BlankRecipeInput;
 import com.ryankshah.skyrimcraft.registry.RecipeRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -115,6 +119,35 @@ public class AlchemyRecipe implements Recipe<BlankRecipeInput>
         return new Builder(this.category, this.stackToCreate, this.level, this.xp, this.recipeItems);
     }
 
+    public JsonObject serializeToJson() {
+        JsonObject jsonobject = new JsonObject();
+
+        jsonobject.addProperty("type", Constants.MODID+":alchemy");
+
+        jsonobject.addProperty("category", category);
+
+        JsonObject output = new JsonObject();
+        output.addProperty("item", BuiltInRegistries.ITEM.getKey(stackToCreate.getItem()).toString());
+        output.addProperty("amount", stackToCreate.getCount());
+        jsonobject.add("output", output);
+
+        JsonArray recipeItems = new JsonArray();
+        for(Ingredient ing : this.recipeItems) {
+            ItemStack[] stacks = ing.getItems();
+            for(ItemStack stack : stacks) {
+                JsonObject stackObj = new JsonObject();
+                stackObj.addProperty("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+                stackObj.addProperty("amount", stack.getCount());
+                recipeItems.add(stackObj);
+            }
+        }
+        jsonobject.add("recipe", recipeItems);
+
+        jsonobject.addProperty("levelToCreate", level);
+        jsonobject.addProperty("xp", xp);
+        return jsonobject;
+    }
+
 //    public boolean equals(Object obj) {
 //        if (this == obj) {
 //            return true;
@@ -193,32 +226,34 @@ public class AlchemyRecipe implements Recipe<BlankRecipeInput>
             return new AlchemyRecipe(category, create, level, xp, recipe);
         }
 
-//        public JsonObject serializeToJson() {
-//            JsonObject jsonobject = new JsonObject();
-//
-//            jsonobject.addProperty("type", Skyrimcraft.MODID+":alchemy");
-//
-//            jsonobject.addProperty("category", category);
-//
-//            JsonObject output = new JsonObject();
-//            output.addProperty("item", BuiltInRegistries.ITEM.getKey(stackToCreate.getItem()).toString());
-//            output.addProperty("amount", stackToCreate.getCount());
-//            jsonobject.add("output", output);
-//
-//            JsonArray recipeItems = new JsonArray();
-//            for(ItemStack ing : this.recipeItems) {
-//                ItemStack stack = ing.getItems();
-//                JsonObject stackObj = new JsonObject();
-//                stackObj.addProperty("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
-//                stackObj.addProperty("amount", stack.getCount());
-//                recipeItems.add(stackObj);
-//            }
-//            jsonobject.add("recipe", recipeItems);
-//
-//            jsonobject.addProperty("levelToCreate", level);
-//            jsonobject.addProperty("xp", xp);
-//            return jsonobject;
-//        }
+        public JsonObject serializeToJson() {
+            JsonObject jsonobject = new JsonObject();
+
+            jsonobject.addProperty("type", Constants.MODID+":alchemy");
+
+            jsonobject.addProperty("category", category);
+
+            JsonObject output = new JsonObject();
+            output.addProperty("item", BuiltInRegistries.ITEM.getKey(stackToCreate.getItem()).toString());
+            output.addProperty("amount", stackToCreate.getCount());
+            jsonobject.add("output", output);
+
+            JsonArray recipeItems = new JsonArray();
+            for(Ingredient ing : this.recipeItems) {
+                ItemStack[] stacks = ing.getItems();
+                for(ItemStack stack : stacks) {
+                    JsonObject stackObj = new JsonObject();
+                    stackObj.addProperty("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+                    stackObj.addProperty("amount", stack.getCount());
+                    recipeItems.add(stackObj);
+                }
+            }
+            jsonobject.add("recipe", recipeItems);
+
+            jsonobject.addProperty("levelToCreate", level);
+            jsonobject.addProperty("xp", xp);
+            return jsonobject;
+        }
 
         public String toString() {
             return "AlchemyRecipe{stackToCreate=" + this.stackToCreate + ", level=" + this.level + ", xp=" + this.xp + ", recipeItems=" + this.recipeItems + '}';

@@ -207,7 +207,7 @@ public class ClientUtil
         if (livingEntity == null) {
             return 0.0F;
         } else {
-            return livingEntity.getUseItem() != bow ? 0.0F : (float)(bow.getUseDuration(livingEntity) - livingEntity.getUseItemRemainingTicks()) / 20.0F;
+            return livingEntity.getUseItem() != bow ? 0.0F : (float)(bow.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0F;
         }
     }
 }

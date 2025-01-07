@@ -42,7 +42,7 @@ public class AlchemyTableBlock extends Block
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(pPlayer.getItemInHand(pHand).isEmpty()) {
-            List<AlchemyRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.ALCHEMY.get()).stream().map(p -> (AlchemyRecipe)p).toList();
+            List<AlchemyRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.ALCHEMY.get());
 //        System.out.println(recipes);
             if (pPlayer instanceof AbstractClientPlayer)
                 Minecraft.getInstance().setScreen(new AlchemyScreen(recipes));

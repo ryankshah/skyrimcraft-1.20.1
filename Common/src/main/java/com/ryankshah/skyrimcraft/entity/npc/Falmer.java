@@ -2,6 +2,7 @@ package com.ryankshah.skyrimcraft.entity.npc;
 
 import com.ryankshah.skyrimcraft.registry.EntityRegistry;
 import com.ryankshah.skyrimcraft.util.DialogueManager;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +20,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
 
 public class Falmer extends Villager
@@ -30,8 +31,8 @@ public class Falmer extends Villager
         this.getNavigation().setCanFloat(true);
         this.setCanPickUpLoot(true);
 
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class Falmer extends Villager
         double d0 = this.random.nextDouble();
 
         Falmer falmer = new Falmer(EntityRegistry.FALMER.get(), pLevel);
-        falmer.finalizeSpawn(pLevel, pLevel.getCurrentDifficultyAt(falmer.blockPosition()), MobSpawnType.BREEDING, null);
+        falmer.finalizeSpawn(pLevel, pLevel.getCurrentDifficultyAt(falmer.blockPosition()), MobSpawnType.BREEDING, null, (CompoundTag) null);
         return falmer;
     }
 

@@ -19,13 +19,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -56,9 +55,9 @@ public class Giant extends PathfinderMob implements GeoEntity
         this.xpReward = 5;
 //        this.setMaxUpStep(1.25f); // 1.5 works.. but does 1.25f? if so then this comment may still be here xox
 
-        this.setPathfindingMalus(PathType.WATER, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
 //        this.setBiomeType(Biomes.PLAINS);
     }
 
@@ -71,8 +70,8 @@ public class Giant extends PathfinderMob implements GeoEntity
             }
 
             @Override
-            protected void checkAndPerformAttack(LivingEntity pTarget) {
-                if (this.canPerformAttack(pTarget)) {
+            protected void checkAndPerformAttack(LivingEntity pTarget, double huh) {
+                if (this.mob.canAttack(pTarget)) {
                     if (getTicksUntilNextAttack() <= 0) {
                         this.resetAttackCooldown();
                         this.mob.swing(InteractionHand.MAIN_HAND);
@@ -154,10 +153,10 @@ public class Giant extends PathfinderMob implements GeoEntity
         return true;
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(ANIMATION_STATE, 0);
-        pBuilder.define(PREV_ANIMATION_STATE, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ANIMATION_STATE, 0);
+        this.entityData.define(PREV_ANIMATION_STATE, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag p_213281_1_) {
@@ -187,43 +186,37 @@ public class Giant extends PathfinderMob implements GeoEntity
     public int getPrevAnimationState() { return this.entityData.get(PREV_ANIMATION_STATE); }
 
     @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData) {
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData, @Nullable CompoundTag pCompoundTag) {
         this.setAnimationState(0);
         this.setPrevAnimationState(0);
-        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData);
+        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData, pCompoundTag);
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.geoCache;
-    }
-
-    private <E extends Giant> PlayState giantController(final software.bernie.geckolib.animation.AnimationState<Giant> event) {
-        AnimationController<Giant> controller = event.getController();
-        controller.transitionLength(0);
-
-        if (this.getAnimationState() == 0) {
-            return event.setAndContinue(IDLE);
-        } else if (this.getAnimationState() == 1) {
-            return event.setAndContinue(LIFT_CLUB);
-        } else if (this.getAnimationState() == 2) {
-            return event.setAndContinue(LOWER_CLUB);
-        } else if (this.getAnimationState() == 3 && event.isMoving()) {
-            return event.setAndContinue(WALK_CLUB);
-        } else if (this.getAnimationState() == 4) {
-            return event.setAndContinue(GUARD);
-        } else if (this.getAnimationState() == 5 && event.isMoving()) {
-            return event.setAndContinue(RUN);
-        } else if (this.getAnimationState() == 6) {
-            return event.setAndContinue(IDLE_AGGRESSIVE);
-        } else {
-            return event.setAndContinue(IDLE);
-        }
+        return geoCache;
     }
 
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "giant_controller", 0, this::giantController));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "giant_controller", 0, state -> {
+            if (this.getAnimationState() == 0) {
+                return state.setAndContinue(IDLE);
+            } else if (this.getAnimationState() == 1) {
+                return state.setAndContinue(LIFT_CLUB);
+            } else if (this.getAnimationState() == 2) {
+                return state.setAndContinue(LOWER_CLUB);
+            } else if (this.getAnimationState() == 3 && state.isMoving()) {
+                return state.setAndContinue(WALK_CLUB);
+            } else if (this.getAnimationState() == 4) {
+                return state.setAndContinue(GUARD);
+            } else if (this.getAnimationState() == 5 && state.isMoving()) {
+                return state.setAndContinue(RUN);
+            } else if (this.getAnimationState() == 6) {
+                return state.setAndContinue(IDLE_AGGRESSIVE);
+            } else {
+                return state.setAndContinue(IDLE);
+            }
+        }));
     }
 }

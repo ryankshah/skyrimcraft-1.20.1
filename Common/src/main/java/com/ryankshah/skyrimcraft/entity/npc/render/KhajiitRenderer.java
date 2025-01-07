@@ -28,6 +28,6 @@ public class KhajiitRenderer extends HumanoidMobRenderer<Khajiit, KhajiitModel<K
 
     @Override
     public ResourceLocation getTextureLocation(Khajiit pEntity) {
-        return pEntity.getSex() ? ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/khajiit_male.png") : ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/khajiit_female.png");
+        return pEntity.getSex() ? new ResourceLocation(Constants.MODID, "textures/entity/khajiit_male.png") : new ResourceLocation(Constants.MODID, "textures/entity/khajiit_female.png");
     }
 }

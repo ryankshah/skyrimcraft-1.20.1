@@ -6,7 +6,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
@@ -15,27 +14,29 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
-import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
-import net.neoforged.neoforge.common.loot.LootTableIdCondition;
+import net.minecraftforge.common.data.GlobalLootModifierProvider;
+import net.minecraftforge.common.loot.LootTableIdCondition;
 
 import java.util.concurrent.CompletableFuture;
 
 public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
 {
+    protected CompletableFuture<HolderLookup.Provider> registries;
     public SkyrimLootModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, String modid) {
-        super(output, registries, modid);
+        super(output, modid);
+        this.registries = registries;
     }
 
     @Override
     protected void start() {
-        HolderGetter<EntityType<?>> holdergetter = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
+        HolderGetter<EntityType<?>> holdergetter = this.registries.getNow(null).lookupOrThrow(Registries.ENTITY_TYPE);
         this.add("grass_pod_from_small_vegetation",
                 new AddTableLootModifier(
                     new LootItemCondition[] {
                             LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS)
                                     .or(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.LARGE_FERN)).build()
                     },
-                    ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "grasspod"))
+                    new ResourceLocation(Constants.MODID, "grasspod")
                 )
         );
 
@@ -50,7 +51,7 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                                         .or(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.DEEPSLATE_IRON_ORE))
                                         .build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "oregemdrops"))
+                        new ResourceLocation(Constants.MODID, "oregemdrops")
                 )
         );
 
@@ -59,7 +60,7 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BEEHIVE).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "beehive"))
+                        new ResourceLocation(Constants.MODID, "beehive")
                 )
         );
 
@@ -68,10 +69,10 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.SPIDER))
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SPIDER))
                                         ).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "spider"))
+                        new ResourceLocation(Constants.MODID, "spider")
                 )
         );
 
@@ -80,10 +81,10 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.WITCH)
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.WITCH)
                                         )).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "witch"))
+                        new ResourceLocation(Constants.MODID, "witch")
                 )
         );
 
@@ -92,10 +93,10 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.EVOKER)
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.EVOKER)
                                         )).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "evoker"))
+                        new ResourceLocation(Constants.MODID, "evoker")
                 )
         );
 
@@ -104,10 +105,10 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.SALMON)
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.SALMON)
                                         )).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "salmon"))
+                        new ResourceLocation(Constants.MODID, "salmon")
                 )
         );
 
@@ -116,10 +117,10 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.GOAT)
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.GOAT)
                                 )).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "goat"))
+                        new ResourceLocation(Constants.MODID, "goat")
                 )
         );
 
@@ -128,54 +129,54 @@ public class SkyrimLootModifierProvider extends GlobalLootModifierProvider
                         new LootItemCondition[] {
                                 LootItemKilledByPlayerCondition.killedByPlayer()
                                         .and(LootItemEntityPropertyCondition.hasProperties(
-                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(holdergetter, EntityType.BEE)
+                                                LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(EntityType.BEE)
                                         )).build()
                         },
-                        ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "bee"))
+                        new ResourceLocation(Constants.MODID, "bee")
                 )
         );
 
 
         this.add("chests/simple_dungeon", new AddTableLootModifier(
             new LootItemCondition[] {
-                    LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/simple_dungeon")).build()
-            }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/simple_dungeon"))
+                    LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build()
+            }, new ResourceLocation(Constants.MODID, "chests/simple_dungeon")
         ));
 
         this.add("chests/abandoned_mineshaft", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/abandoned_mineshaft")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/abandoned_mineshaft"))
+                        LootTableIdCondition.builder(new ResourceLocation("chests/abandoned_mineshaft")).build()
+                }, new ResourceLocation(Constants.MODID, "chests/abandoned_mineshaft")
         ));
         this.add("chests/buried_treasure", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/buried_treasure")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/buried_treasure"))
+                        LootTableIdCondition.builder(new ResourceLocation("chests/buried_treasure")).build()
+                }, new ResourceLocation(Constants.MODID, "chests/buried_treasure")
         ));
         this.add("chests/desert_pyramid", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/desert_pyramid")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/desert_pyramid"))
+                        LootTableIdCondition.builder(new ResourceLocation("chests/desert_pyramid")).build()
+                }, new ResourceLocation(Constants.MODID, "chests/desert_pyramid")
         ));
         this.add("chests/shipwreck_supply", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/shipwreck_supply")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/shipwreck_supply"))
+                        LootTableIdCondition.builder(new ResourceLocation("chests/shipwreck_supply")).build()
+                }, new ResourceLocation(Constants.MODID, "chests/shipwreck_supply")
         ));
         this.add("chests/stronghold_corridor", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/stronghold_corridor")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "chests/stronghold_corridor"))
+                        LootTableIdCondition.builder(new ResourceLocation("chests/stronghold_corridor")).build()
+                }, new ResourceLocation(Constants.MODID, "chests/stronghold_corridor")
         ));
         this.add("gameplay/piglin_bartering", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/piglin_bartering")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "gameplay/piglin_bartering"))
+                        LootTableIdCondition.builder(new ResourceLocation("gameplay/piglin_bartering")).build()
+                }, new ResourceLocation(Constants.MODID, "gameplay/piglin_bartering")
         ));
         this.add("gameplay/sniffer_digging", new AddTableLootModifier(
                 new LootItemCondition[] {
-                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/sniffer_digging")).build()
-                }, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "gameplay/sniffer_digging"))
+                        LootTableIdCondition.builder(new ResourceLocation("gameplay/sniffer_digging")).build()
+                }, new ResourceLocation(Constants.MODID, "gameplay/sniffer_digging")
         ));
     }
 }

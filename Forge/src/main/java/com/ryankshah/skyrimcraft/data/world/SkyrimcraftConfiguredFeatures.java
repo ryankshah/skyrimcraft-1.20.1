@@ -1,14 +1,11 @@
 package com.ryankshah.skyrimcraft.data.world;
 
-import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.BlockRegistry;
 import com.ryankshah.skyrimcraft.registry.FeatureRegistry;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -26,7 +23,7 @@ import static com.ryankshah.skyrimcraft.world.WorldGenConstants.*;
 
 public class SkyrimcraftConfiguredFeatures
 {
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest netherrackReplacables = new BlockMatchTest(Blocks.NETHERRACK);
@@ -191,7 +188,7 @@ public class SkyrimcraftConfiguredFeatures
                 )));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context,
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }

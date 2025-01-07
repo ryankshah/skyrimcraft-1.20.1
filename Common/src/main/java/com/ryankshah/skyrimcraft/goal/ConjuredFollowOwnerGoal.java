@@ -11,7 +11,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 import java.util.EnumSet;
@@ -106,8 +105,8 @@ public class ConjuredFollowOwnerGoal extends Goal
     @Override
     public void start() {
         this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.tamable.getPathfindingMalus(PathType.WATER);
-        this.tamable.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.oldWaterCost = this.tamable.getPathfindingMalus(BlockPathTypes.WATER);
+        this.tamable.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     /**
@@ -117,7 +116,7 @@ public class ConjuredFollowOwnerGoal extends Goal
     public void stop() {
         this.owner = null;
         this.navigation.stop();
-        this.tamable.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
+        this.tamable.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
     }
 
     /**
@@ -164,7 +163,7 @@ public class ConjuredFollowOwnerGoal extends Goal
 
     private boolean canTeleportTo(BlockPos pPos) {
         BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pPos.mutable());
-        if (blockpathtypes != PathType.WALKABLE) {
+        if (blockpathtypes != BlockPathTypes.WALKABLE) {
             return false;
         } else {
             BlockState blockstate = this.level.getBlockState(pPos.below());

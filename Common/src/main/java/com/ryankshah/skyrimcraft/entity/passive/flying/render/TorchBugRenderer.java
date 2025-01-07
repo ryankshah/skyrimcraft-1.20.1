@@ -34,12 +34,12 @@ public class TorchBugRenderer extends GeoEntityRenderer<TorchBug>
 
         @Override
         public void render(PoseStack poseStack, TorchBug animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-            ResourceLocation eyes = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/torchbug_e.png");
+            ResourceLocation eyes = new ResourceLocation(Constants.MODID, "textures/entity/torchbug_e.png");
 
             RenderType type = RenderType.eyes(eyes);
             getRenderer().reRender(getDefaultBakedModel(animatable), poseStack, bufferSource, animatable, type,
                     bufferSource.getBuffer(type), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
-                    1);
+                    255, 255, 255, 1);
         }
     }
 }

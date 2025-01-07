@@ -11,7 +11,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.monster.Monster;
 
 public class VenomfangSkeeverModel<T extends PathfinderMob> extends QuadrupedModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "venomfang_skeever"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "venomfang_skeever"), "main");
 
     public VenomfangSkeeverModel(ModelPart root) {
         super(root, false, 8.0F, 4.0F, 2.0F, 2.0F, 24);

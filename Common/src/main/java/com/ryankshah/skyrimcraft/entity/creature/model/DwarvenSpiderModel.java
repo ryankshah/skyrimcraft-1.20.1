@@ -10,17 +10,17 @@ public class DwarvenSpiderModel extends GeoModel<DwarvenSpider>
     @Override
     public ResourceLocation getModelResource(DwarvenSpider object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/dwarven_spider.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/dwarven_spider.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(DwarvenSpider object) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/dwarven_spider.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/dwarven_spider.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(DwarvenSpider object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/dwarven_spider.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/dwarven_spider.animation.json");
     }
 }

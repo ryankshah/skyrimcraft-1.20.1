@@ -10,17 +10,17 @@ public class SkyrimDragonModel extends GeoModel<SkyrimDragon>
     @Override
     public ResourceLocation getModelResource(SkyrimDragon object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/dragon.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/dragon.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(SkyrimDragon object) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/normal_dragon.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/normal_dragon.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(SkyrimDragon object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/dragon.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/dragon.animation.json");
     }
 }

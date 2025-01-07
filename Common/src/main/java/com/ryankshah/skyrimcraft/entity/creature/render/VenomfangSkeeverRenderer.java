@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class VenomfangSkeeverRenderer extends MobRenderer<VenomfangSkeever, VenomfangSkeeverModel<VenomfangSkeever>>
 {
-    private static final ResourceLocation MODEL_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/venomfang_skeever.png");
+    private static final ResourceLocation MODEL_TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/venomfang_skeever.png");
 
     public VenomfangSkeeverRenderer(EntityRendererProvider.Context p_174428_) {
         super(p_174428_, new VenomfangSkeeverModel<>(p_174428_.bakeLayer(VenomfangSkeeverModel.LAYER_LOCATION)), 0.15F);
@@ -27,6 +27,6 @@ public class VenomfangSkeeverRenderer extends MobRenderer<VenomfangSkeever, Veno
     }
 
     protected void setupRotations(VenomfangSkeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick, float pScale) {
-        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick, pScale);
+        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick);
     }
 }

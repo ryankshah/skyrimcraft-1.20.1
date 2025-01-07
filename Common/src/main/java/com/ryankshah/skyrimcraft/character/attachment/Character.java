@@ -12,6 +12,7 @@ import com.ryankshah.skyrimcraft.network.character.UpdateCharacter;
 import com.ryankshah.skyrimcraft.platform.Services;
 import com.ryankshah.skyrimcraft.util.CompassFeature;
 import commonnetwork.api.Dispatcher;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
@@ -22,8 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Character
-{
+public class Character {
     public static Codec<Character> CODEC = RecordCodecBuilder.create(characterInstance -> characterInstance.group(
             Codec.BOOL.fieldOf("hasSetup").forGetter(Character::getHasSetup),
             Codec.FLOAT.fieldOf("magicka").forGetter(Character::getMagicka),

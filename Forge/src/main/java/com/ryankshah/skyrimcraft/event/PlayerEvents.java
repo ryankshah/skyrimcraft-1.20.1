@@ -16,7 +16,6 @@ import com.ryankshah.skyrimcraft.registry.TagsRegistry;
 import com.ryankshah.skyrimcraft.util.CompassFeature;
 import commonnetwork.api.Dispatcher;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -28,19 +27,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.entity.player.TradeWithVillagerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.TradeWithVillagerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-// TODO: Add all this to fabric!
-@EventBusSubscriber(modid = Constants.MODID, bus = EventBusSubscriber.Bus.GAME)
+@Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerEvents
 {
     public static boolean flag = false;
@@ -48,7 +46,7 @@ public class PlayerEvents
 
     @SubscribeEvent
     public static void onKeyMappingTriggered(InputEvent.InteractionKeyMappingTriggered event) {
-        if(Minecraft.getInstance().player.hasEffect(ModEffects.PARALYSIS.asHolder())) {
+        if(Minecraft.getInstance().player.hasEffect(ModEffects.PARALYSIS.get())) {
             event.setSwingHand(false);
             event.setCanceled(true);
         }
@@ -73,8 +71,11 @@ public class PlayerEvents
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(PlayerTickEvent.Post event) {
-        Player playerEntity = event.getEntity();
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if(event.phase == TickEvent.Phase.START)
+            return;
+
+        Player playerEntity = event.player;
         if (!playerEntity.isAlive() || playerEntity == null)
             return;
 
@@ -103,7 +104,7 @@ public class PlayerEvents
             }
         }
 
-        if ((playerEntity.hasEffect(ModEffects.SPECTRAL.asHolder()) || playerEntity.hasEffect(ModEffects.ETHEREAL.asHolder())) && !flag) {
+        if ((playerEntity.hasEffect(ModEffects.SPECTRAL.get()) || playerEntity.hasEffect(ModEffects.ETHEREAL.get())) && !flag) {
             flag = true;
             playerEntity.setInvisible(true);
             flag = false;
@@ -111,8 +112,8 @@ public class PlayerEvents
             playerEntity.setInvisible(playerEntity.hasEffect(MobEffects.INVISIBILITY));
         }
 
-        if (!playerEntity.hasEffect(ModEffects.MAGICKA_REGEN.asHolder()))
-            playerEntity.getAttribute(AttributeRegistry.MAGICKA_REGEN.asHolder()).removeModifiers();
+        if (!playerEntity.hasEffect(ModEffects.MAGICKA_REGEN.get()))
+            playerEntity.getAttribute(AttributeRegistry.MAGICKA_REGEN.get()).removeModifiers();
 
         if (character.getMagicka() < character.getMaxMagicka()) {
             if (playerEntity.tickCount % 20 == 0) {
@@ -125,7 +126,7 @@ public class PlayerEvents
         }
 
         // check ethereal
-        if (!playerEntity.hasEffect(ModEffects.ETHEREAL.asHolder())) {
+        if (!playerEntity.hasEffect(ModEffects.ETHEREAL.get())) {
             if (playerEntity.isInvulnerable() && (!playerEntity.isCreative() || !playerEntity.isSpectator()))
                 playerEntity.setInvulnerable(false);
         }

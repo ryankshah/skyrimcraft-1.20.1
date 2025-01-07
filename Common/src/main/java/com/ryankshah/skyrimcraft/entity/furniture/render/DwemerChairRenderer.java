@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DwemerChairRenderer extends EntityRenderer<DwemerChair>
 {
-    public static final ResourceLocation DEFAULT_SKIN_LOCATION = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/dwemer_chair.png");
+    public static final ResourceLocation DEFAULT_SKIN_LOCATION = new ResourceLocation(Constants.MODID, "textures/entity/dwemer_chair.png");
 
     public DwemerChairRenderer(EntityRendererProvider.Context p_173915_) {
         super(p_173915_);

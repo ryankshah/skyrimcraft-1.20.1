@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -68,10 +69,10 @@ public class HagglingPotion extends SkyrimPotion
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext pContext, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
         String value = "";
 
-        Item item = stack.getItem();
+        Item item = $$0.getItem();
         if (ItemRegistry.POTION_OF_HAGGLING.get().equals(item)) {
             value = "10%";
         } else if (ItemRegistry.DRAUGHT_OF_HAGGLING.get().equals(item)) {
@@ -82,7 +83,7 @@ public class HagglingPotion extends SkyrimPotion
             value = "25%";
         }
 
-        tooltip.add(Component.literal("You haggle for " + value + " better prices for " + duration + " seconds"));
-        super.appendHoverText(stack, pContext, tooltip, flagIn);
+        $$2.add(Component.literal("You haggle for " + value + " better prices for " + duration + " seconds"));
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

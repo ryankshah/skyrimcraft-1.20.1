@@ -65,7 +65,7 @@ public class SabreCatRenderer extends GeoEntityRenderer<SabreCat>
                 RenderType type = RenderType.eyes(eyes);
                 getRenderer().reRender(getDefaultBakedModel(animatable), poseStack, bufferSource, animatable, type,
                         bufferSource.getBuffer(type), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
-                        1);
+                        255, 255, 255, 1);
             }
         }
     }

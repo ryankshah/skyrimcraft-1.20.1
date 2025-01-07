@@ -63,10 +63,10 @@ public class WorldGenConstants
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINE_TREE_KEY = registerConfiguredFeature("pine_tree");
 
     private static ResourceKey<PlacedFeature> registerPlacedFeature(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Constants.MODID, name));
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerConfiguredFeature(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Constants.MODID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Constants.MODID, name));
     }
 }

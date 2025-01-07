@@ -16,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -56,11 +57,11 @@ public class SkillBook extends Item
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
         if(skill != null)
-            pTooltipComponents.add(Component.translatable("skillbook.tooltip", Component.translatable(
+            $$2.add(Component.translatable("skillbook.tooltip", Component.translatable(
                             skill.get().getName())
                     .withStyle(ChatFormatting.RED)));
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pIsAdvanced);
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

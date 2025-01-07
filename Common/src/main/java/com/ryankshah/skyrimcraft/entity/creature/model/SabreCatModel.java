@@ -16,7 +16,7 @@ public class SabreCatModel extends GeoModel<SabreCat>
 {
     @Override
     public ResourceLocation getModelResource(SabreCat animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/sabre_cat.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/sabre_cat.geo.json");
     }
 
     @Override
@@ -29,13 +29,13 @@ public class SabreCatModel extends GeoModel<SabreCat>
                 Biomes.JAGGED_PEAKS
         );
         if(SNOWY_BIOMES.contains(animatable.getBiomeType())) //biome.isPresent() &&
-            return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/snowy_sabre_cat.png");
+            return new ResourceLocation(Constants.MODID, "textures/entity/snowy_sabre_cat.png");
         else
-            return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/sabre_cat.png");
+            return new ResourceLocation(Constants.MODID, "textures/entity/sabre_cat.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(SabreCat animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/sabre_cat.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/sabre_cat.animation.json");
     }
 }

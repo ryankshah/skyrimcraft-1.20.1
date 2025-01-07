@@ -16,8 +16,8 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 public class SpectralLayerRenderer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>
 {
 
-    public SpectralLayerRenderer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> entityRenderer) {
-        super(entityRenderer);
+    public SpectralLayerRenderer(PlayerRenderer renderer) {
+        super(renderer);
     }
 
         @Override

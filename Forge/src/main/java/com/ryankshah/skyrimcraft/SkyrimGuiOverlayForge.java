@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.block.AlchemyTableBlock;
 import com.ryankshah.skyrimcraft.block.ArcaneEnchanterBlock;
 import com.ryankshah.skyrimcraft.block.BlacksmithForgeBlock;
@@ -76,8 +77,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -180,8 +180,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -224,13 +223,12 @@ public class SkyrimGuiOverlayForge
     public static class SkyrimCrosshair implements IGuiOverlay
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
-//        protected static final ResourceLocation CROSSHAIR_SPRITE = new ResourceLocation("hud/crosshair");
+        //        protected static final ResourceLocation CROSSHAIR_SPRITE = new ResourceLocation("hud/crosshair");
         protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_full");
         protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_background");
         protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_progress");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -324,11 +322,11 @@ public class SkyrimGuiOverlayForge
 //                mc.textureManager.bind(AbstractGui.GUI_ICONS_LOCATION);
                 poseStack.pushPose();
                 if (flag) {
-                    guiGraphics.blitSprite(CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE, k, j, 16, 16);
+                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE, k, j, 0,0, 16, 16);
                 } else if (f < 1.0F) {
                     int l = (int)(f * 17.0F);
-                    guiGraphics.blitSprite(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE, k, j, 16, 4);
-                    guiGraphics.blitSprite(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, k, j, l, 4);
+                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE, k, j, 0,0, 16, 4);
+                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, k, j, l, 4);
                 }
 //                if (flag) {
 //                    RenderUtil.blitWithBlend(poseStack, k, j, 68, 94, 16, 16, 256, 256, 4, 1);
@@ -349,8 +347,7 @@ public class SkyrimGuiOverlayForge
         private int DOUBLE_SLOT_WIDTH = 22, DOUBLE_SLOT_HEIGHT = 41;
         private int ICON_WIDTH = 16, ICON_HEIGHT = 16;
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -358,7 +355,7 @@ public class SkyrimGuiOverlayForge
             int scaledHeight = window.getGuiScaledHeight();
 
             Character character = Character.get(mc.player);
-            
+
             Spell selectedSpell1 = character.getSelectedSpell1();
             Spell selectedSpell2 = character.getSelectedSpell2();
             Map<Spell, Float> spellCooldowns = character.getSpellsOnCooldown();
@@ -505,8 +502,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -527,8 +523,7 @@ public class SkyrimGuiOverlayForge
 
     public static class SkyrimAir implements IGuiOverlay
     {
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -554,7 +549,7 @@ public class SkyrimGuiOverlayForge
                 int partial = Mth.ceil((double)air * 10.0 / 300.0) - full;
 
                 for(int i = 0; i < full + partial; ++i) {
-                    guiGraphics.blitSprite(i < full ? AIR_SPRITE : AIR_BURSTING_SPRITE, left - i * 8 - 9, top, 9, 9);
+                    guiGraphics.blit(i < full ? AIR_SPRITE : AIR_BURSTING_SPRITE, left - i * 8 - 9, top, 0, 0, 9, 9);
                 }
             }
             RenderSystem.disableBlend();
@@ -564,8 +559,7 @@ public class SkyrimGuiOverlayForge
 
     public static class SkyrimXPBar implements IGuiOverlay
     {
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -586,9 +580,9 @@ public class SkyrimGuiOverlayForge
                     int j = 182;
                     int k = (int)(mc.player.experienceProgress * 183.0F);
                     int l = guiGraphics.guiHeight() - 32 + 3;
-                    guiGraphics.blitSprite(EXPERIENCE_BAR_BACKGROUND_SPRITE, pX, l, 182, 5);
+                    guiGraphics.blit(EXPERIENCE_BAR_BACKGROUND_SPRITE, pX, l, 0, 0, 182, 5);
                     if (k > 0) {
-                        guiGraphics.blitSprite(EXPERIENCE_BAR_PROGRESS_SPRITE, 182, 5, 0, 0, pX, l, k, 5);
+                        guiGraphics.blit(EXPERIENCE_BAR_PROGRESS_SPRITE, 182, 5, 0, 0, pX, l, k, 5);
                     }
                 }
 
@@ -613,8 +607,7 @@ public class SkyrimGuiOverlayForge
 
     public static class SkyrimArmorIcons implements IGuiOverlay
     {
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -633,12 +626,12 @@ public class SkyrimGuiOverlayForge
             int level = mc.player.getArmorValue();
             for (int i = 1; level > 0 && i < 20; i += 2) {
                 if (i < level) {
-                    guiGraphics.blitSprite(ARMOR_FULL_SPRITE, left, top, 9, 9);
+                    guiGraphics.blit(ARMOR_FULL_SPRITE, left, top, 0, 0, 9, 9);
                 } else if (i == level) {
                     //TODO: rotate 180 horizontally?
-                    guiGraphics.blitSprite(ARMOR_HALF_SPRITE, left, top, 9, 9);
+                    guiGraphics.blit(ARMOR_HALF_SPRITE, left, top, 0, 0, 9, 9);
                 } else {
-                    guiGraphics.blitSprite(ARMOR_EMPTY_SPRITE, left, top, 9, 9);
+                    guiGraphics.blit(ARMOR_EMPTY_SPRITE, left, top, 0, 0, 9, 9);
                 }
 
                 left -= 8;
@@ -652,8 +645,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -675,8 +667,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
@@ -705,8 +696,7 @@ public class SkyrimGuiOverlayForge
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
 
-        @Override
-        public void render(ForgeGui forgeGui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();

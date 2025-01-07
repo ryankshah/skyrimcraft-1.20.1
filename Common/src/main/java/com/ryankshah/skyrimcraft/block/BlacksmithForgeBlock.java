@@ -45,7 +45,7 @@ public class BlacksmithForgeBlock extends Block
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(pPlayer.getItemInHand(pHand).isEmpty()) {
-            List<ForgeRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.FORGE.get()).stream().map(p -> (ForgeRecipe)p).toList();
+            List<ForgeRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.FORGE.get());
 //        System.out.println(recipes);
             if (pPlayer instanceof AbstractClientPlayer)
                 Minecraft.getInstance().setScreen(new BlacksmithForgeScreen(recipes));

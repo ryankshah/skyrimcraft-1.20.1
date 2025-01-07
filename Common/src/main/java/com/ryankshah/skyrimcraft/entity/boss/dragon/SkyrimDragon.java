@@ -27,16 +27,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
@@ -148,12 +147,12 @@ public class SkyrimDragon extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, CompoundTag ptag) {
         this.setPhase(Phase.FLY_IDLE);
         this.setFlying(true);
         this.setPos(this.getX(), this.getY() + 5, this.getZ()); // Spawn slightly above ground
         this.moveTarget = this.position().add(0, 10, 0);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, ptag);
     }
 
     @Override
@@ -170,15 +169,15 @@ public class SkyrimDragon extends PathfinderMob implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .add(Attributes.FLYING_SPEED, 0.6D)
                 .add(Attributes.ATTACK_DAMAGE, 15.0D)
-                .add(Attributes.FOLLOW_RANGE, 64.0D)
-                .add(Attributes.STEP_HEIGHT, 1.5f);
+                .add(Attributes.FOLLOW_RANGE, 64.0D);
+//                .add(Attributes.STEP_HEIGHT, 1.5f);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(PHASE, 0);
-        builder.define(IS_FLYING, true);
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PHASE, 0);
+        this.entityData.define(IS_FLYING, true);
     }
 
     public Phase getPhase() {
@@ -897,60 +896,56 @@ public class SkyrimDragon extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
+        controllers.add(new AnimationController<>(this, "dragon_controller", 0, state -> {
+            if (isBreathAttacking) {
+                if (isFlying()) {
+                    state.setAnimation(FLY_SHOUT_BREATHE);
+                } else {
+                    state.setAnimation(STAND_SHOUT_BREATHE);
+                }
+                return PlayState.CONTINUE;
+            }
 
-    private <E extends GeoEntity> PlayState predicate(software.bernie.geckolib.animation.AnimationState<SkyrimDragon> event) {
-        AnimationController<SkyrimDragon> controller = event.getController();
-
-        if (isBreathAttacking) {
-            if (isFlying()) {
-                controller.setAnimation(FLY_SHOUT_BREATHE);
-            } else {
-                controller.setAnimation(STAND_SHOUT_BREATHE);
+            switch (getPhase()) {
+                case FLY_IDLE:
+                    state.setAnimation(FLY_IDLE);
+                    break;
+                case GLIDE:
+                    state.setAnimation(GLIDE);
+                    break;
+                case STAND:
+                    state.setAnimation(STAND);
+                    break;
+                case WALK:
+                    state.setAnimation(WALK);
+                    break;
+                case BITE:
+                    state.setAnimation(BITE);
+                    break;
+                case FLY_SHOUT_BREATH:
+                    state.setAnimation(FLY_SHOUT_BREATHE);
+                    break;
+                case TAKEOFF:
+                    state.setAnimation(TAKE_OFF);
+                    break;
+                case LAND:
+                    state.setAnimation(LAND);
+                    break;
+                case DEATH:
+                    state.setAnimation(DEATH);
+                    break;
+                case DEAD:
+                    state.setAnimation(DEAD);
+                    break;
+                case STAND_SHOUT_BREATH:
+                    state.setAnimation(STAND_SHOUT_BREATHE);
+                    break;
+                default:
+                    state.setAnimation(FLY_IDLE);
+                    break;
             }
             return PlayState.CONTINUE;
-        }
-
-        switch (getPhase()) {
-            case FLY_IDLE:
-                controller.setAnimation(FLY_IDLE);
-                break;
-            case GLIDE:
-                controller.setAnimation(GLIDE);
-                break;
-            case STAND:
-                controller.setAnimation(STAND);
-                break;
-            case WALK:
-                controller.setAnimation(WALK);
-                break;
-            case BITE:
-                controller.setAnimation(BITE);
-                break;
-            case FLY_SHOUT_BREATH:
-                controller.setAnimation(FLY_SHOUT_BREATHE);
-                break;
-            case TAKEOFF:
-                controller.setAnimation(TAKE_OFF);
-                break;
-            case LAND:
-                controller.setAnimation(LAND);
-                break;
-            case DEATH:
-                controller.setAnimation(DEATH);
-                break;
-            case DEAD:
-                controller.setAnimation(DEAD);
-                break;
-            case STAND_SHOUT_BREATH:
-                controller.setAnimation(STAND_SHOUT_BREATHE);
-                break;
-            default:
-                controller.setAnimation(FLY_IDLE);
-                break;
-        }
-        return PlayState.CONTINUE;
+        }));
     }
 
     static class SkyrimDragonWanderGoal extends Goal {

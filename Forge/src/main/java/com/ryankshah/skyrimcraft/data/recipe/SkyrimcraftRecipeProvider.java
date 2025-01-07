@@ -1,6 +1,5 @@
 package com.ryankshah.skyrimcraft.data.recipe;
 
-import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.BlockRegistry;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.minecraft.core.HolderLookup;
@@ -9,12 +8,12 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class SkyrimcraftRecipeProvider extends RecipeProvider
 {
@@ -28,39 +27,39 @@ public class SkyrimcraftRecipeProvider extends RecipeProvider
 
 
     public SkyrimcraftRecipeProvider(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(p_248933_, lookupProvider); //, lookupProvider
+        super(p_248933_); //, lookupProvider
     }
 
     @Override
-    protected void buildRecipes() {
-        oreSmelting(CORUNDUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.CORUNDUM_INGOT.get(), 0.25f, 200, "corundum_ingot");
-        oreBlasting(CORUNDUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.CORUNDUM_INGOT.get(), 0.25f, 100, "corundum_ingot");
+    protected void buildRecipes(Consumer<FinishedRecipe> p_251297_) {
+        oreSmelting(p_251297_, CORUNDUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.CORUNDUM_INGOT.get(), 0.25f, 200, "corundum_ingot");
+        oreBlasting(p_251297_, CORUNDUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.CORUNDUM_INGOT.get(), 0.25f, 100, "corundum_ingot");
 
-        oreSmelting(EBONY_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.EBONY_INGOT.get(), 0.25f, 200, "ebony_ingot");
-        oreBlasting(EBONY_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.EBONY_INGOT.get(), 0.25f, 100, "ebony_ingot");
+        oreSmelting(p_251297_, EBONY_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.EBONY_INGOT.get(), 0.25f, 200, "ebony_ingot");
+        oreBlasting(p_251297_, EBONY_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.EBONY_INGOT.get(), 0.25f, 100, "ebony_ingot");
 
-        oreSmelting(MALACHITE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MALACHITE_INGOT.get(), 0.25f, 200, "malachite_ingot");
-        oreBlasting(MALACHITE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MALACHITE_INGOT.get(), 0.25f, 100, "malachite_ingot");
+        oreSmelting(p_251297_, MALACHITE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MALACHITE_INGOT.get(), 0.25f, 200, "malachite_ingot");
+        oreBlasting(p_251297_, MALACHITE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MALACHITE_INGOT.get(), 0.25f, 100, "malachite_ingot");
 
-        oreSmelting(MOONSTONE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MOONSTONE_INGOT.get(), 0.25f, 200, "moonstone_ingot");
-        oreBlasting(MOONSTONE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MOONSTONE_INGOT.get(), 0.25f, 100, "moonstone_ingot");
+        oreSmelting(p_251297_, MOONSTONE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MOONSTONE_INGOT.get(), 0.25f, 200, "moonstone_ingot");
+        oreBlasting(p_251297_, MOONSTONE_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.MOONSTONE_INGOT.get(), 0.25f, 100, "moonstone_ingot");
 
-        oreSmelting(ORICHALCUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.ORICHALCUM_INGOT.get(), 0.25f, 200, "orichalcum_ingot");
-        oreBlasting(ORICHALCUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.ORICHALCUM_INGOT.get(), 0.25f, 100, "orichalcum_ingot");
+        oreSmelting(p_251297_, ORICHALCUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.ORICHALCUM_INGOT.get(), 0.25f, 200, "orichalcum_ingot");
+        oreBlasting(p_251297_, ORICHALCUM_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.ORICHALCUM_INGOT.get(), 0.25f, 100, "orichalcum_ingot");
 
-        oreSmelting(QUICKSILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.QUICKSILVER_INGOT.get(), 0.25f, 200, "quicksilver_ingot");
-        oreBlasting(QUICKSILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.QUICKSILVER_INGOT.get(), 0.25f, 100, "quicksilver_ingot");
+        oreSmelting(p_251297_, QUICKSILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.QUICKSILVER_INGOT.get(), 0.25f, 200, "quicksilver_ingot");
+        oreBlasting(p_251297_, QUICKSILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.QUICKSILVER_INGOT.get(), 0.25f, 100, "quicksilver_ingot");
 
-        oreSmelting(SILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.SILVER_INGOT.get(), 0.25f, 200, "silver_ingot");
-        oreBlasting(SILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.SILVER_INGOT.get(), 0.25f, 100, "silver_ingot");
+        oreSmelting(p_251297_, SILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.SILVER_INGOT.get(), 0.25f, 200, "silver_ingot");
+        oreBlasting(p_251297_, SILVER_ORE_SMELTABLE, RecipeCategory.MISC, ItemRegistry.SILVER_INGOT.get(), 0.25f, 100, "silver_ingot");
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(ItemRegistry.LEATHER_STRIPS.get(), 2)).requires(Items.LEATHER).unlockedBy("has_leather", has(Items.LEATHER)).save(pWriter);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ItemRegistry.FLOUR.get()).requires(Items.WHEAT).requires(Items.BOWL).unlockedBy("has_wheat", has(Items.WHEAT)).save(pWriter);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ItemRegistry.BUTTER.get()).requires(Items.MILK_BUCKET).requires(Items.MAGMA_CREAM).unlockedBy("has_milk_bucket", has(Items.MILK_BUCKET)).save(pWriter);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(ItemRegistry.LEATHER_STRIPS.get(), 2).getItem()).requires(Items.LEATHER).unlockedBy("has_leather", has(Items.LEATHER)).save(p_251297_);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ItemRegistry.FLOUR.get()).requires(Items.WHEAT).requires(Items.BOWL).unlockedBy("has_wheat", has(Items.WHEAT)).save(p_251297_);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ItemRegistry.BUTTER.get()).requires(Items.MILK_BUCKET).requires(Items.MAGMA_CREAM).unlockedBy("has_milk_bucket", has(Items.MILK_BUCKET)).save(p_251297_);
         // blocks
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.OVEN.get()).define('s', Blocks.STONE).define('b', Blocks.STONE_BRICKS).pattern(" b ").pattern("b b").pattern("sss").unlockedBy("has_stone_brick", has(Blocks.STONE_BRICKS)).save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.ALCHEMY_TABLE.get()).define('p', ItemTags.PLANKS).define('g', Items.GLASS_BOTTLE).pattern(" g ").pattern("ppp").pattern("p p").unlockedBy("has_planks", has(Items.OAK_PLANKS)).save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.BLACKSMITH_FORGE.get()).define('l', Items.LAVA_BUCKET).define('s', Blocks.STONE).define('c', Blocks.COBBLESTONE).pattern("c c").pattern("clc").pattern("sss").unlockedBy("has_cobble", has(Blocks.COBBLESTONE)).save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.OVEN.get()).define('s', Blocks.STONE).define('b', Blocks.STONE_BRICKS).pattern(" b ").pattern("b b").pattern("sss").unlockedBy("has_stone_brick", has(Blocks.STONE_BRICKS)).save(p_251297_);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.ALCHEMY_TABLE.get()).define('p', ItemTags.PLANKS).define('g', Items.GLASS_BOTTLE).pattern(" g ").pattern("ppp").pattern("p p").unlockedBy("has_planks", has(Items.OAK_PLANKS)).save(p_251297_);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockRegistry.BLACKSMITH_FORGE.get()).define('l', Items.LAVA_BUCKET).define('s', Blocks.STONE).define('c', Blocks.COBBLESTONE).pattern("c c").pattern("clc").pattern("sss").unlockedBy("has_cobble", has(Blocks.COBBLESTONE)).save(p_251297_);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockRegistry.DWEMER_WOOL_BROWN_CARPET.get()).define('w', BlockRegistry.DWEMER_WOOL_BROWN.get()).pattern("ww").unlockedBy("has_dwemer_brown_wool", has(BlockRegistry.DWEMER_WOOL_BROWN.get()));
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockRegistry.DWEMER_WOOL_ORANGE_CARPET.get()).define('w', BlockRegistry.DWEMER_WOOL_ORANGE.get()).pattern("ww").unlockedBy("has_dwemer_orange_wool", has(BlockRegistry.DWEMER_WOOL_ORANGE.get()));
@@ -81,57 +80,57 @@ public class SkyrimcraftRecipeProvider extends RecipeProvider
 
     }
 
-    protected static void oreSmelting(
-            RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup
-    ) {
-        oreCooking(
-                pRecipeOutput,
-                RecipeSerializer.SMELTING_RECIPE,
-                SmeltingRecipe::new,
-                pIngredients,
-                pCategory,
-                pResult,
-                pExperience,
-                pCookingTime,
-                pGroup,
-                "_from_smelting"
-        );
-    }
-
-    protected static void oreBlasting(
-            RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup
-    ) {
-        oreCooking(
-                pRecipeOutput,
-                RecipeSerializer.BLASTING_RECIPE,
-                BlastingRecipe::new,
-                pIngredients,
-                pCategory,
-                pResult,
-                pExperience,
-                pCookingTime,
-                pGroup,
-                "_from_blasting"
-        );
-    }
-
-    protected static <T extends AbstractCookingRecipe> void oreCooking(
-            RecipeOutput pRecipeOutput,
-            RecipeSerializer<T> pSerializer,
-            AbstractCookingRecipe.Factory<T> pRecipeFactory,
-            List<ItemLike> pIngredients,
-            RecipeCategory pCategory,
-            ItemLike pResult,
-            float pExperience,
-            int pCookingTime,
-            String pGroup,
-            String pSuffix
-    ) {
-        for(ItemLike itemlike : pIngredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pSerializer, pRecipeFactory)
-                    .group(pGroup)
-                    .unlockedBy(getHasName(itemlike), has(itemlike))
-                    .save(pRecipeOutput, Constants.MODID + ":" + getItemName(pResult) + pSuffix + "_" + getItemName(itemlike));
-        }
-    }
+//    protected static void oreSmelting(
+//            Consumer<FinishedRecipe> p_251297_, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup
+//    ) {
+//        oreCooking(
+//                p_251297_,
+//                RecipeSerializer.SMELTING_RECIPE,
+//                SmeltingRecipe::new,
+//                pIngredients,
+//                pCategory,
+//                pResult,
+//                pExperience,
+//                pCookingTime,
+//                pGroup,
+//                "_from_smelting"
+//        );
+//    }
+//
+//    protected static void oreBlasting(
+//            RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup
+//    ) {
+//        oreCooking(
+//                pRecipeOutput,
+//                RecipeSerializer.BLASTING_RECIPE,
+//                BlastingRecipe::new,
+//                pIngredients,
+//                pCategory,
+//                pResult,
+//                pExperience,
+//                pCookingTime,
+//                pGroup,
+//                "_from_blasting"
+//        );
+//    }
+//
+//    protected static <T extends AbstractCookingRecipe> void oreCooking(
+//            RecipeOutput pRecipeOutput,
+//            RecipeSerializer<T> pSerializer,
+//            AbstractCookingRecipe.Factory<T> pRecipeFactory,
+//            List<ItemLike> pIngredients,
+//            RecipeCategory pCategory,
+//            ItemLike pResult,
+//            float pExperience,
+//            int pCookingTime,
+//            String pGroup,
+//            String pSuffix
+//    ) {
+//        for(ItemLike itemlike : pIngredients) {
+//            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pSerializer, pRecipeFactory)
+//                    .group(pGroup)
+//                    .unlockedBy(getHasName(itemlike), has(itemlike))
+//                    .save(pRecipeOutput, Constants.MODID + ":" + getItemName(pResult) + pSuffix + "_" + getItemName(itemlike));
+//        }
+//    }
 }

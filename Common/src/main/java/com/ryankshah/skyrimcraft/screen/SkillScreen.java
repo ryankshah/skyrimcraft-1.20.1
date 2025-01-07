@@ -2,7 +2,7 @@ package com.ryankshah.skyrimcraft.screen;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.StatIncreases;
@@ -23,20 +23,20 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.CubeMap;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkillScreen extends Screen {
     // Skill Nebula Cube Map
-    public static final CubeMap SKILL_NEBULA_CUBE_MAP = new CubeMap(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/panorama/magic_end"));
-    protected static final ResourceLocation SKILL_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/skill_icons.png");
+    public static final CubeMap SKILL_NEBULA_CUBE_MAP = new CubeMap(new ResourceLocation(Constants.MODID, "textures/gui/panorama/magic_end"));
+    protected static final ResourceLocation SKILL_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/skill_icons.png");
 
     private final int PLAYER_BAR_MAX_WIDTH = 78,
             SKILL_BAR_CONTAINER_U = 1,
@@ -248,7 +248,7 @@ public class SkillScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeysRegistry.SKYRIM_MENU_EAST.get().matches(keyCode, scanCode)) {
+        if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode)) {
             if (shouldFocusLevelUpdates) {
                 if (currentUpdateSelection > 0)
                     currentUpdateSelection--;
@@ -259,7 +259,7 @@ public class SkillScreen extends Screen {
                     currentSkill = skillsList.size() - 1;
                 }
             }
-        } else if (KeysRegistry.SKYRIM_MENU_WEST.get().matches(keyCode, scanCode)) {
+        } else if (KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
             if (shouldFocusLevelUpdates) {
                 if (currentUpdateSelection < 2)
                     currentUpdateSelection++;
@@ -270,21 +270,21 @@ public class SkillScreen extends Screen {
                     currentSkill = 0;
                 }
             }
-        } else if (KeysRegistry.SKYRIM_MENU_NORTH.get().matches(keyCode, scanCode)) {
+        } else if (KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
             if (skillSelected && selectedSkillObject != null) {
                 List<Perk> perks = selectedSkillObject.getSkillPerks();
                 if (currentPerkIndex > 0) {
                     currentPerkIndex--;
                 }
             }
-        } else if (KeysRegistry.SKYRIM_MENU_SOUTH.get().matches(keyCode, scanCode)) {
+        } else if (KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
             if (skillSelected && selectedSkillObject != null) {
                 List<Perk> perks = selectedSkillObject.getSkillPerks();
                 if (currentPerkIndex < perks.size() - 1) {
                     currentPerkIndex++;
                 }
             }
-        } else if (KeysRegistry.SKYRIM_MENU_ENTER.get().matches(keyCode, scanCode)) {
+        } else if (KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
             if (shouldFocusLevelUpdates) {
                 // Level updates logic remains the same
                 StatIncreases statIncreases = Services.PLATFORM.getStatIncreases(player);
@@ -333,7 +333,7 @@ public class SkillScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollY) {
         if (!skillSelected) {
             if (scrollY < 0) {
                 if (this.currentSkill < this.skillsList.size() - 1)

@@ -46,7 +46,7 @@ public class OvenBlock extends Block
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(pPlayer.getItemInHand(pHand).isEmpty()) {
-            List<OvenRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.OVEN.get()).stream().map(p -> (OvenRecipe)p).toList();
+            List<OvenRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.OVEN.get());
 //        System.out.println(recipes);
             if (pPlayer instanceof AbstractClientPlayer)
                 Minecraft.getInstance().setScreen(new OvenScreen(recipes));

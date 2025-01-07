@@ -22,7 +22,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
 public class Khajiit extends Villager
 {
@@ -34,8 +34,8 @@ public class Khajiit extends Villager
         this.getNavigation().setCanFloat(true);
         this.setCanPickUpLoot(true);
 
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class Khajiit extends Villager
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(SEX, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SEX, false);
     }
 
     public void addAdditionalSaveData(CompoundTag p_213281_1_) {
@@ -74,9 +74,9 @@ public class Khajiit extends Villager
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, MobSpawnType p_213386_3_, SpawnGroupData p_213386_4_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, MobSpawnType p_213386_3_, SpawnGroupData p_213386_4_, CompoundTag tag) {
         this.setSex(random.nextBoolean());
-        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_);
+        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, tag);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Khajiit extends Villager
         double d0 = this.random.nextDouble();
 
         Khajiit khajiit = new Khajiit(EntityRegistry.KHAJIIT.get(), pLevel);
-        khajiit.finalizeSpawn(pLevel, pLevel.getCurrentDifficultyAt(khajiit.blockPosition()), MobSpawnType.BREEDING, null);
+        khajiit.finalizeSpawn(pLevel, pLevel.getCurrentDifficultyAt(khajiit.blockPosition()), MobSpawnType.BREEDING, null, (CompoundTag) null);
         return khajiit;
     }
 

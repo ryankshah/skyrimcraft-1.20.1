@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class VampireModel extends HumanoidModel<Vampire>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "vampire"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "vampire"), "main");
 
     public VampireModel(ModelPart root) {
         super(root);

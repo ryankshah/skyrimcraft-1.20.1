@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DwemerBenchRenderer extends EntityRenderer<DwemerChair>
 {
-    public static final ResourceLocation DEFAULT_SKIN_LOCATION = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/dwemer_bench.png");
+    public static final ResourceLocation DEFAULT_SKIN_LOCATION = new ResourceLocation(Constants.MODID, "textures/entity/dwemer_bench.png");
 
     public DwemerBenchRenderer(EntityRendererProvider.Context p_173915_) {
         super(p_173915_);

@@ -12,7 +12,6 @@ import com.ryankshah.skyrimcraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -33,8 +32,8 @@ import java.util.Random;
 
 public class SkyrimLoadingScreen extends Screen
 {
-    protected static final ResourceLocation SKILL_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/skill_icons.png");
-    protected static final ResourceLocation SMOKE_EFFECT_PARTICLE = ResourceLocation.withDefaultNamespace("textures/particle/generic_6.png");
+    protected static final ResourceLocation SKILL_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/skill_icons.png");
+    protected static final ResourceLocation SMOKE_EFFECT_PARTICLE = new ResourceLocation("textures/particle/generic_6.png");
     private static final Item[] ROTATING_ITEMS = {Items.DIAMOND_SWORD, Items.ELYTRA, Items.ENCHANTED_BOOK, ItemRegistry.SWEET_ROLL.get(), ItemRegistry.DAEDRA_HEART.get(), ItemRegistry.CANDLELIGHT_SPELLBOOK.get(), ItemRegistry.AHZIDALS_RING_OF_ARCANA.get(), ItemRegistry.DAEDRIC_WAR_AXE.get(), ItemRegistry.DAEDRIC_GREATSWORD.get(), ItemRegistry.DAEDRIC_CHESTPLATE.get(), ItemRegistry.ORCISH_CHESTPLATE.get(), ItemRegistry.GLASS_BATTLEAXE.get(), ItemRegistry.GLASS_CHESTPLATE.get()};
     private static final String[] MINECRAFT_FACTS = {
             "Creepers were originally failed pig models.",
@@ -177,7 +176,7 @@ public class SkyrimLoadingScreen extends Screen
         return 1.0f;
     }
 
-    private void renderBackground(GuiGraphics graphics) {
+    public void renderBackground(GuiGraphics graphics) {
         graphics.fill(0, 0, this.width, this.height, 0xFF111111);
     }
 

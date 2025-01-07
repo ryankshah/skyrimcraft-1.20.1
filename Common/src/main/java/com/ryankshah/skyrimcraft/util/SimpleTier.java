@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public class SimpleTier implements Tier {
+    private final int level;
     private final TagKey<Block> incorrectBlocksForDrops;
     private final int uses;
     private final float speed;
@@ -15,7 +16,8 @@ public class SimpleTier implements Tier {
     private final int enchantmentValue;
     private final Supplier<Ingredient> repairIngredient;
 
-    public SimpleTier(TagKey<Block> incorrectBlocksForDrops, int uses, float speed, float attackDamageBonus, int enchantmentValue, Supplier<Ingredient> repairIngredient) {
+    public SimpleTier(int level, TagKey<Block> incorrectBlocksForDrops, int uses, float speed, float attackDamageBonus, int enchantmentValue, Supplier<Ingredient> repairIngredient) {
+        this.level = level;
         this.incorrectBlocksForDrops = incorrectBlocksForDrops;
         this.uses = uses;
         this.speed = speed;
@@ -34,6 +36,11 @@ public class SimpleTier implements Tier {
 
     public float getAttackDamageBonus() {
         return this.attackDamageBonus;
+    }
+
+    @Override
+    public int getLevel() {
+        return this.level;
     }
 
     public TagKey<Block> getIncorrectBlocksForDrops() {

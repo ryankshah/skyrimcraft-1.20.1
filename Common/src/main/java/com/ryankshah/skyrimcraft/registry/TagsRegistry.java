@@ -61,7 +61,7 @@ public class TagsRegistry
 //        public static TagKey<Block> STORAGE_BLOCKS_EXAMPLE = create(createResourceLocation("storage_blocks/example_block"));
 
         private static ResourceLocation createResourceLocation(String name) {
-            return new ResourceLocation(Constants.MODID, name);
+            return new ResourceLocation(Constants.MODID,  name);
         }
     }
 
@@ -95,9 +95,18 @@ public class TagsRegistry
 
         public static final TagKey<Item> KEY = TagKey.create(Registries.ITEM, new ResourceLocation("supplementaries", "key"));
 
+        public static final TagKey<Item> REPAIRS_STEEL = bind(createResourceLocation("repairs_steel"));
+        public static final TagKey<Item> REPAIRS_GLASS = bind(createResourceLocation("repairs_glass"));
+        public static final TagKey<Item> REPAIRS_ELVEN = bind(createResourceLocation("repairs_elven"));
+        public static final TagKey<Item> REPAIRS_DWARVEN = bind(createResourceLocation("repairs_dwarven"));
+        public static final TagKey<Item> REPAIRS_EBONY = bind(createResourceLocation("repairs_ebony"));
+        public static final TagKey<Item> REPAIRS_ORCISH = bind(createResourceLocation("repairs_orcish"));
+
+        public static final TagKey<Item> EMPTY_INGREDIENT = bind(createResourceLocation("empty_ingredient"));
+
         // Items
 
-//        // ore ingot
+        //        // ore ingot
 //        public static TagKey<Item> INGOTS_EXAMPLE = bind(createResourceLocation("ingots/example"));
         public static TagKey<Item> SKYRIM_INGREDIENTS = bind(createResourceLocation("ingredients"));
 //

@@ -10,17 +10,17 @@ public class MammothModel extends GeoModel<Mammoth>
     @Override
     public ResourceLocation getModelResource(Mammoth object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/mammoth.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/mammoth.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(Mammoth object) {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/mammoth.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/mammoth.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(Mammoth object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/mammoth.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/mammoth.animation.json");
     }
 }

@@ -6,13 +6,13 @@ import com.ryankshah.skyrimcraft.character.attachment.ExtraCharacter;
 import com.ryankshah.skyrimcraft.character.attachment.LevelUpdates;
 import com.ryankshah.skyrimcraft.character.attachment.StatIncreases;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-@EventBusSubscriber(modid = Constants.MODID, bus = EventBusSubscriber.Bus.GAME) // GAME or MOD event bus??
+@Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE) // FORGE or MOD event bus??
 public class PlayerAttachmentEvents
 {
     @SubscribeEvent
@@ -27,22 +27,20 @@ public class PlayerAttachmentEvents
 
     @SubscribeEvent
     public static void joinWorld(PlayerEvent.PlayerLoggedInEvent event) {
-        if(event.getEntity() instanceof Player player) {
-            Character.playerJoinWorld(player);
-            ExtraCharacter.playerJoinWorld(player);
-            LevelUpdates.playerJoinWorld(player);
-            StatIncreases.playerJoinWorld(player);
-        }
+        Player player = event.getEntity();
+        Character.playerJoinWorld(player);
+        ExtraCharacter.playerJoinWorld(player);
+        LevelUpdates.playerJoinWorld(player);
+        StatIncreases.playerJoinWorld(player);
     }
 
     @SubscribeEvent
     public static void changedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if(event.getEntity() instanceof Player player) {
-            Character.playerChangedDimension(player);
-            ExtraCharacter.playerChangedDimension(player);
-            LevelUpdates.playerChangedDimension(player);
-            StatIncreases.playerChangedDimension(player);
-        }
+        Player player = event.getEntity();
+        Character.playerChangedDimension(player);
+        ExtraCharacter.playerChangedDimension(player);
+        LevelUpdates.playerChangedDimension(player);
+        StatIncreases.playerChangedDimension(player);
     }
 
 //    @SubscribeEvent

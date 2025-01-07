@@ -5,7 +5,7 @@ import com.ryankshah.skyrimcraft.data.block.BlockData;
 import com.ryankshah.skyrimcraft.data.item.ItemData;
 import com.ryankshah.skyrimcraft.registry.CreativeTabRegistry;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.minecraftforge.common.data.LanguageProvider;
 
 public class SkyrimcraftLanguageProvider extends LanguageProvider
 {

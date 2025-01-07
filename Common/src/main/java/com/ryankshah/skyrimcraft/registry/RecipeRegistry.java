@@ -20,9 +20,9 @@ public class RecipeRegistry
 
     public static final RegistrationProvider<RecipeType<?>> RECIPE_TYPES = RegistrationProvider.get(BuiltInRegistries.RECIPE_TYPE, Constants.MODID);
 
-    public static final RegistryObject<? extends RecipeType<?>> ALCHEMY = RECIPE_TYPES.register("alchemy", AlchemyRecipeType::new);
-    public static final RegistryObject<? extends RecipeType<?>> OVEN = RECIPE_TYPES.register("oven", OvenRecipeType::new);
-    public static final RegistryObject<? extends RecipeType<?>> FORGE = RECIPE_TYPES.register("forge", ForgeRecipeType::new);
+    public static final RegistryObject<? extends RecipeType<AlchemyRecipe>> ALCHEMY = RECIPE_TYPES.register("alchemy", AlchemyRecipeType::new);
+    public static final RegistryObject<? extends RecipeType<OvenRecipe>> OVEN = RECIPE_TYPES.register("oven", OvenRecipeType::new);
+    public static final RegistryObject<? extends RecipeType<ForgeRecipe>> FORGE = RECIPE_TYPES.register("forge", ForgeRecipeType::new);
 
     static class AlchemyRecipeType implements RecipeType<AlchemyRecipe> {
         @Override

@@ -16,7 +16,7 @@ import net.minecraft.util.Mth;
 public class CyrodilicSpadetailRenderer extends MobRenderer<CyrodilicSpadetail, ColorableHierarchicalModel<CyrodilicSpadetail>>
 {
     private final ColorableHierarchicalModel<CyrodilicSpadetail> modelA = this.getModel();
-    private static final ResourceLocation MODEL_A_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/cyrodilic_spadetail.png");
+    private static final ResourceLocation MODEL_A_TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/cyrodilic_spadetail.png");
 
     public CyrodilicSpadetailRenderer(EntityRendererProvider.Context p_174428_) {
         super(p_174428_, new TropicalFishModelA<>(p_174428_.bakeLayer(ModelLayers.TROPICAL_FISH_SMALL)), 0.15F);
@@ -36,7 +36,7 @@ public class CyrodilicSpadetailRenderer extends MobRenderer<CyrodilicSpadetail, 
     }
 
     protected void setupRotations(CyrodilicSpadetail pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick, float pScale) {
-        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick, pScale);
+        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick);
         float f = 4.3F * Mth.sin(0.6F * pPartialTick);
         pPoseStack.mulPose(Axis.YP.rotationDegrees(f));
         if (!pEntityLiving.isInWater()) {

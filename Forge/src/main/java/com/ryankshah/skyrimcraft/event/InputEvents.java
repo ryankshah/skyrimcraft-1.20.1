@@ -19,13 +19,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 //TODO: Update fabric client input with new updates from here
-@EventBusSubscriber(modid = Constants.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Constants.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class InputEvents {
     private static int spell1TicksHeld = 0;
     private static int spell2TicksHeld = 0;
@@ -42,16 +42,19 @@ public class InputEvents {
     private static boolean canCastSpell2 = true;
 
     @SubscribeEvent
-    public static void onClientTick(ClientTickEvent.Pre event) {
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if(event.phase == TickEvent.Phase.START)
+            return;
+
         Minecraft mc = Minecraft.getInstance();
         Character character = Services.PLATFORM.getCharacter(mc.player);
 
-        while (KeysRegistry.MENU_KEY.get().consumeClick()) {
+        while (KeysRegistry.MENU_KEY.consumeClick()) {
             mc.setScreen(new MenuScreen());
             return;
         }
 
-        while (KeysRegistry.PICKPOCKET_KEY.get().consumeClick()) {
+        while (KeysRegistry.PICKPOCKET_KEY.consumeClick()) {
             if (mc.crosshairPickEntity instanceof LivingEntity && mc.player.isCrouching()) {
                 LivingEntity entity = (LivingEntity) mc.crosshairPickEntity;
 
@@ -71,8 +74,8 @@ public class InputEvents {
 
         if (mc.screen != null) return;
 
-        handleSpellCasting(character, KeysRegistry.SPELL_SLOT_1_KEY.get(), 1);
-        handleSpellCasting(character, KeysRegistry.SPELL_SLOT_2_KEY.get(), 2);
+        handleSpellCasting(character, KeysRegistry.SPELL_SLOT_1_KEY, 1);
+        handleSpellCasting(character, KeysRegistry.SPELL_SLOT_2_KEY, 2);
 
         // Handle spell slot 1 (left hand)
 //        boolean spell1KeyIsDown = KeysRegistry.SPELL_SLOT_1_KEY.get().isDown();

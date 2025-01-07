@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SkeeverRenderer extends MobRenderer<Skeever, SkeeverModel<Skeever>>
 {
-    private static final ResourceLocation MODEL_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/skeever.png");
+    private static final ResourceLocation MODEL_TEXTURE = new ResourceLocation(Constants.MODID, "textures/entity/skeever.png");
 
     public SkeeverRenderer(EntityRendererProvider.Context p_174428_) {
         super(p_174428_, new SkeeverModel<>(p_174428_.bakeLayer(SkeeverModel.LAYER_LOCATION)), 0.15F);
@@ -27,6 +27,6 @@ public class SkeeverRenderer extends MobRenderer<Skeever, SkeeverModel<Skeever>>
     }
 
     protected void setupRotations(Skeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick, float pScale) {
-        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick, pScale);
+        super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick);
     }
 }

@@ -36,12 +36,12 @@ public class ValeSabreCatRenderer extends GeoEntityRenderer<ValeSabreCat>
         @Override
         public void render(PoseStack poseStack, ValeSabreCat animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
 //            ResourceLocation eyes = ResourceLocation.fromNamespaceAndPath(Skyrimcraft.MODID, "textures/entity/sabre_cat_e.png");
-            ResourceLocation eyes = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/vale_sabre_cat_e.png");
+            ResourceLocation eyes = new ResourceLocation(Constants.MODID, "textures/entity/vale_sabre_cat_e.png");
             if(animatable.level().getDayTime() > 12542) {
                 RenderType type = RenderType.eyes(eyes);
                 getRenderer().reRender(getDefaultBakedModel(animatable), poseStack, bufferSource, animatable, type,
                         bufferSource.getBuffer(type), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
-                        1);
+                        255, 255, 255, 1);
             }
         }
     }

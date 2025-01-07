@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 public class DwemerBenchModel<T extends LivingEntity> extends EntityModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "dwemer_bench"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Constants.MODID, "dwemer_bench"), "main");
     private final ModelPart dwemer_chair;
 
     public DwemerBenchModel(ModelPart root) {
@@ -43,7 +43,7 @@ public class DwemerBenchModel<T extends LivingEntity> extends EntityModel<T>
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, int i2) {
-        dwemer_chair.render(poseStack, vertexConsumer, i, i1, i2);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, float v, float v1, float v2, float v3) {
+        dwemer_chair.render(poseStack, vertexConsumer, i, i1, v, v1, v2, v3);
     }
 }

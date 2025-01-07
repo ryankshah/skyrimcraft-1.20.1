@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 public class QuestScreen extends Screen
 {
-    protected static final ResourceLocation QUEST_ICONS = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/gui/quest_icons.png");
+    protected static final ResourceLocation QUEST_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/quest_icons.png");
 
     protected QuestScreen() {
         super(Component.translatable(Constants.MODID + ".questscreen.title"));

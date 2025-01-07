@@ -21,13 +21,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -55,9 +54,9 @@ public class Mammoth extends PathfinderMob implements GeoEntity
         this.xpReward = 5;
 //        this.setMaxUpStep(1.25f); // 1.5 works.. but does 1.25f? if so then this comment may still be here xox
 
-        this.setPathfindingMalus(PathType.WATER, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     protected void registerGoals() {
@@ -69,8 +68,8 @@ public class Mammoth extends PathfinderMob implements GeoEntity
             }
 
             @Override
-            protected void checkAndPerformAttack(LivingEntity pTarget) {
-                if (this.canPerformAttack(pTarget)) {
+            protected void checkAndPerformAttack(LivingEntity pTarget, double huh) {
+                if (this.mob.canAttack(pTarget)) {
                     if (getTicksUntilNextAttack() <= 0) {
                         this.resetAttackCooldown();
                         this.mob.swing(InteractionHand.MAIN_HAND);
@@ -150,10 +149,10 @@ public class Mammoth extends PathfinderMob implements GeoEntity
         return true;
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-        super.defineSynchedData(pBuilder);
-        pBuilder.define(ANIMATION_STATE, 0);
-        pBuilder.define(PREV_ANIMATION_STATE, 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ANIMATION_STATE, 0);
+        this.entityData.define(PREV_ANIMATION_STATE, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag p_213281_1_) {
@@ -183,35 +182,30 @@ public class Mammoth extends PathfinderMob implements GeoEntity
     public int getPrevAnimationState() { return this.entityData.get(PREV_ANIMATION_STATE); }
 
     @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData) {
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pSpawnType, @Nullable SpawnGroupData pSpawnGroupData, @Nullable CompoundTag pCompoundTag) {
         this.setAnimationState(0);
         this.setPrevAnimationState(0);
-        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData);
+        return super.finalizeSpawn(pLevel, pDifficulty, pSpawnType, pSpawnGroupData, pCompoundTag);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "mammoth_controller", 0, state -> {
+            if(this.getAnimationState() == 0) {
+                return state.setAndContinue(IDLE);
+            } else if (this.getAnimationState() == 1 && state.isMoving()) {
+                return state.setAndContinue(WALK);
+            } else if(this.getAnimationState() == 3) {
+                return state.setAndContinue(ATTACK_LEFT);
+            } else {
+                return state.setAndContinue(GRAZING);
+            }
+        }
+        ));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.geoCache;
-    }
-
-    private <E extends Mammoth> PlayState mammothController(final software.bernie.geckolib.animation.AnimationState<Mammoth> event) {
-        AnimationController<Mammoth> controller = event.getController();
-        controller.transitionLength(0);
-
-        if(this.getAnimationState() == 0) {
-            return event.setAndContinue(IDLE);
-        } else if (this.getAnimationState() == 1 && event.isMoving()) {
-            return event.setAndContinue(WALK);
-        } else if(this.getAnimationState() == 3) {
-            return event.setAndContinue(ATTACK_LEFT);
-        } else {
-            return event.setAndContinue(GRAZING);
-        }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "mammoth_controller", 0, this::mammothController));
+        return geoCache;
     }
 }

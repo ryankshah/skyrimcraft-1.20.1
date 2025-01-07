@@ -15,11 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class TrueShotPotion extends SkyrimPotion
-{
+public class TrueShotPotion extends SkyrimPotion {
     private int amplifier;
     private int duration;
 
@@ -34,7 +34,7 @@ public class TrueShotPotion extends SkyrimPotion
         Player playerEntity = entityLiving instanceof Player ? (Player) entityLiving : null;
 
         if (!worldIn.isClientSide) {
-            if(playerEntity instanceof ServerPlayer) {
+            if (playerEntity instanceof ServerPlayer) {
                 ServerPlayer serverPlayerEntity = (ServerPlayer) playerEntity;
                 // TODO: Make effect to increase bow damage by %
 //                serverPlayerEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, duration, amplifier, true, true, true));
@@ -50,7 +50,7 @@ public class TrueShotPotion extends SkyrimPotion
         if (this == ItemRegistry.POTION_OF_TRUE_SHOT.get()) {
             ingredients.add(Ingredient.of(new ItemStack(BlockRegistry.CANIS_ROOT.get(), 1)));
             ingredients.add(Ingredient.of(new ItemStack(ItemRegistry.ELVES_EAR.get(), 1)));
-        } else if(this == ItemRegistry.DRAUGHT_OF_TRUE_SHOT.get()) {
+        } else if (this == ItemRegistry.DRAUGHT_OF_TRUE_SHOT.get()) {
             ingredients.add(Ingredient.of(new ItemStack(BlockRegistry.CANIS_ROOT.get(), 2)));
             ingredients.add(Ingredient.of(new ItemStack(ItemRegistry.JUNIPER_BERRIES.get(), 1)));
         } else if (this == ItemRegistry.PHILTER_OF_TRUE_SHOT.get()) {
@@ -69,10 +69,10 @@ public class TrueShotPotion extends SkyrimPotion
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext pContext, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
         String value = "";
 
-        Item item = stack.getItem();
+        Item item = $$0.getItem();
         if (ItemRegistry.POTION_OF_TRUE_SHOT.get().equals(item)) {
             value = "10%";
         } else if (ItemRegistry.DRAUGHT_OF_TRUE_SHOT.get().equals(item)) {
@@ -83,7 +83,7 @@ public class TrueShotPotion extends SkyrimPotion
             value = "25%";
         }
 
-        tooltip.add(Component.literal("Bows do " + value + " more damage for " + duration + " seconds"));
-        super.appendHoverText(stack, pContext, tooltip, flagIn);
+        $$2.add(Component.literal("Bows do " + value + " more damage for " + duration + " seconds"));
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

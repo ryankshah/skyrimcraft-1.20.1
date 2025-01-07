@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -77,8 +78,8 @@ public class MagickaPotion extends SkyrimPotion
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.literal((int)replenishValue == 20 ? "Completely replenishes your magicka" : "Replenishes " + (int)replenishValue + " magicka"));
-        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+    public void appendHoverText(ItemStack $$0, @Nullable Level $$1, List<Component> $$2, TooltipFlag $$3) {
+        $$2.add(Component.literal((int)replenishValue == 20 ? "Completely replenishes your magicka" : "Replenishes " + (int)replenishValue + " magicka"));
+        super.appendHoverText($$0, $$1, $$2, $$3);
     }
 }

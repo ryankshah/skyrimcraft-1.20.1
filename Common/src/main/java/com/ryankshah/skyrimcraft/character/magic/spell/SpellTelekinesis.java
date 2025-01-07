@@ -124,7 +124,8 @@ public class SpellTelekinesis extends Spell
             targetItem.setDeltaMovement(Vec3.ZERO);
 
             // Update client-side position
-            Dispatcher.sendToAllClients(new UpdateTelekinesisItem(targetItem.getId(), newPos.toVector3f()), level.getServer());
+            Dispatcher.sendToServer(new UpdateTelekinesisItem(targetItem.getId(), lastKnownPosition.toVector3f()));
+//            Dispatcher.sendToAllClients(new UpdateTelekinesisItem(targetItem.getId(), newPos.toVector3f()), level.getServer());
 
             // Check if the item is close enough to pick up
             if (playerPos.distanceTo(itemPos) <= PICKUP_DISTANCE) {
@@ -149,7 +150,8 @@ public class SpellTelekinesis extends Spell
             targetItem.setDeltaMovement(Vec3.ZERO);
 
             // Update clients about the item's new state
-            Dispatcher.sendToAllClients(new UpdateTelekinesisItem(targetItem.getId(), lastKnownPosition.toVector3f()), getCaster().level().getServer());
+            Dispatcher.sendToServer(new UpdateTelekinesisItem(targetItem.getId(), lastKnownPosition.toVector3f()));
+//            Dispatcher.sendToAllClients(new UpdateTelekinesisItem(targetItem.getId(), lastKnownPosition.toVector3f()), getCaster().level().getServer());
 
             targetItem = null;
         }

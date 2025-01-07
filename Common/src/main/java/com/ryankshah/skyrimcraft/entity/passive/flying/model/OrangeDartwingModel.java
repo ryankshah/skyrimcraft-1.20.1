@@ -11,18 +11,18 @@ public class OrangeDartwingModel extends GeoModel<OrangeDartwing>
     @Override
     public ResourceLocation getModelResource(OrangeDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/orangedartwing.geo.json");
+        return new ResourceLocation(Constants.MODID, "geo/orangedartwing.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(OrangeDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "textures/entity/orangedartwing.png");
+        return new ResourceLocation(Constants.MODID, "textures/entity/orangedartwing.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(OrangeDartwing object)
     {
-        return ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/orangedartwing.animation.json");
+        return new ResourceLocation(Constants.MODID, "animations/orangedartwing.animation.json");
     }
 }
