@@ -1,0 +1,12 @@
+{
+  "feature": "skyrimcraft:volcano",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 20
+    }
+  ]
+}

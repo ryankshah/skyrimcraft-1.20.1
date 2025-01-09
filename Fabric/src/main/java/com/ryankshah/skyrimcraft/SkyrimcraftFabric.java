@@ -151,7 +151,6 @@ public class SkyrimcraftFabric implements ModInitializer
 
         CommonSpawning.placements();
 
-        // TODO Below: refer to fieldtofork fabric
         //LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> { });
         SkyrimcraftLootTables.addLootTables();
 

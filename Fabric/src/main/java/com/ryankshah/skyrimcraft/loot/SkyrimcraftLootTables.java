@@ -3,8 +3,6 @@ package com.ryankshah.skyrimcraft.loot;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -509,22 +507,18 @@ public class SkyrimcraftLootTables
                 );
 
 
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltIn() &&
-                    (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "grasspod")))
-            )) {
-                    lootBuilder.withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "grasspod"))) {
+                    lootTableBuilder.withPool(new LootPool.Builder().setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.GRASS_POD.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                            )
-                    );
+                            ));
             }
         });
 
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "oregemdrops"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "oregemdrops"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(0.125F, 1.0F))
                             .add(LootItem.lootTableItem(ItemRegistry.FLAWED_RUBY.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.25F, 1.0F)))
@@ -549,9 +543,9 @@ public class SkyrimcraftLootTables
                             ));
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "beehive"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "beehive"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.BEEHIVE_HUSK.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
@@ -559,9 +553,9 @@ public class SkyrimcraftLootTables
                     );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "spider"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "spider"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.SPIDER_EGG.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
@@ -569,9 +563,9 @@ public class SkyrimcraftLootTables
                     );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "salmon"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "salmon"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.SALMON_ROE.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.45f, 1.0F)))
@@ -579,9 +573,9 @@ public class SkyrimcraftLootTables
                     );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "bee"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "bee"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.BEE.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
@@ -589,9 +583,9 @@ public class SkyrimcraftLootTables
                     );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "evoker"))))) {
-                lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "evoker"))) {
+                lootTableBuilder.withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.CONJURE_FAMILIAR_SPELLBOOK.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 1.0F)))
@@ -632,9 +626,9 @@ public class SkyrimcraftLootTables
                 );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "witch"))))) {
-                lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "witch"))) {
+                lootTableBuilder.withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemRegistry.CONJURE_FAMILIAR_SPELLBOOK.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 1.0F)))
@@ -676,30 +670,30 @@ public class SkyrimcraftLootTables
             }
         });
 
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "witch"))))) {
-                lootBuilder.withPool(villageTable);
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "witch"))) {
+                lootTableBuilder.withPool(villageTable);
             }
         });
 
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/watchtower"))))) {
-                lootBuilder.withPool(watchtowerTable);
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/watchtower"))) {
+                lootTableBuilder.withPool(watchtowerTable);
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/skyrim_dungeon"))))) {
-                lootBuilder.withPool(dungeonTable);
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/skyrim_dungeon"))) {
+                lootTableBuilder.withPool(dungeonTable);
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/altar"))))) {
-                lootBuilder.withPool(altarTable);
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/altar"))) {
+                lootTableBuilder.withPool(altarTable);
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "goat"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "goat"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.LEG_OF_GOAT.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
@@ -707,35 +701,35 @@ public class SkyrimcraftLootTables
                     );
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "horse"))))) {
-                    lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "horse"))) {
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.HORSE_MEAT.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
                             ));
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
             if (lootTableSource.isBuiltin() && (
-                    lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/simple_dungeon"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/abandoned_mineshaft"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/buried_treasure"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/desert_pyramid"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/shipwreck_supply"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "chests/stronghold_corridor"))) ||
-                            lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "gameplay/piglin_bartering")))
+                    resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/simple_dungeon")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/abandoned_mineshaft")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/buried_treasure")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/desert_pyramid")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/shipwreck_supply")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/stronghold_corridor")) ||
+                            resourceLocation.equals(new ResourceLocation(Constants.MODID, "gameplay/piglin_bartering"))
                                     )) {
-                    lootBuilder.withPool(LootPool.lootPool()
+                    lootTableBuilder.withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ItemRegistry.HORSE_MEAT.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
                             ));
             }
         });
-        LootTableEvents.MODIFY.register((lootTableResourceKey, lootBuilder, lootTableSource) -> {
-            if (lootTableSource.isBuiltin() && (lootTableResourceKey.equals(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(Constants.MODID, "gameplay/sniffer_digging"))))) {
-                lootBuilder.withPool(LootPool.lootPool()
+        LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {
+            if (lootTableSource.isBuiltin() && resourceLocation.equals(new ResourceLocation(Constants.MODID, "gameplay/sniffer_digging"))) {
+                lootTableBuilder.withPool(LootPool.lootPool()
                         .setRolls(UniformGenerator.between(1.0F, 3.0F))
                         .add(LootItem.lootTableItem(ItemRegistry.TAPROOT.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 1.0F)))

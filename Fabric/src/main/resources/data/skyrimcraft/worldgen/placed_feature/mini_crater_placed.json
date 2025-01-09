@@ -1,0 +1,12 @@
+{
+  "feature": "skyrimcraft:mini_crater",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 5
+    }
+  ]
+}

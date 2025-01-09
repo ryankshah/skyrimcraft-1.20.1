@@ -163,7 +163,7 @@ public class SkyrimcraftFabricClient implements ClientModInitializer
 
         if (mc.screen != null) return;
 
-        if (mc.screen != null) return;
+//        if (mc.screen != null) return; // why was this duped lol
 
         handleSpellCasting(character, KeysRegistry.SPELL_SLOT_1_KEY, 1);
         handleSpellCasting(character, KeysRegistry.SPELL_SLOT_2_KEY, 2);

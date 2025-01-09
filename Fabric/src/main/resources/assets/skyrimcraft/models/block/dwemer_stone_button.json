@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "skyrimcraft:block/dwemer_stone_pillar_top"
+  }
+}

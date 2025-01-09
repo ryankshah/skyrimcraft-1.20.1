@@ -14,6 +14,15 @@ mixin {
     config("${mod_id}.forge.mixins.json")
 }
 
+tasks.register('printInfo') {
+    doLast {
+        println "Runtime classpath:"
+        configurations.runtimeClasspath.files.each {
+            println it
+        }
+    }
+}
+
 minecraft {
     mappings channel: 'official', version: minecraft_version
 

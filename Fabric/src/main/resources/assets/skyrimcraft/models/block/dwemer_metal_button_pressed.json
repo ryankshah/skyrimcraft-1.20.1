@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "skyrimcraft:block/dwemer_metal_bricks"
+  }
+}
