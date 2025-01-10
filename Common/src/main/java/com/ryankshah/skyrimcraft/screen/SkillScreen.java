@@ -493,7 +493,7 @@ public class SkillScreen extends Screen {
     }
 
     public static AbstractMap.SimpleEntry<Integer, Integer> getIconUV(ResourceKey<Skill> skill) {
-        return SkillRegistry.SKILLS_REGISTRY.get(skill).getIconUV();
+        return SkillRegistry.SKILLS_REGISTRY.get().get(skill).getIconUV();
     }
 
     private void drawSkill(SkillWrapper skill, GuiGraphics graphics, PoseStack poseStack, int x, int y) {
@@ -504,7 +504,7 @@ public class SkillScreen extends Screen {
         RenderUtil.blitWithBlend(poseStack, x - (SKILL_BAR_CONTAINER_WIDTH / 2), y + 48 + (SKILL_BAR_CONTAINER_HEIGHT / 2), SKILL_BAR_CONTAINER_U, SKILL_BAR_CONTAINER_V, SKILL_BAR_CONTAINER_WIDTH, SKILL_BAR_CONTAINER_HEIGHT, 512, 512, 0, 1);
         RenderUtil.blitWithBlend(poseStack, x - (SKILL_BAR_CONTAINER_WIDTH / 2) + 7, y + 49 + (SKILL_BAR_CONTAINER_HEIGHT / 2) + SKILL_BAR_HEIGHT, SKILL_BAR_U, SKILL_BAR_V, (int)(SKILL_BAR_WIDTH * skillProgress), SKILL_BAR_HEIGHT, 512, 512, 0, 1);
 
-        AbstractMap.SimpleEntry<Integer, Integer> iconUV = getIconUV(SkillRegistry.SKILLS_REGISTRY.getResourceKey(skill.getSkill()).get());
+        AbstractMap.SimpleEntry<Integer, Integer> iconUV = getIconUV(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(skill.getSkill()).get());
         RenderUtil.blitWithBlend(poseStack, x - 32, y + 18 - 64, iconUV.getKey(), iconUV.getValue(), 64, 64, 512, 512, 0, 1);
         poseStack.popPose();
         String name = skill.getName().toUpperCase();

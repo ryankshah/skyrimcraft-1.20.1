@@ -66,7 +66,7 @@ public record HandlePickpocket(int entity) //(int raceID, String raceName, Map<I
             items.forEach(player::addItem);
             player.displayClientMessage(Component.translatable("skill.pickpocket.success", livingEntity.getDisplayName()), false);
             livingEntity.removeTag(EntityRegistry.PICKPOCKET_TAG);
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.PICKPOCKET.get()).get(), SkillRegistry.BASE_PICKPOCKET_XP * (items.size()));
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.PICKPOCKET.get()).get(), SkillRegistry.BASE_PICKPOCKET_XP * (items.size()));
             Dispatcher.sendToServer(xpToSkill);
 //            PacketDistributor.SERVER.noArg().send(xpToSkill);
         }

@@ -33,10 +33,10 @@ public class Character {
             Codec.INT.fieldOf("characterTotalXp").forGetter(Character::getCharacterTotalXp),
             SkillWrapper.CODEC.listOf().fieldOf("skills").forGetter(Character::getSkills),
             Race.RACE_CODEC.fieldOf("race").forGetter(Character::getRace),
-            SpellRegistry.SPELLS_REGISTRY.byNameCodec().listOf().fieldOf("knownSpells").forGetter(Character::getKnownSpells),
-            SpellRegistry.SPELLS_REGISTRY.byNameCodec().fieldOf("selectedSpell1").forGetter(Character::getSelectedSpell1),
-            SpellRegistry.SPELLS_REGISTRY.byNameCodec().fieldOf("selectedSpell2").forGetter(Character::getSelectedSpell2),
-            Codec.unboundedMap(SpellRegistry.SPELLS_REGISTRY.byNameCodec(), Codec.FLOAT).fieldOf("spellsOnCooldown").forGetter(Character::getSpellsOnCooldown),
+            SpellRegistry.SPELLS_REGISTRY.get().byNameCodec().listOf().fieldOf("knownSpells").forGetter(Character::getKnownSpells),
+            SpellRegistry.SPELLS_REGISTRY.get().byNameCodec().fieldOf("selectedSpell1").forGetter(Character::getSelectedSpell1),
+            SpellRegistry.SPELLS_REGISTRY.get().byNameCodec().fieldOf("selectedSpell2").forGetter(Character::getSelectedSpell2),
+            Codec.unboundedMap(SpellRegistry.SPELLS_REGISTRY.get().byNameCodec(), Codec.FLOAT).fieldOf("spellsOnCooldown").forGetter(Character::getSpellsOnCooldown),
             CompassFeature.CODEC.listOf().fieldOf("compassFeatures").forGetter(Character::getCompassFeatures),
             Codec.INT.listOf().fieldOf("targetingEntities").forGetter(Character::getTargets),
             Codec.INT.fieldOf("currentTarget").forGetter(Character::getCurrentTarget),
@@ -214,7 +214,7 @@ public class Character {
             int speech, int alchemy, int illusion, int conj, int destruct,
             int restoration, int alteration, int enchanting
     ) {
-        List<Skill> skills = new ArrayList<>(SkillRegistry.SKILLS_REGISTRY.stream().toList());
+        List<Skill> skills = new ArrayList<>(SkillRegistry.SKILLS_REGISTRY.get().stream().toList());
         List<SkillWrapper> skillWrappers = new ArrayList<>(Stream.generate(SkillWrapper::new).limit(skills.size()).collect(Collectors.toList()));
         for(Skill skill : skills) {
             if(skill.getID() == SkillRegistry.SMITHING.get().getID())

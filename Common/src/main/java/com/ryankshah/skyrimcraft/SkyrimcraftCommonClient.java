@@ -17,6 +17,8 @@ import com.ryankshah.skyrimcraft.entity.creature.model.DraugrModel;
 import com.ryankshah.skyrimcraft.entity.creature.model.SkeeverModel;
 import com.ryankshah.skyrimcraft.entity.creature.model.VenomfangSkeeverModel;
 import com.ryankshah.skyrimcraft.entity.creature.render.*;
+import com.ryankshah.skyrimcraft.entity.furniture.render.DwemerBenchRenderer;
+import com.ryankshah.skyrimcraft.entity.furniture.render.DwemerChairRenderer;
 import com.ryankshah.skyrimcraft.entity.npc.model.FalmerModel;
 import com.ryankshah.skyrimcraft.entity.npc.model.KhajiitModel;
 import com.ryankshah.skyrimcraft.entity.npc.render.FalmerRenderer;
@@ -58,6 +60,8 @@ public class SkyrimcraftCommonClient
         entityRenderers.accept(EntityRegistry.DRAGON.get(), SkyrimDragonRenderer::new);
         entityRenderers.accept(EntityRegistry.DRAUGR.get(), DraugrRenderer::new);
         entityRenderers.accept(EntityRegistry.DWARVEN_SPIDER.get(), DwarvenSpiderRenderer::new);
+        entityRenderers.accept(EntityRegistry.DWEMER_CREEPER.get(), DwemerCreeperRenderer::new);
+        entityRenderers.accept(EntityRegistry.DWEMER_CUBE.get(), DwemerCubeRenderer::new);
         entityRenderers.accept(EntityRegistry.BLUE_BUTTERFLY.get(), BlueButterflyRenderer::new);
         entityRenderers.accept(EntityRegistry.MONARCH_BUTTERFLY.get(), MonarchButterflyRenderer::new);
         entityRenderers.accept(EntityRegistry.ORANGE_DARTWING.get(), OrangeDartwingRenderer::new);
@@ -74,6 +78,13 @@ public class SkyrimcraftCommonClient
 
         entityRenderers.accept(EntityRegistry.ABECEAN_LONGFIN.get(), AbeceanLongfinRenderer::new);
         entityRenderers.accept(EntityRegistry.CYRODILIC_SPADETAIL.get(), CyrodilicSpadetailRenderer::new);
+        entityRenderers.accept(EntityRegistry.SLAUGHTERFISH.get(), SlaughterfishRenderer::new);
+
+        entityRenderers.accept(EntityRegistry.DWEMER_CHAIR.get(), DwemerChairRenderer::new);
+        entityRenderers.accept(EntityRegistry.DWEMER_BENCH.get(), DwemerBenchRenderer::new);
+
+        blockEntityRenderers.accept(BlockEntityRegistry.TURN_STONE.get(), TurnStoneBlockEntityRenderer::new);
+        blockEntityRenderers.accept(BlockEntityRegistry.DWEMER_PISTON.get(), DwemerPistonHeadRenderer::new);
     }
 
     public static ImmutableMap<ModelLayerLocation, LayerDefinition> getLayerDefinitions() {
@@ -84,21 +95,21 @@ public class SkyrimcraftCommonClient
 
         ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder = ImmutableMap.builder();
         builder.put(DunmerEarModel.LAYER_LOCATION, DunmerEarModel.createBodyLayer());
-            builder.put(HighElfEarModel.LAYER_LOCATION, HighElfEarModel.createBodyLayer());
-            builder.put(KhajiitHeadModel.LAYER_LOCATION, KhajiitHeadModel.createBodyLayer());
-            builder.put(KhajiitTailModel.LAYER_LOCATION, KhajiitTailModel.createBodyLayer());
-            builder.put(SkeeverModel.LAYER_LOCATION, SkeeverModel.createBodyLayer());
-            builder.put(VenomfangSkeeverModel.LAYER_LOCATION, VenomfangSkeeverModel.createBodyLayer());
-            builder.put(KhajiitModel.LAYER_LOCATION, KhajiitModel.createBodyLayer());
-            builder.put(KhajiitModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
-            builder.put(KhajiitModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
-            builder.put(FalmerModel.LAYER_LOCATION, FalmerModel.createBodyLayer());
-            builder.put(FalmerModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
-            builder.put(FalmerModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
-            builder.put(DraugrModel.LAYER_LOCATION, DraugrModel.createBodyLayer());
-            builder.put(DraugrModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
-            builder.put(DraugrModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
-            builder.put(TurnStoneModel.LAYER_LOCATION, TurnStoneModel.createBodyLayer());
+        builder.put(HighElfEarModel.LAYER_LOCATION, HighElfEarModel.createBodyLayer());
+        builder.put(KhajiitHeadModel.LAYER_LOCATION, KhajiitHeadModel.createBodyLayer());
+        builder.put(KhajiitTailModel.LAYER_LOCATION, KhajiitTailModel.createBodyLayer());
+        builder.put(SkeeverModel.LAYER_LOCATION, SkeeverModel.createBodyLayer());
+        builder.put(VenomfangSkeeverModel.LAYER_LOCATION, VenomfangSkeeverModel.createBodyLayer());
+        builder.put(KhajiitModel.LAYER_LOCATION, KhajiitModel.createBodyLayer());
+        builder.put(KhajiitModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
+        builder.put(KhajiitModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
+        builder.put(FalmerModel.LAYER_LOCATION, FalmerModel.createBodyLayer());
+        builder.put(FalmerModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
+        builder.put(FalmerModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
+        builder.put(DraugrModel.LAYER_LOCATION, DraugrModel.createBodyLayer());
+        builder.put(DraugrModel.OUTER_ARMOR_LAYER_LOCATION, outerArmor);
+        builder.put(DraugrModel.INNER_ARMOR_LAYER_LOCATION, innerArmor);
+        builder.put(TurnStoneModel.LAYER_LOCATION, TurnStoneModel.createBodyLayer());
         return builder.build();
     }
 }

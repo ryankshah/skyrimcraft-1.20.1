@@ -1,6 +1,8 @@
 package com.ryankshah.skyrimcraft;
 
 import com.google.common.collect.ImmutableList;
+import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
+import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
 import com.ryankshah.skyrimcraft.data.loot_table.condition.type.SkyrimcraftLootConditionTypes;
 import com.ryankshah.skyrimcraft.effect.ModEffects;
 import com.ryankshah.skyrimcraft.network.Networking;

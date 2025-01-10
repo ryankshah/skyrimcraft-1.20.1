@@ -24,7 +24,7 @@ public class SkillPredicate
 
     public static final Codec<SkillPredicate> CODEC = RecordCodecBuilder.create(
             p_298173_ -> p_298173_.group(
-                    SkillRegistry.SKILLS_REGISTRY.byNameCodec().fieldOf("skill").forGetter(SkillPredicate::getSkill),
+                    SkillRegistry.SKILLS_REGISTRY.get().byNameCodec().fieldOf("skill").forGetter(SkillPredicate::getSkill),
 //                    SkillWrapper.CODEC.fieldOf("skill").forGetter(SkillPredicate::getSkill),
                     Codec.INT.fieldOf("level").forGetter(SkillPredicate::getLevel),
                     Codec.FLOAT.fieldOf("successChance").forGetter(SkillPredicate::getSuccessChance)
@@ -101,7 +101,7 @@ public class SkillPredicate
             else {
                 JsonObject skillObj = GsonHelper.getAsJsonObject(jsonobject, "skill");
                 int id = GsonHelper.getAsInt(skillObj, "id");
-                if(SkillRegistry.SKILLS_REGISTRY.stream().noneMatch(s -> s.getID() == id))
+                if(SkillRegistry.SKILLS_REGISTRY.get().stream().noneMatch(s -> s.getID() == id))
                     throw new JsonSyntaxException("There is no skill that exists with id: " + id);
                 int level = GsonHelper.getAsInt(skillObj, "level");
 

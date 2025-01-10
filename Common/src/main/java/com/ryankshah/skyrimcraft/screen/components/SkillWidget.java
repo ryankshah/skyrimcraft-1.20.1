@@ -90,7 +90,7 @@ public class SkillWidget extends AbstractWidget implements Renderable
         RenderUtil.blitWithBlend(poseStack, this.getX() - (SKILL_BAR_CONTAINER_WIDTH / 2), this.getY() + 48 + (SKILL_BAR_CONTAINER_HEIGHT / 2), SKILL_BAR_CONTAINER_U, SKILL_BAR_CONTAINER_V, SKILL_BAR_CONTAINER_WIDTH, SKILL_BAR_CONTAINER_HEIGHT, 512, 512, 2, 1);
         RenderUtil.blitWithBlend(poseStack, this.getX() - (SKILL_BAR_CONTAINER_WIDTH / 2) + 7, this.getY() + 49 + (SKILL_BAR_CONTAINER_HEIGHT / 2) + SKILL_BAR_HEIGHT, SKILL_BAR_U, SKILL_BAR_V, (int)(SKILL_BAR_WIDTH * skillProgress), SKILL_BAR_HEIGHT, 512, 512, 2, 1);
 
-        AbstractMap.SimpleEntry<Integer, Integer> iconUV = getIconUV(SkillRegistry.SKILLS_REGISTRY.getResourceKey(skill).get());
+        AbstractMap.SimpleEntry<Integer, Integer> iconUV = getIconUV(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(skill).get());
         RenderUtil.blitWithBlend(poseStack, this.getX() - 32, this.getY() + 18 - 64, iconUV.getKey(), iconUV.getValue(), 64, 64, 512, 512, 2, 1);
         poseStack.popPose();
         pGuiGraphics.drawCenteredString(font, skill.getName() + " " + skill.getLevel(), this.getX(), this.getY() + 38, 0x00FFFFFF);
@@ -101,7 +101,7 @@ public class SkillWidget extends AbstractWidget implements Renderable
     }
 
     public static AbstractMap.SimpleEntry<Integer, Integer> getIconUV(ResourceKey<Skill> skill) {
-        return SkillRegistry.SKILLS_REGISTRY.get(skill).getIconUV();
+        return SkillRegistry.SKILLS_REGISTRY.get().get(skill).getIconUV();
     }
 
     public void drawScaledCenteredString(GuiGraphics graphics, String str, int x, int y, int color, float scale) {

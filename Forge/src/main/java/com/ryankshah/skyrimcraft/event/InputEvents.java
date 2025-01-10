@@ -246,7 +246,7 @@ public class InputEvents {
     }
 
     private static void castSpell(Spell spell, Character character, boolean isInitialCast) {
-        final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.getResourceKey(spell).get());
+        final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
         Dispatcher.sendToServer(castSpell);
 
         if (isInitialCast || !spell.isContinuous()) {

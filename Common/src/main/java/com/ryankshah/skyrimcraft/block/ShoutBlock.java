@@ -82,7 +82,7 @@ public class ShoutBlock extends Block {
                             Spell shout = shouts.get(random.nextInt(shouts.size()));
                             System.out.println(shout);
 
-                            final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.getResourceKey(shout).get());
+                            final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(shout).get());
                             Dispatcher.sendToServer(addSpell);
 //                        PacketDistributor.SERVER.noArg().send(addSpell);
 
@@ -97,7 +97,7 @@ public class ShoutBlock extends Block {
                             pPlayer.displayClientMessage(Component.translatable("shoutblock.allshoutsknown"), false);
                         }
                     } else {
-                        final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.getResourceKey(SpellRegistry.UNRELENTING_FORCE.get()).get());
+                        final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(SpellRegistry.UNRELENTING_FORCE.get()).get());
                         Dispatcher.sendToServer(addSpell);
 //                    PacketDistributor.SERVER.noArg().send(addSpell);
 

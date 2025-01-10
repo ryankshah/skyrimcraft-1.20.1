@@ -43,7 +43,7 @@ public record UpdateSelectedSpell(int position, ResourceKey<Spell> spell)
         UpdateSelectedSpell data = context.message();
         Character character = Character.get(player);
         if(!data.spell.equals(SpellRegistry.EMPTY_SPELL)) {
-            Spell spell = SpellRegistry.SPELLS_REGISTRY.get(data.spell);
+            Spell spell = SpellRegistry.SPELLS_REGISTRY.get().get(data.spell);
             if(data.position == 1)
                 character.setSelectedSpell1(spell);
             else if(data.position == 2)
@@ -62,7 +62,7 @@ public record UpdateSelectedSpell(int position, ResourceKey<Spell> spell)
             Player player = Minecraft.getInstance().player;
             Character character = Character.get(player);
             if (!data.spell.equals(SpellRegistry.EMPTY_SPELL)) {
-                Spell spell = SpellRegistry.SPELLS_REGISTRY.get(data.spell);
+                Spell spell = SpellRegistry.SPELLS_REGISTRY.get().get(data.spell);
                 if (data.position == 1)
                     character.setSelectedSpell1(spell);
                 else if (data.position == 2)

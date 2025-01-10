@@ -28,7 +28,7 @@ public record CastSpell(ResourceKey<Spell> spell)
     public static void handle(final PacketContext<CastSpell> context) {
         if (context.sender() instanceof ServerPlayer) {
             ServerPlayer serverPlayer = (ServerPlayer) context.sender();
-            Spell spellInstance = SpellRegistry.SPELLS_REGISTRY.get(context.message().spell());
+            Spell spellInstance = SpellRegistry.SPELLS_REGISTRY.get().get(context.message().spell());
             spellInstance.setCaster(serverPlayer);
             spellInstance.cast();
         }

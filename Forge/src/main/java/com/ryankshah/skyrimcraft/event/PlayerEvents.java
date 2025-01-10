@@ -65,7 +65,7 @@ public class PlayerEvents
     // TODO: In Fabric, we need to mixin to villager trade succession somewhere to do this
     @SubscribeEvent
     public static void onTradeWithVillager(TradeWithVillagerEvent event) {
-        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.SPEECH.get()).get(), event.getMerchantOffer().getXp() * SkillRegistry.BASE_SPEECH_XP);
+        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.SPEECH.get()).get(), event.getMerchantOffer().getXp() * SkillRegistry.BASE_SPEECH_XP);
         Dispatcher.sendToServer(xpToSkill);
 //        PacketDistributor.SERVER.noArg().send(xpToSkill);
     }
@@ -90,13 +90,13 @@ public class PlayerEvents
             if (!character.getSpellsOnCooldown().isEmpty()) {
                 for (Map.Entry<Spell, Float> entry : character.getSpellsOnCooldown().entrySet()) {
                     if (entry.getValue() <= 0f) {
-                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.getResourceKey(entry.getKey()).get(), 0f);
+                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(entry.getKey()).get(), 0f);
                         Dispatcher.sendToServer(updateShoutCooldown);
 //                            PacketDistributor.SERVER.noArg().send(updateShoutCooldown);
                     }
                     if (entry.getValue() > 0f) {
                         float cooldown = character.getSpellCooldown(entry.getKey());
-                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.getResourceKey(entry.getKey()).get(), cooldown - 0.05f);
+                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(entry.getKey()).get(), cooldown - 0.05f);
                         Dispatcher.sendToServer(updateShoutCooldown);
 //                            PacketDistributor.SERVER.noArg().send(updateShoutCooldown);
                     }
@@ -176,7 +176,7 @@ public class PlayerEvents
 
     @SubscribeEvent
     public static void playerSmelt(PlayerEvent.ItemSmeltedEvent event) {
-        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.SMITHING.get()).get(), event.getSmelting().getCount() * SkillRegistry.BASE_SMITHING_XP);
+        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.SMITHING.get()).get(), event.getSmelting().getCount() * SkillRegistry.BASE_SMITHING_XP);
         Dispatcher.sendToServer(xpToSkill);
 //        PacketDistributor.SERVER.noArg().send(xpToSkill);
     }

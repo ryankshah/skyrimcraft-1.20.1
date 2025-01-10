@@ -43,7 +43,7 @@ public record UpdateShoutCooldown(ResourceKey<Spell> spell, float cooldown)
         UpdateShoutCooldown data = context.message();
         Character character = Character.get(serverPlayer);
 
-        character.addSpellAndCooldown(SpellRegistry.SPELLS_REGISTRY.get(data.spell), data.cooldown);
+        character.addSpellAndCooldown(SpellRegistry.SPELLS_REGISTRY.get().get(data.spell), data.cooldown);
 
         final UpdateShoutCooldown sendToClient = new UpdateShoutCooldown(data.spell, data.cooldown);
         Dispatcher.sendToClient(sendToClient, serverPlayer);
@@ -56,7 +56,7 @@ public record UpdateShoutCooldown(ResourceKey<Spell> spell, float cooldown)
         minecraft.execute(() -> {
             Player player = Minecraft.getInstance().player;
             Character character = Character.get(player);
-            character.addSpellAndCooldown(SpellRegistry.SPELLS_REGISTRY.get(data.spell), data.cooldown);
+            character.addSpellAndCooldown(SpellRegistry.SPELLS_REGISTRY.get().get(data.spell), data.cooldown);
         });
     }
 }

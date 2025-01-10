@@ -122,13 +122,12 @@ public class SkyrimcraftFabric implements ModInitializer
 
         // Open the character creation screen if first login / world created
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            Player player = handler.player;
-            if(player instanceof ServerPlayer serverPlayer) {
-                Character character = Character.get(serverPlayer);
-                if (!character.getHasSetup()) {
-                    final OpenCharacterCreationScreen packet = new OpenCharacterCreationScreen(character.getHasSetup());
-                    Dispatcher.sendToClient(packet, serverPlayer);
-                }
+            ServerPlayer player = handler.player;
+
+            Character character = Character.get(player);
+            if (!character.getHasSetup()) {
+                final OpenCharacterCreationScreen packet = new OpenCharacterCreationScreen(character.getHasSetup());
+                Dispatcher.sendToClient(packet, player);
             }
         });
         ServerEntityEvents.ENTITY_LOAD.register(((entity, world) -> {
@@ -159,11 +158,12 @@ public class SkyrimcraftFabric implements ModInitializer
 
     public static void initAttachments() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            Character.playerJoinWorld(handler.player);
-            ExtraCharacter.playerJoinWorld(handler.player);
-            LevelUpdates.playerJoinWorld(handler.player);
-            StatIncreases.playerJoinWorld(handler.player);
-            PlayerQuests.playerJoinWorld(handler.player);
+            ServerPlayer player = handler.player;
+            Character.playerJoinWorld(player);
+            ExtraCharacter.playerJoinWorld(player);
+            LevelUpdates.playerJoinWorld(player);
+            StatIncreases.playerJoinWorld(player);
+            PlayerQuests.playerJoinWorld(player);
         });
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if(entity instanceof Player player) {

@@ -6,6 +6,7 @@ import com.ryankshah.skyrimcraft.character.feature.Race;
 import com.ryankshah.skyrimcraft.character.magic.power.*;
 import com.ryankshah.skyrimcraft.character.magic.shout.*;
 import com.ryankshah.skyrimcraft.character.magic.spell.*;
+import com.ryankshah.skyrimcraft.registration.registries.RegistryFeatureType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,7 +22,7 @@ public class SpellRegistry
 
     public static final ResourceKey<Registry<Spell>> SPELLS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Constants.MODID, "spells_key"));
     public static final RegistrationProvider<Spell> SPELLS = RegistrationProvider.get(SPELLS_KEY, Constants.MODID);
-    public static final Registry<Spell> SPELLS_REGISTRY = SPELLS.registryBuilder().build().get();
+    public static final Supplier<Registry<Spell>> SPELLS_REGISTRY = SPELLS.registryBuilder().withFeature(RegistryFeatureType.SYNCED).withDefaultValue("empty", EmptySpell::new).build();
 
     // Shouts
     public static Supplier<Spell> EMPTY_SPELL = SPELLS.register("empty_spell", EmptySpell::new);

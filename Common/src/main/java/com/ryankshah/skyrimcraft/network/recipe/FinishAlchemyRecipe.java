@@ -56,7 +56,7 @@ public record FinishAlchemyRecipe(ResourceLocation id, AlchemyRecipe recipe)
                 player.playSound(SoundEvents.BREWING_STAND_BREW, 1.0F, 1.0F);
                 player.giveExperiencePoints(currentRecipeObject.getXpGained());
 
-                final AddXpToSkill addAlchemyXp = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ALCHEMY.get()).get(), currentRecipeObject.getXpGained());
+                final AddXpToSkill addAlchemyXp = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ALCHEMY.get()).get(), currentRecipeObject.getXpGained());
                 Dispatcher.sendToServer(addAlchemyXp);
 //                PacketDistributor.SERVER.noArg().send(addAlchemyXp);
 //            }

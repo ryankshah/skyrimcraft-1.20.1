@@ -52,7 +52,7 @@ public record FinishForgeRecipe(ResourceLocation id, ForgeRecipe recipe)
                 player.playSound(SoundEvents.BLASTFURNACE_FIRE_CRACKLE, 1.0F, 1.0F);
                 player.giveExperiencePoints(currentRecipeObject.getXpGained());
 
-                final AddXpToSkill addSmithingXp = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.SMITHING.get()).get(), currentRecipeObject.getXpGained());
+                final AddXpToSkill addSmithingXp = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.SMITHING.get()).get(), currentRecipeObject.getXpGained());
                 Dispatcher.sendToServer(addSmithingXp);
 //                PacketDistributor.SERVER.noArg().send(addSmithingXp);
 //            }

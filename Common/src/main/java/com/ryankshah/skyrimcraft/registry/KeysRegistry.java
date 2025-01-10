@@ -99,7 +99,7 @@ public class KeysRegistry
             Character character = Character.get(mc.player);
             Spell spell = character.getSelectedSpell1();
             if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
-                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.getResourceKey(spell).get());
+                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
                 Dispatcher.sendToServer(castSpell);
 //                    PacketDistributor.SERVER.noArg().send(castSpell);
             } else
@@ -110,7 +110,7 @@ public class KeysRegistry
             Character character = Character.get(mc.player);
             Spell spell = character.getSelectedSpell2();
             if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
-                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.getResourceKey(spell).get());
+                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
                 Dispatcher.sendToServer(castSpell);
 //                    PacketDistributor.SERVER.noArg().send(castSpell);
             } else

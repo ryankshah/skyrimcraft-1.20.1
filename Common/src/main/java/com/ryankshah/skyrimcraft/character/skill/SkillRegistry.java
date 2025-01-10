@@ -3,6 +3,7 @@ package com.ryankshah.skyrimcraft.character.skill;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.skill.type.*;
 import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
+import com.ryankshah.skyrimcraft.registration.registries.RegistryFeatureType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +14,7 @@ public class SkillRegistry
 {
     public static final ResourceKey<Registry<Skill>> SKILLS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Constants.MODID, "skills_key"));
     public static final RegistrationProvider<Skill> SKILLS = RegistrationProvider.get(SKILLS_KEY, Constants.MODID);
-    public static final Registry<Skill> SKILLS_REGISTRY = SKILLS.registryBuilder().build().get(); //(builder -> builder.sync(true).defaultKey(ResourceLocation.fromNamespaceAndPath(Skyrimcraft.MODID, "empty")));
+    public static final Supplier<Registry<Skill>> SKILLS_REGISTRY = SKILLS.registryBuilder().withFeature(RegistryFeatureType.SYNCED).withDefaultValue("empty", EmptySkill::new).build();
 
     public static final int BASE_ARCHERY_XP = 4;
     public static final int BASE_BLOCK_XP = 4;

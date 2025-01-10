@@ -81,7 +81,8 @@ public class CharacterCreationScreen extends Screen
         if ((l & -67108864) != 0) {
             RenderSystem.enableDepthTest();
             // Render stuff...
-            renderPlayer(graphics, i + 51, j + 75, 120, i + 51, j - 25 - 150, minecraft.player, currentRaceObject);
+            if(Minecraft.getInstance().getEntityRenderDispatcher() != null)
+                renderPlayer(graphics, i + 51, j + 75, 120, i + 51, j - 25 - 150, minecraft.player, currentRaceObject);
 
             RenderSystem.disableDepthTest();
             RenderSystem.disableBlend();

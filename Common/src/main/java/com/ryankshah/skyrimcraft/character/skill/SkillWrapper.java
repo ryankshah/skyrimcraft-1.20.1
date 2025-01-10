@@ -9,7 +9,7 @@ import java.util.List;
 public class SkillWrapper
 {
     public static Codec<SkillWrapper> CODEC = RecordCodecBuilder.create(skill -> skill.group(
-        SkillRegistry.SKILLS_REGISTRY.byNameCodec().fieldOf("skill").forGetter(SkillWrapper::getSkill),
+        SkillRegistry.SKILLS_REGISTRY.get().byNameCodec().fieldOf("skill").forGetter(SkillWrapper::getSkill),
         Codec.INT.fieldOf("identifier").forGetter(SkillWrapper::getID),
         Codec.INT.fieldOf("level").forGetter(SkillWrapper::getLevel),
         Codec.INT.fieldOf("totalXp").forGetter(SkillWrapper::getTotalXp),

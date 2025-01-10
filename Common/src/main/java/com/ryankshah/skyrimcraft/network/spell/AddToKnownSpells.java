@@ -41,7 +41,7 @@ public record AddToKnownSpells(ResourceKey<Spell> spell)
         ServerPlayer player = context.sender();
         Character character = Character.get(player);
         AddToKnownSpells data = context.message();
-        character.addNewSpell(SpellRegistry.SPELLS_REGISTRY.get(data.spell));
+        character.addNewSpell(SpellRegistry.SPELLS_REGISTRY.get().get(data.spell));
 
         // TODO: fix the advancements registry and fix this!
 //        AdvancementTriggersRegistry.LEARN_SPELL.get().trigger(player, Holder.direct(SpellRegistry.SPELLS_REGISTRY.get(data.spell)));
@@ -56,7 +56,7 @@ public record AddToKnownSpells(ResourceKey<Spell> spell)
         minecraft.execute(() -> {
             Player player = Minecraft.getInstance().player;
             Character character = Character.get(player);
-            character.addNewSpell(SpellRegistry.SPELLS_REGISTRY.get(context.message().spell()));
+            character.addNewSpell(SpellRegistry.SPELLS_REGISTRY.get().get(context.message().spell()));
         });
     }
 }

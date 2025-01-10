@@ -13,8 +13,10 @@
           {
             "data": {
               "type": "minecraft:uniform",
-              "min_inclusive": 0,
-              "max_inclusive": 0
+              "value": {
+                "min_inclusive": 0,
+                "max_inclusive": 0
+              }
             },
             "weight": 1
           }

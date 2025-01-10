@@ -225,23 +225,23 @@ public abstract class Spell
      */
     public void onCast() {
         if(getType() == SpellType.DESTRUCTION) {
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.DESTRUCTION.get()).get(), getBaseXp());
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.DESTRUCTION.get()).get(), getBaseXp());
             Dispatcher.sendToClient(xpToSkill, (ServerPlayer)caster);
 //            PacketDistributor.PLAYER.with((ServerPlayer) caster).send(xpToSkill);
         } else if(getType() == SpellType.ALTERATION) {
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ALTERATION.get()).get(), getBaseXp());
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ALTERATION.get()).get(), getBaseXp());
             Dispatcher.sendToClient(xpToSkill, (ServerPlayer)caster);
 //            PacketDistributor.PLAYER.with((ServerPlayer) caster).send(xpToSkill);
         } else if(getType() == SpellType.RESTORATION) {
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.RESTORATION.get()).get(), getBaseXp());
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.RESTORATION.get()).get(), getBaseXp());
             Dispatcher.sendToClient(xpToSkill, (ServerPlayer)caster);
 //            PacketDistributor.PLAYER.with((ServerPlayer) caster).send(xpToSkill);
         } else if(getType() == SpellType.ILLUSION) {
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ILLUSION.get()).get(), getBaseXp());
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ILLUSION.get()).get(), getBaseXp());
             Dispatcher.sendToClient(xpToSkill, (ServerPlayer)caster);
 //            PacketDistributor.PLAYER.with((ServerPlayer) caster).send(xpToSkill);
         } else if(getType() == SpellType.CONJURATION) {
-            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.CONJURATION.get()).get(), getBaseXp());
+            final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.CONJURATION.get()).get(), getBaseXp());
             Dispatcher.sendToClient(xpToSkill, (ServerPlayer)caster);
 //            PacketDistributor.PLAYER.with((ServerPlayer) caster).send(xpToSkill);
         }
@@ -251,7 +251,7 @@ public abstract class Spell
 
         if(!caster.isCreative()) {
             if (getType() == SpellType.SHOUT) {
-                final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.getResourceKey(this).get(), getCooldown());
+                final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(this).get(), getCooldown());
                 Dispatcher.sendToServer(updateShoutCooldown);
 //                PacketDistributor.SERVER.noArg().send(updateShoutCooldown);
 //                Networking.sendToServer(new PacketUpdateShoutCooldownOnServer(this, getCooldown()));

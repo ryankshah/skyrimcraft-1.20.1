@@ -44,7 +44,7 @@ public record AddXpToSkill(ResourceKey<Skill> skill, int baseXp)
         ServerPlayer player = context.sender();
         Character character = Character.get(player);
         AddXpToSkill data = context.message();
-        SkillWrapper skill = character.getSkill(SkillRegistry.SKILLS_REGISTRY.get(data.skill).getID());
+        SkillWrapper skill = character.getSkill(SkillRegistry.SKILLS_REGISTRY.get().get(data.skill).getID());
 
         int oldSkillLevel = Integer.valueOf(skill.getLevel());
         character.giveExperiencePoints(skill.getID(), data.baseXp);
@@ -84,7 +84,7 @@ public record AddXpToSkill(ResourceKey<Skill> skill, int baseXp)
         minecraft.execute(() -> {
             Player player = Minecraft.getInstance().player;
             Character character = Character.get(player);
-            SkillWrapper skill = character.getSkill(SkillRegistry.SKILLS_REGISTRY.get(context.message().skill).getID());
+            SkillWrapper skill = character.getSkill(SkillRegistry.SKILLS_REGISTRY.get().get(context.message().skill).getID());
 
             int oldSkillLevel = skill.getLevel();
             character.giveExperiencePoints(skill.getID(), context.message().baseXp);

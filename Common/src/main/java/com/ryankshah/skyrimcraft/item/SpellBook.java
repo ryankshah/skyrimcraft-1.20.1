@@ -40,7 +40,7 @@ public class SpellBook extends Item
         Character character = Character.get(playerIn);
         List<Spell> knownSpells = character.getKnownSpells();
         if (this.spell != null && !knownSpells.contains(spell.get())) {
-            final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.getResourceKey(spell.get()).get());
+            final AddToKnownSpells addSpell = new AddToKnownSpells(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell.get()).get());
             Dispatcher.sendToServer(addSpell);
 //            PacketDistributor.SERVER.noArg().send(addSpell);
             playerIn.displayClientMessage(Component.translatable("spellbook.learn", Component.translatable(spell.get().getName()).withStyle(ChatFormatting.RED)), false);

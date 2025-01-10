@@ -16,11 +16,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Constants.MODID)
 public class SkyrimcraftForge
 {
-    public SkyrimcraftForge(IEventBus eventBus) {
+    public SkyrimcraftForge() {
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         SkyrimcraftCommon.init();
         SkyrimLootModifiers.GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(eventBus);
         eventBus.addListener(DataGenerators::gatherData);

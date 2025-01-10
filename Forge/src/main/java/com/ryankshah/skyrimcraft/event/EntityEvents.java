@@ -74,22 +74,22 @@ public class EntityEvents {
                 }
 
                 if (playerEntity.isCrouching() && !playerEntity.canBeSeenAsEnemy()) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.SNEAK.get()).get(), (int) event.getAmount());
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.SNEAK.get()).get(), (int) event.getAmount());
                     Dispatcher.sendToServer(xpToSkill);
 //                    PacketDistributor.SERVER.noArg().send(xpToSkill);
                 }
 
                 if (playerEntity.getMainHandItem().getItem() instanceof ProjectileWeaponItem) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ARCHERY.get()).get(), (int) event.getAmount());
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ARCHERY.get()).get(), (int) event.getAmount());
                     Dispatcher.sendToServer(xpToSkill);
 //                    PacketDistributor.SERVER.noArg().send(xpToSkill);
                 } else if (playerEntity.getMainHandItem().getItem() instanceof SwordItem) {
                     if (playerEntity.getMainHandItem().getItem() instanceof SkyrimTwoHandedSword) {
-                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.TWO_HANDED.get()).get(), (int) event.getAmount());
+                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.TWO_HANDED.get()).get(), (int) event.getAmount());
                         Dispatcher.sendToServer(xpToSkill);
 //                        PacketDistributor.SERVER.noArg().send(xpToSkill);
                     } else {
-                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ONE_HANDED.get()).get(), (int) event.getAmount());
+                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ONE_HANDED.get()).get(), (int) event.getAmount());
                         Dispatcher.sendToServer(xpToSkill);
 //                        PacketDistributor.SERVER.noArg().send(xpToSkill);
                     }
@@ -112,7 +112,7 @@ public class EntityEvents {
         } else if (event.getEntity() instanceof Player) {
             Player playerEntity = (Player) event.getEntity();
             if (playerEntity.isDamageSourceBlocked(event.getSource())) {
-                final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.BLOCK.get()).get(), SkillRegistry.BASE_BLOCK_XP);
+                final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.BLOCK.get()).get(), SkillRegistry.BASE_BLOCK_XP);
                 Dispatcher.sendToServer(xpToSkill);
 //                PacketDistributor.SERVER.noArg().send(xpToSkill);
             }
@@ -134,11 +134,11 @@ public class EntityEvents {
                 }
 
                 if (heavySlots.get() >= 3) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.HEAVY_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.HEAVY_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
                     Dispatcher.sendToServer(xpToSkill);
 //                    PacketDistributor.SERVER.noArg().send(xpToSkill);
                 } else {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.LIGHT_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.LIGHT_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
                     Dispatcher.sendToServer(xpToSkill);
 //                    PacketDistributor.SERVER.noArg().send(xpToSkill);
                 }
