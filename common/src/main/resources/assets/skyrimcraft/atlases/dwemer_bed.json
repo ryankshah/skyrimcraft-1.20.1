@@ -1,9 +1,0 @@
-{
-  "sources": [
-    {
-      "type": "directory",
-      "source": "entity/dwemer_bed",
-      "prefix": "entity/dwemer_bed/"
-    }
-  ]
-}
