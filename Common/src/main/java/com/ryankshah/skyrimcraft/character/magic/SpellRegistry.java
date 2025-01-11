@@ -17,6 +17,8 @@ import java.util.function.Supplier;
 
 public class SpellRegistry
 {
+    public static void init() {}
+
     /// -- Ticks in mc day (one day cooldown) = 24000 (1200 seconds)
     public static final int DAY_COOLDOWN = 1200;
 

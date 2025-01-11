@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/template_torch",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "particle": "skyrimcraft:block/dwemer_redstone_torch_off",
-    "torch": "skyrimcraft:block/dwemer_redstone_torch_off"
-  }
-}

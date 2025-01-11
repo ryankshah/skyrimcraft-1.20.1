@@ -26,10 +26,9 @@ public class SkyrimcraftForge
 
         SkyrimcraftCommon.init();
         SkyrimLootModifiers.GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(eventBus);
-        eventBus.addListener(DataGenerators::gatherData);
-
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::registerEntityAttributes);
+        eventBus.addListener(DataGenerators::gatherData);
     }
 
     @SubscribeEvent

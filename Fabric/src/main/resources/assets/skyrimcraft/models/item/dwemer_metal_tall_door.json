@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "skyrimcraft:item/dwemer_metal_tall_door"
-  }
-}

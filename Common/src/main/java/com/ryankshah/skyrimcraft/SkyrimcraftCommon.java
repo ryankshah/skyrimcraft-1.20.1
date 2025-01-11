@@ -80,6 +80,9 @@ public class SkyrimcraftCommon
     public static void init() {
         DialogueManager dialogueManager = new DialogueManager();
 
+        SpellRegistry.init();
+        SkillRegistry.init();
+
         ModEffects.init();
         AttributeRegistry.init();
         SkyrimcraftLootConditionTypes.init();

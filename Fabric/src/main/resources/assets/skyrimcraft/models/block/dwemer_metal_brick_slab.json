@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "skyrimcraft:block/dwemer_metal_bricks",
-    "side": "skyrimcraft:block/dwemer_metal_bricks",
-    "top": "skyrimcraft:block/dwemer_metal_bricks"
-  }
-}

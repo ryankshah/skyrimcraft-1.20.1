@@ -20,10 +20,6 @@ public class SkyrimcraftItemModelProvider extends ItemModelProvider
 
     @Override
     protected void registerModels() {
-        basicItem(BlockRegistry.DWEMER_METAL_TALL_DOOR_ITEM.get());
-        basicItem(BlockRegistry.DWEMER_METAL_TALL_GATE_ITEM.get());
-        basicItem(BlockRegistry.STEEL_TALL_GATE_ITEM.get());
-
         item(ItemRegistry.SWEET_ROLL.get());
         item(ItemRegistry.GARLIC_BREAD.get());
         item(ItemRegistry.POTATO_BREAD.get());
@@ -153,18 +149,18 @@ public class SkyrimcraftItemModelProvider extends ItemModelProvider
         item(ItemRegistry.ECTOPLASM.get());
         item(ItemRegistry.FALMER_EAR.get());
 
-        egg(ItemRegistry.BLUE_BUTTERFLY_SPAWN_EGG.get());
-        egg(ItemRegistry.MONARCH_BUTTERFLY_SPAWN_EGG.get());
-        egg(ItemRegistry.LUNAR_MOTH_SPAWN_EGG.get());
-        egg(ItemRegistry.ORANGE_DARTWING_SPAWN_EGG.get());
-        egg(ItemRegistry.BLUE_DARTWING_SPAWN_EGG.get());
-        egg(ItemRegistry.TORCHBUG_SPAWN_EGG.get());
-        egg(ItemRegistry.DRAGON_SPAWN_EGG.get());
-        egg(ItemRegistry.GIANT_SPAWN_EGG.get());
-        egg(ItemRegistry.SABRE_CAT_SPAWN_EGG.get());
-        egg(ItemRegistry.DRAUGR_SPAWN_EGG.get());
-        egg(ItemRegistry.KHAJIIT_SPAWN_EGG.get());
-        egg(ItemRegistry.FALMER_SPAWN_EGG.get());
+//        egg(ItemRegistry.BLUE_BUTTERFLY_SPAWN_EGG.get());
+//        egg(ItemRegistry.MONARCH_BUTTERFLY_SPAWN_EGG.get());
+//        egg(ItemRegistry.LUNAR_MOTH_SPAWN_EGG.get());
+//        egg(ItemRegistry.ORANGE_DARTWING_SPAWN_EGG.get());
+//        egg(ItemRegistry.BLUE_DARTWING_SPAWN_EGG.get());
+//        egg(ItemRegistry.TORCHBUG_SPAWN_EGG.get());
+//        egg(ItemRegistry.DRAGON_SPAWN_EGG.get());
+//        egg(ItemRegistry.GIANT_SPAWN_EGG.get());
+//        egg(ItemRegistry.SABRE_CAT_SPAWN_EGG.get());
+//        egg(ItemRegistry.DRAUGR_SPAWN_EGG.get());
+//        egg(ItemRegistry.KHAJIIT_SPAWN_EGG.get());
+//        egg(ItemRegistry.FALMER_SPAWN_EGG.get());
 
         item(ItemRegistry.ANCIENT_NORD_HELMET.get());
         item(ItemRegistry.ANCIENT_NORD_CHESTPLATE.get());
@@ -420,7 +416,7 @@ public class SkyrimcraftItemModelProvider extends ItemModelProvider
         wallInventory("dwemer_metal_brick_wall", new ResourceLocation(Constants.MODID, "block/dwemer_metal_bricks"));
         wallInventory("dwemer_stone_brick_wall", new ResourceLocation(Constants.MODID, "block/dwemer_stone_bricks"));
 
-//        BlockData.addBlockItemModels(this);
+        BlockData.addBlockItemModels(this);
     }
 
     private void item(Item item) {

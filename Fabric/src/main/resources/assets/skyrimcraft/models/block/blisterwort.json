@@ -1,8 +1,0 @@
-{
-  "parent": "skyrimcraft:block/triple_mushroom_generic",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "skyrimcraft:block/blisterwort",
-    "particle": "skyrimcraft:block/blisterwort"
-  }
-}

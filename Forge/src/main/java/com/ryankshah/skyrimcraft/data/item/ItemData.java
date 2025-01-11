@@ -137,18 +137,18 @@ public class ItemData
         provider.addItem(ItemRegistry.FLAWED_GARNET, "Flawed Garnet");
         provider.addItem(ItemRegistry.FLAWLESS_GARNET, "Flawless Garnet");
 
-        provider.addItem(ItemRegistry.SABRE_CAT_SPAWN_EGG, "Sabre Cat");
-        provider.addItem(ItemRegistry.GIANT_SPAWN_EGG, "Giant");
-        provider.addItem(ItemRegistry.DRAGON_SPAWN_EGG, "Dragon");
-        provider.addItem(ItemRegistry.BLUE_BUTTERFLY_SPAWN_EGG, "Blue Butterfly");
-        provider.addItem(ItemRegistry.MONARCH_BUTTERFLY_SPAWN_EGG, "Monarch Butterfly");
-        provider.addItem(ItemRegistry.ORANGE_DARTWING_SPAWN_EGG, "Orange Dartwing");
-        provider.addItem(ItemRegistry.BLUE_DARTWING_SPAWN_EGG, "Blue Dartwing");
-        provider.addItem(ItemRegistry.LUNAR_MOTH_SPAWN_EGG, "Lunar Moth");
-        provider.addItem(ItemRegistry.TORCHBUG_SPAWN_EGG, "Torchbug");
-        provider.addItem(ItemRegistry.DRAUGR_SPAWN_EGG, "Draugr");
-        provider.addItem(ItemRegistry.KHAJIIT_SPAWN_EGG, "Khajiit");
-        provider.addItem(ItemRegistry.FALMER_SPAWN_EGG, "Falmer");
+//        provider.addItem(ItemRegistry.SABRE_CAT_SPAWN_EGG, "Sabre Cat");
+//        provider.addItem(ItemRegistry.GIANT_SPAWN_EGG, "Giant");
+//        provider.addItem(ItemRegistry.DRAGON_SPAWN_EGG, "Dragon");
+//        provider.addItem(ItemRegistry.BLUE_BUTTERFLY_SPAWN_EGG, "Blue Butterfly");
+//        provider.addItem(ItemRegistry.MONARCH_BUTTERFLY_SPAWN_EGG, "Monarch Butterfly");
+//        provider.addItem(ItemRegistry.ORANGE_DARTWING_SPAWN_EGG, "Orange Dartwing");
+//        provider.addItem(ItemRegistry.BLUE_DARTWING_SPAWN_EGG, "Blue Dartwing");
+//        provider.addItem(ItemRegistry.LUNAR_MOTH_SPAWN_EGG, "Lunar Moth");
+//        provider.addItem(ItemRegistry.TORCHBUG_SPAWN_EGG, "Torchbug");
+//        provider.addItem(ItemRegistry.DRAUGR_SPAWN_EGG, "Draugr");
+//        provider.addItem(ItemRegistry.KHAJIIT_SPAWN_EGG, "Khajiit");
+//        provider.addItem(ItemRegistry.FALMER_SPAWN_EGG, "Falmer");
 
         provider.addItem(ItemRegistry.ANCIENT_NORD_HELMET, "Ancient Nord Helmet");
         provider.addItem(ItemRegistry.ANCIENT_NORD_CHESTPLATE, "Ancient Nord Chestplate");

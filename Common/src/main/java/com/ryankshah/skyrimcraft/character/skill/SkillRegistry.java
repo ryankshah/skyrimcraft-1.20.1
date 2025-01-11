@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 
 public class SkillRegistry
 {
+    public static void init() {}
+
     public static final ResourceKey<Registry<Skill>> SKILLS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Constants.MODID, "skills_key"));
     public static final RegistrationProvider<Skill> SKILLS = RegistrationProvider.get(SKILLS_KEY, Constants.MODID);
     public static final Supplier<Registry<Skill>> SKILLS_REGISTRY = SKILLS.registryBuilder().withFeature(RegistryFeatureType.SYNCED).withDefaultValue("empty", EmptySkill::new).build();

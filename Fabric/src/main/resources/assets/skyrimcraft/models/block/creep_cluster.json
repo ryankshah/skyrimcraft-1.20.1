@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/lily_pad",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "particle": "skyrimcraft:block/creep_cluster",
-    "texture": "skyrimcraft:block/creep_cluster"
-  }
-}

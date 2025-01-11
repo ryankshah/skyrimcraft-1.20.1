@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:jigsaw",
 	"start_pool": "skyrimcraft:village/town_center",
-	"size": 7,
+	"size": 20,
 	"max_distance_from_center": 116,
 	"biomes": "#skyrimcraft:has_structure/village",
 	"step": "surface_structures",

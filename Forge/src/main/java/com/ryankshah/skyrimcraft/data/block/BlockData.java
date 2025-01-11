@@ -320,25 +320,28 @@ public class BlockData
         provider.basicItem(BlockRegistry.FLY_AMANITA.get().asItem());
         provider.basicItem(BlockRegistry.WHITE_CAP.get().asItem());
         provider.basicItem(BlockRegistry.CREEP_CLUSTER.get().asItem());
+        provider.basicItem(BlockRegistry.DWEMER_METAL_TALL_DOOR_ITEM.get());
+        provider.basicItem(BlockRegistry.DWEMER_METAL_TALL_GATE_ITEM.get());
+        provider.basicItem(BlockRegistry.STEEL_TALL_GATE_ITEM.get());
     }
 
-    public static void tallDoorBlock(BlockStateProvider provider, Block block, String baseName) {
-        internalTallDoorBlock(provider, (TallDoorBlock)block, baseName, new ResourceLocation(Constants.MODID, "" + baseName + "_bottom"), new ResourceLocation(Constants.MODID, "" + baseName + "_middle"), new ResourceLocation(Constants.MODID, "" + baseName + "_top"));
+    private static void tallDoorBlock(BlockStateProvider provider, Block block, String baseName) {
+        internalTallDoorBlock(provider, (TallDoorBlock)block, baseName, new ResourceLocation(Constants.MODID, "" + baseName + "_door_bottom"), new ResourceLocation(Constants.MODID, "" + baseName + "_door_middle"), new ResourceLocation(Constants.MODID, "" + baseName + "_door_top"));
     }
 
     private static void internalTallDoorBlock(BlockStateProvider provider, TallDoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation middle, ResourceLocation top) {
-        ModelFile bottomLeft = provider.models().withExistingParent(baseName + "_bottom_left", ":" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile bottomLeftOpen = provider.models().withExistingParent(baseName + "_bottom_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile bottomRight = provider.models().withExistingParent(baseName + "_bottom_right", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile bottomRightOpen = provider.models().withExistingParent(baseName + "_bottom_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top).renderType("cutout");
-        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_middle_left", Constants.MODID + ":" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
-        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_middle_left_open", Constants.MODID + ":" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
-        ModelFile middleRight = provider.models().withExistingParent(baseName + "_middle_right", Constants.MODID + ":" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
-        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_middle_right_open", Constants.MODID + ":" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
-        ModelFile topLeft = provider.models().withExistingParent(baseName + "_top_left", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile topLeftOpen = provider.models().withExistingParent(baseName + "_top_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile topRight = provider.models().withExistingParent(baseName + "_top_right", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
-        ModelFile topRightOpen = provider.models().withExistingParent(baseName + "_top_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top).renderType("cutout");
+        ModelFile bottomLeft = provider.models().withExistingParent(baseName + "_door_bottom_left", ":" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile bottomLeftOpen = provider.models().withExistingParent(baseName + "_door_bottom_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile bottomRight = provider.models().withExistingParent(baseName + "_door_bottom_right", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile bottomRightOpen = provider.models().withExistingParent(baseName + "_door_bottom_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top);
+        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_door_middle_left", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_door_middle_left_open", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleRight = provider.models().withExistingParent(baseName + "_door_middle_right", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_door_middle_right_open", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile topLeft = provider.models().withExistingParent(baseName + "_door_top_left", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile topLeftOpen = provider.models().withExistingParent(baseName + "_door_top_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile topRight = provider.models().withExistingParent(baseName + "_door_top_right", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
+        ModelFile topRightOpen = provider.models().withExistingParent(baseName + "_door_top_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top);
         tallDoorBlock(provider, block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, middleLeft, middleLeftOpen, middleRight, middleRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
     }
 

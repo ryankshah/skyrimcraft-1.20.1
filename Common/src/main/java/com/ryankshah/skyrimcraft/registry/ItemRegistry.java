@@ -754,18 +754,18 @@ public class ItemRegistry
     public static final RegistryObject<Item> POTION_OF_CURE_DISEASES = ITEMS.register("potion_of_cure_diseases", () -> new CureDiseasesPotion(new Item.Properties(), 200));
     public static final RegistryObject<Item> POTION_OF_CURE_POISON = ITEMS.register("potion_of_cure_poison", () -> new CurePoisonPotion(new Item.Properties(), 200));
 
-    public static final RegistryObject<Item> SABRE_CAT_SPAWN_EGG = ITEMS.register("sabre_cat_spawn_egg", () -> new SpawnEggItem(EntityRegistry.SABRE_CAT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> GIANT_SPAWN_EGG = ITEMS.register("giant_spawn_egg", () -> new SpawnEggItem(EntityRegistry.GIANT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> DRAGON_SPAWN_EGG = ITEMS.register("dragon_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAGON.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> BLUE_BUTTERFLY_SPAWN_EGG = ITEMS.register("blue_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> MONARCH_BUTTERFLY_SPAWN_EGG = ITEMS.register("monarch_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.MONARCH_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> ORANGE_DARTWING_SPAWN_EGG = ITEMS.register("orange_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.ORANGE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> BLUE_DARTWING_SPAWN_EGG = ITEMS.register("blue_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> LUNAR_MOTH_SPAWN_EGG = ITEMS.register("lunar_moth_spawn_egg", () -> new SpawnEggItem(EntityRegistry.LUNAR_MOTH.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> TORCHBUG_SPAWN_EGG = ITEMS.register("torchbug_spawn_egg", () -> new SpawnEggItem(EntityRegistry.TORCHBUG.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAUGR.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> KHAJIIT_SPAWN_EGG = ITEMS.register("khajiit_spawn_egg", () -> new SpawnEggItem(EntityRegistry.KHAJIIT.get(), 0x505050, 0x606060, new Item.Properties()));
-    public static final RegistryObject<Item> FALMER_SPAWN_EGG = ITEMS.register("falmer_spawn_egg", () -> new SpawnEggItem(EntityRegistry.FALMER.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> SABRE_CAT_SPAWN_EGG = ITEMS.register("sabre_cat_spawn_egg", () -> new SpawnEggItem(EntityRegistry.SABRE_CAT.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> GIANT_SPAWN_EGG = ITEMS.register("giant_spawn_egg", () -> new SpawnEggItem(EntityRegistry.GIANT.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> DRAGON_SPAWN_EGG = ITEMS.register("dragon_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAGON.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> BLUE_BUTTERFLY_SPAWN_EGG = ITEMS.register("blue_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> MONARCH_BUTTERFLY_SPAWN_EGG = ITEMS.register("monarch_butterfly_spawn_egg", () -> new SpawnEggItem(EntityRegistry.MONARCH_BUTTERFLY.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> ORANGE_DARTWING_SPAWN_EGG = ITEMS.register("orange_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.ORANGE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> BLUE_DARTWING_SPAWN_EGG = ITEMS.register("blue_dartwing_spawn_egg", () -> new SpawnEggItem(EntityRegistry.BLUE_DARTWING.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> LUNAR_MOTH_SPAWN_EGG = ITEMS.register("lunar_moth_spawn_egg", () -> new SpawnEggItem(EntityRegistry.LUNAR_MOTH.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> TORCHBUG_SPAWN_EGG = ITEMS.register("torchbug_spawn_egg", () -> new SpawnEggItem(EntityRegistry.TORCHBUG.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg", () -> new SpawnEggItem(EntityRegistry.DRAUGR.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> KHAJIIT_SPAWN_EGG = ITEMS.register("khajiit_spawn_egg", () -> new SpawnEggItem(EntityRegistry.KHAJIIT.get(), 0x505050, 0x606060, new Item.Properties()));
+//    public static final RegistryObject<Item> FALMER_SPAWN_EGG = ITEMS.register("falmer_spawn_egg", () -> new SpawnEggItem(EntityRegistry.FALMER.get(), 0x505050, 0x606060, new Item.Properties()));
 
     public static void registerItemModelProperties() {
         registerTwoHandedProperties(ANCIENT_NORD_BATTLEAXE.get());
