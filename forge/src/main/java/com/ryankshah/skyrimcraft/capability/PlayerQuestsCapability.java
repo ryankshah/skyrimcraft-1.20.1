@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerQuestsCapability extends PlayerQuests implements ICapabilitySerializable<Tag>
+public class PlayerQuestsCapability implements ICapabilitySerializable<Tag>
 {
     public static final Capability<PlayerQuestsCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
     public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "player_quests_capability");

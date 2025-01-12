@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 public class ConjureFamiliarCapability extends Character implements ICapabilitySerializable<CompoundTag>
 {
     public static final Capability<ConjureFamiliarCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
-    public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "player_quests_capability");
+    public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "conjure_familiar_capability");
     private final LazyOptional<ConjureFamiliarCapability> holder = LazyOptional.of(() -> this);
 
     private long familiarId = 0L;

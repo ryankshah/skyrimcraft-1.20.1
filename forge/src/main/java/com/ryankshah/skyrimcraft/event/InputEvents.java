@@ -47,6 +47,8 @@ public class InputEvents {
             return;
 
         Minecraft mc = Minecraft.getInstance();
+        if(mc.player == null)
+            return;
         Character character = Services.PLATFORM.getCharacter(mc.player);
 
         while (KeysRegistry.MENU_KEY.consumeClick()) {

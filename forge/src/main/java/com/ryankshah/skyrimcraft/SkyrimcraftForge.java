@@ -31,43 +31,45 @@ public class SkyrimcraftForge
         eventBus.addListener(DataGenerators::gatherData);
     }
 
-    @SubscribeEvent
-    public void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(Character.class);
-        event.register(ExtraCharacter.class);
-        event.register(LevelUpdates.class);
-        event.register(StatIncreases.class);
-        event.register(PlayerQuests.class);
-    }
-
-    @SubscribeEvent
-    public void attachCaps(AttachCapabilitiesEvent<Entity> event) {
-        if(event.getObject() instanceof Player) {
-            CharacterCapability characterCapability = new CharacterCapability();
-            event.addCapability(CharacterCapability.ID, characterCapability);
-            event.addListener(characterCapability::onInvalidate);
-
-            ExtraCharacterCapability extraCharacterCapability = new ExtraCharacterCapability();
-            event.addCapability(ExtraCharacterCapability.ID, extraCharacterCapability);
-            event.addListener(extraCharacterCapability::onInvalidate);
-
-            StatIncreasesCapability siC = new StatIncreasesCapability();
-            event.addCapability(StatIncreasesCapability.ID, siC);
-            event.addListener(siC::onInvalidate);
-
-            LevelUpdatesCapability lUC = new LevelUpdatesCapability();
-            event.addCapability(LevelUpdatesCapability.ID, lUC);
-            event.addListener(lUC::onInvalidate);
-
-            PlayerQuestsCapability pQC = new PlayerQuestsCapability();
-            event.addCapability(PlayerQuestsCapability.ID, pQC);
-            event.addListener(pQC::onInvalidate);
-
-            ConjureFamiliarCapability cFC = new ConjureFamiliarCapability();
-            event.addCapability(ConjureFamiliarCapability.ID, cFC);
-            event.addListener(cFC::onInvalidate);
-        }
-    }
+//    @SubscribeEvent
+//    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+//        event.register(Character.class);
+//        event.register(ExtraCharacter.class);
+//        event.register(LevelUpdates.class);
+//        event.register(StatIncreases.class);
+//        event.register(PlayerQuests.class);
+//    }
+//
+//    @SubscribeEvent
+//    public static void attachCaps(AttachCapabilitiesEvent<Entity> event) {
+//        System.out.println("attaching caps event");
+//        if(event.getObject() instanceof Player) {
+//            System.out.println("yes its a player");
+//            CharacterCapability characterCapability = new CharacterCapability();
+//            event.addCapability(CharacterCapability.ID, characterCapability);
+//            event.addListener(characterCapability::onInvalidate);
+//
+//            ExtraCharacterCapability extraCharacterCapability = new ExtraCharacterCapability();
+//            event.addCapability(ExtraCharacterCapability.ID, extraCharacterCapability);
+//            event.addListener(extraCharacterCapability::onInvalidate);
+//
+//            StatIncreasesCapability siC = new StatIncreasesCapability();
+//            event.addCapability(StatIncreasesCapability.ID, siC);
+//            event.addListener(siC::onInvalidate);
+//
+//            LevelUpdatesCapability lUC = new LevelUpdatesCapability();
+//            event.addCapability(LevelUpdatesCapability.ID, lUC);
+//            event.addListener(lUC::onInvalidate);
+//
+//            PlayerQuestsCapability pQC = new PlayerQuestsCapability();
+//            event.addCapability(PlayerQuestsCapability.ID, pQC);
+//            event.addListener(pQC::onInvalidate);
+//
+//            ConjureFamiliarCapability cFC = new ConjureFamiliarCapability();
+//            event.addCapability(ConjureFamiliarCapability.ID, cFC);
+//            event.addListener(cFC::onInvalidate);
+//        }
+//    }
 
     private void registerEntityAttributes(EntityAttributeCreationEvent event) {
         EntityRegistry.registerEntityAttributes(event::put);

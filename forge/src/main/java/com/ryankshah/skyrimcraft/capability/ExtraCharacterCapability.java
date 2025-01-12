@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ExtraCharacterCapability extends ExtraCharacter implements ICapabilitySerializable<Tag>
+public class ExtraCharacterCapability implements ICapabilitySerializable<Tag>
 {
     public static final Capability<ExtraCharacterCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
     public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "extra_character_capability");

@@ -1,6 +1,7 @@
 package com.ryankshah.skyrimcraft.event;
 
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.capability.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.ExtraCharacter;
 import com.ryankshah.skyrimcraft.character.magic.Spell;
@@ -23,11 +24,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.TradeWithVillagerEvent;
@@ -193,6 +196,37 @@ public class PlayerEvents
                 Dispatcher.sendToClient(packet, serverPlayer);
 //                PacketDistributor.PLAYER.with(serverPlayer).send(packet);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void attachCaps(AttachCapabilitiesEvent<Entity> event) {
+        System.out.println("attaching caps event");
+        if(event.getObject() instanceof Player) {
+            System.out.println("yes its a player");
+            CharacterCapability characterCapability = new CharacterCapability();
+            event.addCapability(CharacterCapability.ID, characterCapability);
+            event.addListener(characterCapability::onInvalidate);
+
+            ExtraCharacterCapability extraCharacterCapability = new ExtraCharacterCapability();
+            event.addCapability(ExtraCharacterCapability.ID, extraCharacterCapability);
+            event.addListener(extraCharacterCapability::onInvalidate);
+
+            StatIncreasesCapability siC = new StatIncreasesCapability();
+            event.addCapability(StatIncreasesCapability.ID, siC);
+            event.addListener(siC::onInvalidate);
+
+            LevelUpdatesCapability lUC = new LevelUpdatesCapability();
+            event.addCapability(LevelUpdatesCapability.ID, lUC);
+            event.addListener(lUC::onInvalidate);
+
+            PlayerQuestsCapability pQC = new PlayerQuestsCapability();
+            event.addCapability(PlayerQuestsCapability.ID, pQC);
+            event.addListener(pQC::onInvalidate);
+
+            ConjureFamiliarCapability cFC = new ConjureFamiliarCapability();
+            event.addCapability(ConjureFamiliarCapability.ID, cFC);
+            event.addListener(cFC::onInvalidate);
         }
     }
 }

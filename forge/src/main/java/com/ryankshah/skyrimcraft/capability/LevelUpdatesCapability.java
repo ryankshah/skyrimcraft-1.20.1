@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class LevelUpdatesCapability extends LevelUpdates implements ICapabilitySerializable<Tag>
+public class LevelUpdatesCapability implements ICapabilitySerializable<Tag>
 {
     public static final Capability<LevelUpdatesCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
     public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "level_updates_capability");
@@ -41,6 +41,8 @@ public class LevelUpdatesCapability extends LevelUpdates implements ICapabilityS
     public int getLevelUpdates() {
         return levelUpdates.getLevelUpdates();
     }
+
+    public LevelUpdates getLevelUpdatesAttachment() {return levelUpdates;}
 
     public void setLevelUpdates(LevelUpdates character) {
         this.levelUpdates = character;

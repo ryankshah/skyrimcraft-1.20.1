@@ -7,6 +7,7 @@ import com.ryankshah.skyrimcraft.platform.services.IPlatformHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
@@ -29,7 +30,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public Character getCharacter(Player player) {
-        return player == null ? new Character() : CharacterCapability.get(player);
+        return player.getCapability(CharacterCapability.CAPABILITY).resolve().get().getCharacter(); // CharacterCapability.(player);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public ExtraCharacter getExtraCharacter(Player player) {
-        return player == null ? new ExtraCharacter() : ExtraCharacterCapability.get(player);
+        return player.getCapability(ExtraCharacterCapability.CAPABILITY).resolve().get().getCharacter();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public LevelUpdates getLevelUpdates(Player player) {
-        return player == null ? new LevelUpdates() : LevelUpdatesCapability.get(player);
+        return player.getCapability(LevelUpdatesCapability.CAPABILITY).resolve().get().getLevelUpdatesAttachment();
     }
 
     @Override
@@ -59,7 +60,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public StatIncreases getStatIncreases(Player player) {
-        return player == null ? new StatIncreases() : StatIncreasesCapability.get(player);
+        return player.getCapability(StatIncreasesCapability.CAPABILITY).resolve().get().getStatIncreases();
     }
 
     @Override
@@ -69,7 +70,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public PlayerQuests getQuests(Player player) {
-        return player == null ? new PlayerQuests() : PlayerQuestsCapability.get(player);
+        return player.getCapability(PlayerQuestsCapability.CAPABILITY).resolve().get().getPlayerQuests();
     }
 
     @Override
