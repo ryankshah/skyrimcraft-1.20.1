@@ -1,6 +1,8 @@
 package com.ryankshah.skyrimcraft.world.biome;
 
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
+import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import com.ryankshah.skyrimcraft.world.WorldGenConstants;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -21,6 +23,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class SkyrimcraftBiomes
 {
+    public static void init() {}
+
     public static final ResourceKey<Biome> ASH_WASTES = ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MODID, "ash_wastes"));
     public static final ResourceKey<Biome> PINE_FOREST = ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MODID, "pine_forest"));
 

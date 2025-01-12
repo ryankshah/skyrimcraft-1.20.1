@@ -1,0 +1,8 @@
+{
+  "parent": "skyrimcraft:block/door_middle_left",
+  "textures": {
+    "bottom": "skyrimcraft:block/steel_tall_gate_door_middle",
+    "middle": "skyrimcraft:block/steel_tall_gate_door_middle",
+    "top": "skyrimcraft:block/steel_tall_gate_door_middle"
+  }
+}

@@ -9,6 +9,7 @@ import com.ryankshah.skyrimcraft.network.Networking;
 import com.ryankshah.skyrimcraft.registry.*;
 import com.ryankshah.skyrimcraft.util.DialogueManager;
 import com.ryankshah.skyrimcraft.world.WorldGenConstants;
+import com.ryankshah.skyrimcraft.world.biome.SkyrimcraftBiomes;
 import com.ryankshah.skyrimcraft.world.region.SkyrimcraftOverworldRegion;
 import com.ryankshah.skyrimcraft.world.surface_rule.AshWastesSurfaceRule;
 import net.minecraft.world.entity.EntityType;
@@ -82,6 +83,8 @@ public class SkyrimcraftCommon
 
         SpellRegistry.init();
         SkillRegistry.init();
+
+        SkyrimcraftBiomes.init();
 
         ModEffects.init();
         AttributeRegistry.init();

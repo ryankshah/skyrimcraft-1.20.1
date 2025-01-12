@@ -238,19 +238,19 @@ public class SkyrimcraftFabric implements ModInitializer
                 }
 
                 if (playerEntity.isCrouching() && !playerEntity.canBeSeenAsEnemy()) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.SNEAK.get()).get(), (int) amount);
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.SNEAK.get()).get(), (int) amount);
                     Dispatcher.sendToServer(xpToSkill);
                 }
 
                 if (playerEntity.getMainHandItem().getItem() instanceof ProjectileWeaponItem) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ARCHERY.get()).get(), (int) amount);
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ARCHERY.get()).get(), (int) amount);
                     Dispatcher.sendToServer(xpToSkill);
                 } else if (playerEntity.getMainHandItem().getItem() instanceof SwordItem) {
                     if (playerEntity.getMainHandItem().getItem() instanceof SkyrimTwoHandedSword) {
-                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.TWO_HANDED.get()).get(), (int) amount);
+                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.TWO_HANDED.get()).get(), (int) amount);
                         Dispatcher.sendToServer(xpToSkill);
                     } else {
-                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.ONE_HANDED.get()).get(), (int) amount);
+                        final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.ONE_HANDED.get()).get(), (int) amount);
                         Dispatcher.sendToServer(xpToSkill);
                     }
                 }
@@ -266,7 +266,7 @@ public class SkyrimcraftFabric implements ModInitializer
         } else if (entity instanceof Player) {
             Player playerEntity = (Player) entity;
             if (playerEntity.isDamageSourceBlocked(source)) {
-                final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.BLOCK.get()).get(), SkillRegistry.BASE_BLOCK_XP);
+                final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.BLOCK.get()).get(), SkillRegistry.BASE_BLOCK_XP);
                 Dispatcher.sendToServer(xpToSkill);
             }
 
@@ -282,10 +282,10 @@ public class SkyrimcraftFabric implements ModInitializer
                 }
 
                 if (heavySlots.get() >= 3) {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.HEAVY_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.HEAVY_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
                     Dispatcher.sendToServer(xpToSkill);
                 } else {
-                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.getResourceKey(SkillRegistry.LIGHT_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
+                    final AddXpToSkill xpToSkill = new AddXpToSkill(SkillRegistry.SKILLS_REGISTRY.get().getResourceKey(SkillRegistry.LIGHT_ARMOR.get()).get(), (int) (playerEntity.getArmorValue() * playerEntity.getArmorCoverPercentage()));
                     Dispatcher.sendToServer(xpToSkill);
                 }
             }

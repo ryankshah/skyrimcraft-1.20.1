@@ -91,6 +91,10 @@ public class BlockData
         provider.addBlock(BlockRegistry.DWEMER_COMPARATOR, "Dwemer Comparator");
         provider.addBlock(BlockRegistry.DWEMER_DROPPER, "Dwemer Dropper");
         provider.addBlock(BlockRegistry.DWEMER_DISPENSER, "Dwemer Dispenser");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_CHAIN, "Dwemer Metal Chain");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_LEVER, "Dwemer Metal Lever");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_BUTTON, "Dwemer Metal Button");
+        provider.addBlock(BlockRegistry.DWEMER_STONE_BUTTON, "Dwemer Stone Button");
         provider.addBlock(BlockRegistry.DWEMER_STONE_BLOCK, "Dwemer Stone Block");
         provider.addBlock(BlockRegistry.DWEMER_STONE_BRICKS, "Dwemer Stone Bricks");
         provider.addBlock(BlockRegistry.DWEMER_STONE_BRICK_WALL, "Dwemer Stone Brick Wall");
@@ -99,8 +103,8 @@ public class BlockData
 
         provider.addBlock(BlockRegistry.STEEL_CELL_DOOR, "Steel Cell Door");
         provider.addBlock(BlockRegistry.STEEL_GATE_DOOR, "Steel Gate Door");
-        provider.addBlock(BlockRegistry.DWEMER_METAL_GATE, "Dwemer Metal Door");
-        provider.addBlock(BlockRegistry.DWEMER_METAL_DOOR, "Dwemer Metal Gate");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_GATE, "Dwemer Metal Gate");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_DOOR, "Dwemer Metal Door");
         provider.addBlock(BlockRegistry.DWEMER_STONE_PRESSURE_PLATE, "Dwemer Stone Pressure Plate");
 
         provider.addBlock(BlockRegistry.DWEMER_GLASS, "Dwemer Glass");
@@ -118,12 +122,50 @@ public class BlockData
         provider.addBlock(BlockRegistry.DWEMER_PISTON, "Dwemer Piston");
         provider.addBlock(BlockRegistry.DWEMER_STICKY_PISTON, "Dwemer Sticky Piston");
 
+        provider.addBlock(BlockRegistry.DWEMER_CHAIR, "Dwemer Chair");
+
+        provider.addBlock(BlockRegistry.DWEMER_BED_BROWN, "Dwemer Metal Bed");
+        provider.addBlock(BlockRegistry.DWEMER_BED_ORANGE, "Dwemer Metal Bed");
+
         provider.addBlock(BlockRegistry.STEEL_TALL_GATE, "Steel Tall Gate");
         provider.addBlock(BlockRegistry.DWEMER_METAL_TALL_GATE, "Dwemer Metal Tall Gate");
         provider.addBlock(BlockRegistry.DWEMER_METAL_TALL_DOOR, "Dwemer Metal Tall Door");
 
         provider.addBlock(BlockRegistry.STEEL_BARS, "Steel Bars");
         provider.addBlock(BlockRegistry.DWEMER_METAL_BARS, "Dwemer Metal Bars");
+
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BROWN, "Brown Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BROWN_CARPET, "Brown Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_ORANGE, "Orange Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_ORANGE_CARPET, "Orange Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_RED, "Red Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_RED_CARPET, "Red Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_MAGENTA, "Magenta Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_MAGENTA_CARPET, "Magenta Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_PINK, "Pink Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_PINK_CARPET, "Pink Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_PURPLE, "Purple Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_PURPLE_CARPET, "Purple Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BLUE, "Blue Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BLUE_CARPET, "Blue Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIGHT_BLUE, "Light Blue Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIGHT_BLUE_CARPET, "Light Blue Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_CYAN, "Cyan Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_CYAN_CARPET, "Cyan Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_GREEN, "Green Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_GREEN_CARPET, "Green Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIME_GREEN, "Lime Green Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIME_GREEN_CARPET, "Lime Green Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_YELLOW, "Yellow Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_YELLOW_CARPET, "Yellow Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BLACK, "Black Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_BLACK_CARPET, "Black Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_GREY, "Grey Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_GREY_CARPET, "Grey Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIGHT_GREY, "Light Grey Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_LIGHT_GREY_CARPET, "Light Grey Dwemer Carpet");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_WHITE, "White Dwemer Wool");
+        provider.addBlock(BlockRegistry.DWEMER_WOOL_WHITE_CARPET, "White Dwemer Carpet");
     }
 
     public static void addBlockStateModels(BlockStateProvider provider) {
@@ -266,8 +308,14 @@ public class BlockData
         glassBlock(provider, BlockRegistry.DWEMER_FRAMED_GLASS.get());
         glassBlock(provider, BlockRegistry.DWEMER_WINDOWED_GLASS.get());
 
+        dwemerChair(provider, BlockRegistry.DWEMER_CHAIR.get());
+        dwemerBed(provider, BlockRegistry.DWEMER_BED_BROWN.get());
+        dwemerBed(provider, BlockRegistry.DWEMER_BED_ORANGE.get());
+
         provider.simpleBlockItem(BlockRegistry.DWEMER_OBSERVER.get(), provider.models().getExistingFile(provider.modLoc("dwemer_observer")));
-        provider.simpleBlockItem(BlockRegistry.DWEMER_COMPARATOR.get(), provider.models().getExistingFile(provider.modLoc("dwemer_comparator")));
+//        provider.simpleBlockItem(BlockRegistry.DWEMER_COMPARATOR.get(), provider.models().getExistingFile(provider.modLoc("dwemer_comparator")));
+        provider.itemModels().basicItem(new ResourceLocation(Constants.MODID, "dwemer_comparator"));
+        provider.itemModels().basicItem(new ResourceLocation(Constants.MODID, "dwemer_repeater"));
         provider.simpleBlockItem(BlockRegistry.DWEMER_DROPPER.get(), provider.models().getExistingFile(provider.modLoc("dwemer_dropper")));
         provider.simpleBlockItem(BlockRegistry.DWEMER_DISPENSER.get(), provider.models().getExistingFile(provider.modLoc("dwemer_dispenser")));
         provider.simpleBlockItem(BlockRegistry.DWEMER_PISTON.get(), provider.models().getExistingFile(provider.modLoc("dwemer_piston_inventory")));
@@ -279,6 +327,11 @@ public class BlockData
         lampBlock(provider, BlockRegistry.DWEMER_REDSTONE_SOUL_LAMP.get());
         lantern(provider, BlockRegistry.DWEMER_METAL_LANTERN.get());
         lantern(provider, BlockRegistry.DWEMER_SOUL_LANTERN.get());
+
+        provider.simpleBlockItem(BlockRegistry.DWEMER_METAL_CHAIN.get(), provider.models().getExistingFile(provider.modLoc("dwemer_metal_chain")));
+        provider.simpleBlockItem(BlockRegistry.DWEMER_METAL_LEVER.get(), provider.models().getExistingFile(provider.modLoc("dwemer_metal_lever")));
+        buttonBlock(provider, BlockRegistry.DWEMER_METAL_BUTTON.get(), new ResourceLocation(Constants.MODID, "block/dwemer_metal_bricks"));
+        buttonBlock(provider, BlockRegistry.DWEMER_STONE_BUTTON.get(), new ResourceLocation(Constants.MODID, "block/dwemer_stone_pillar_top"));
 
         stairsBlock(provider, BlockRegistry.DWEMER_METAL_BRICK_STAIRS.get(), new ResourceLocation(Constants.MODID, "block/dwemer_metal_bricks"));
         provider.slabBlock(BlockRegistry.DWEMER_METAL_BRICK_SLAB.get(),
@@ -311,6 +364,25 @@ public class BlockData
                 new ResourceLocation(Constants.MODID, "block/ornate_dwemer_metal_tiles"));
         provider.simpleBlockItem(BlockRegistry.ORNATE_DWEMER_METAL_TILE_SLAB.get(), provider.models().getExistingFile(provider.modLoc("ornate_dwemer_metal_tile_slab")));
         provider.simpleBlockItem(BlockRegistry.ORNATE_DWEMER_METAL_TILE_STAIRS.get(), provider.models().getExistingFile(provider.modLoc("ornate_dwemer_metal_tile_stairs")));
+
+
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_BROWN.get(), BlockRegistry.DWEMER_WOOL_BROWN_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_ORANGE.get(), BlockRegistry.DWEMER_WOOL_ORANGE_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_RED.get(), BlockRegistry.DWEMER_WOOL_RED_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_MAGENTA.get(), BlockRegistry.DWEMER_WOOL_MAGENTA_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_PINK.get(), BlockRegistry.DWEMER_WOOL_PINK_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_PURPLE.get(), BlockRegistry.DWEMER_WOOL_PURPLE_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_BLUE.get(), BlockRegistry.DWEMER_WOOL_BLUE_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_LIGHT_BLUE.get(), BlockRegistry.DWEMER_WOOL_LIGHT_BLUE_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_CYAN.get(), BlockRegistry.DWEMER_WOOL_CYAN_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_GREEN.get(), BlockRegistry.DWEMER_WOOL_GREEN_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_LIME_GREEN.get(), BlockRegistry.DWEMER_WOOL_LIME_GREEN_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_YELLOW.get(), BlockRegistry.DWEMER_WOOL_YELLOW_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_BLACK.get(), BlockRegistry.DWEMER_WOOL_BLACK_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_GREY.get(), BlockRegistry.DWEMER_WOOL_GREY_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_LIGHT_GREY.get(), BlockRegistry.DWEMER_WOOL_LIGHT_GREY_CARPET.get());
+        woolAndCarpet(provider, BlockRegistry.DWEMER_WOOL_WHITE.get(), BlockRegistry.DWEMER_WOOL_WHITE_CARPET.get());
+
     }
 
     public static void addBlockItemModels(ItemModelProvider provider) {
@@ -334,10 +406,10 @@ public class BlockData
         ModelFile bottomLeftOpen = provider.models().withExistingParent(baseName + "_door_bottom_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
         ModelFile bottomRight = provider.models().withExistingParent(baseName + "_door_bottom_right", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
         ModelFile bottomRightOpen = provider.models().withExistingParent(baseName + "_door_bottom_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top);
-        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_door_middle_left", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_door_middle_left_open", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleRight = provider.models().withExistingParent(baseName + "_door_middle_right", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_door_middle_right_open", "dramaticdoors:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_door_middle_left", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_door_middle_left_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleRight = provider.models().withExistingParent(baseName + "_door_middle_right", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle);
+        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_door_middle_right_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
         ModelFile topLeft = provider.models().withExistingParent(baseName + "_door_top_left", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left").texture("bottom", bottom).texture("middle", middle).texture("top", top);
         ModelFile topLeftOpen = provider.models().withExistingParent(baseName + "_door_top_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
         ModelFile topRight = provider.models().withExistingParent(baseName + "_door_top_right", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
@@ -807,6 +879,72 @@ public class BlockData
             boolean uvlock = yRot != 0 || half == Half.TOP;
             return ConfiguredModel.builder().modelFile(shape == StairsShape.STRAIGHT ? stairs : (shape != StairsShape.INNER_LEFT && shape != StairsShape.INNER_RIGHT ? stairsOuter : stairsInner)).rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock).build();
         }, new Property[]{SkyrimStairBlock.WATERLOGGED});
+    }
+
+    public static void woolAndCarpet(BlockStateProvider provider, Block woolBlock, Block carpetBlock) {
+        ResourceLocation woolKey = BuiltInRegistries.BLOCK.getKey(woolBlock);
+        String woolPath = woolKey.getPath();
+        ResourceLocation carpetKey = BuiltInRegistries.BLOCK.getKey(carpetBlock);
+        String carpetPath = carpetKey.getPath();
+
+        provider.simpleBlock(woolBlock);
+        provider.simpleBlockItem(woolBlock, provider.models().getExistingFile(provider.modLoc("block/" + woolPath)));
+
+        provider.simpleBlock(carpetBlock, provider.models().getBuilder(carpetKey.toString()).parent(provider.models().getExistingFile(new ResourceLocation(ResourceLocation.DEFAULT_NAMESPACE, "block/carpet"))).texture("wool", provider.modLoc("block/"+woolPath)).renderType("cutout"));
+        provider.simpleBlockItem(carpetBlock, provider.models().getExistingFile(provider.modLoc("block/" + carpetPath)));
+    }
+
+    public static void buttonBlock(BlockStateProvider provider, Block block, ResourceLocation texture) {
+        ModelFile button = provider.models().button(name(block), texture);
+        ModelFile buttonPressed = provider.models().buttonPressed(name(block) + "_pressed", texture);
+        buttonBlock(provider, block, button, buttonPressed);
+        provider.simpleBlockItem(block, provider.models().getExistingFile(provider.modLoc(name(block))));
+    }
+
+    public static void buttonBlock(BlockStateProvider provider, Block block, ModelFile button, ModelFile buttonPressed) {
+        provider.getVariantBuilder(block).forAllStates((state) -> {
+            Direction facing = (Direction)state.getValue(SkyrimButtonBlock.FACING);
+            AttachFace face = (AttachFace)state.getValue(SkyrimButtonBlock.FACE);
+            boolean powered = (Boolean)state.getValue(SkyrimButtonBlock.POWERED);
+            return ConfiguredModel.builder().modelFile(powered ? buttonPressed : button).rotationX(face == AttachFace.FLOOR ? 0 : (face == AttachFace.WALL ? 90 : 180)).rotationY((int)(face == AttachFace.CEILING ? facing : facing.getOpposite()).toYRot()).uvLock(face == AttachFace.WALL).build();
+        });
+    }
+
+    private static void dwemerChair(BlockStateProvider provider, Block block) {
+        provider.simpleBlockItem(block, provider.models().getExistingFile(new ResourceLocation(Constants.MODID, "block/dwemer_chair_base")));
+        provider.getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.getValue(DwemerChairBlock.FACING);
+                    return ConfiguredModel.builder()
+                            .modelFile(provider.models().getExistingFile(new ResourceLocation(Constants.MODID, "block/dwemer_chair_base")))
+                            .rotationY(((((int) dir.toYRot()) + 180) % 360))
+                            .build();
+                });
+    }
+
+    private static void dwemerBed(BlockStateProvider provider, Block block) {
+        ResourceLocation blockKey = key(block);
+        String path = blockKey.getPath();
+
+        ModelFile model = provider.models().getBuilder(key(block).toString()).renderType("cutout").parent(provider.models().getExistingFile(new ResourceLocation(Constants.MODID, "block/dwemer_bed_base"))).texture("0", new ResourceLocation(Constants.MODID, "block/" + name(block)));
+//        provider.simpleBlock(block, model);
+        provider.getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.getValue(DwemerBed.FACING);
+                    return ConfiguredModel.builder()
+                            .modelFile(model)
+                            .rotationY(((int) dir.toYRot()) % 360)
+                            .build();
+                });
+//        provider.getVariantBuilder(block)
+//                .forAllStates(state -> {
+////                    Direction dir = state.getValue(DwemerChairBlock.FACING);
+//                    return ConfiguredModel.builder()
+//                            .modelFile(model)
+////                            .rotationY(((((int) dir.toYRot()) + 180) % 360))
+//                            .build();
+//                });
+        provider.simpleBlockItem(block, provider.models().getExistingFile(new ResourceLocation(Constants.MODID, "block/" + name(block))));
     }
 
     private static String name(Block block) {

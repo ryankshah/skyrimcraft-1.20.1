@@ -1,0 +1,7 @@
+{
+  "parent": "skyrimcraft:block/dwemer_bed_base",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "skyrimcraft:block/dwemer_bed_brown"
+  }
+}

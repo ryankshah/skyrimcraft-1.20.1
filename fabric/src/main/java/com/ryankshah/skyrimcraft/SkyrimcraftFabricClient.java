@@ -124,13 +124,13 @@ public class SkyrimcraftFabricClient implements ClientModInitializer
             if (!character.getSpellsOnCooldown().isEmpty()) {
                 for (Map.Entry<Spell, Float> entry : character.getSpellsOnCooldown().entrySet()) {
                     if (entry.getValue() <= 0f) {
-                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.getResourceKey(entry.getKey()).get(), 0f);
+                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(entry.getKey()).get(), 0f);
                         Dispatcher.sendToServer(updateShoutCooldown);
 //                            PacketDistributor.SERVER.noArg().send(updateShoutCooldown);
                     }
                     if (entry.getValue() > 0f) {
                         float cooldown = character.getSpellCooldown(entry.getKey());
-                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.getResourceKey(entry.getKey()).get(), cooldown - 0.05f);
+                        final UpdateShoutCooldown updateShoutCooldown = new UpdateShoutCooldown(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(entry.getKey()).get(), cooldown - 0.05f);
                         Dispatcher.sendToServer(updateShoutCooldown);
 //                            PacketDistributor.SERVER.noArg().send(updateShoutCooldown);
                     }
@@ -400,7 +400,7 @@ public class SkyrimcraftFabricClient implements ClientModInitializer
     }
 
     private static void castSpell(Spell spell, Character character, boolean isInitialCast) {
-        final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.getResourceKey(spell).get());
+        final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
         Dispatcher.sendToServer(castSpell);
 
         if (isInitialCast || !spell.isContinuous()) {

@@ -1,0 +1,12 @@
+{
+  "feature": "skyrimcraft:lava_fountain",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 10
+    }
+  ]
+}
