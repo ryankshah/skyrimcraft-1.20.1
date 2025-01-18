@@ -320,14 +320,16 @@ public class SkyrimGuiOverlayForge
                     flag = flag & mc.crosshairPickEntity.isAlive();
                 }
 
+                poseStack.pushPose();
+                RenderUtil.bind(GUI_ICONS_LOCATION);
                 int j = guiGraphics.guiHeight() / 2 - 7 + 16;
                 int k = guiGraphics.guiWidth() / 2 - 8;
                 if (flag) {
-                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 68, 94, 16, 16);
+                    RenderUtil.blitWithBlend(poseStack, (float) k, (float) j, 68, 94, 16, 16, 256, 256, 1, 1);
                 } else if (f < 1.0F) {
                     int l = (int)(f * 17.0F);
-                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 36, 94, 16, 4);
-                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 52, 94, l, 4);
+                    RenderUtil.blitWithBlend(poseStack, (float) k, (float) j, 36, 94, 16, 4, 256, 256, 1, 1);
+                    RenderUtil.blitWithBlend(poseStack, (float) k, (float) j, 52, 94, l, 4, 256, 256, 1, 1);
                 }
                 poseStack.popPose();
             }
@@ -568,6 +570,8 @@ public class SkyrimGuiOverlayForge
             guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             if (mc.gameMode.hasExperience()) {
+                poseStack.pushPose();
+                RenderUtil.bind(GUI_ICONS_LOCATION);
                 int pX = guiGraphics.guiWidth() / 2 - 91;
                 mc.getProfiler().push("expBar");
                 int i = mc.player.getXpNeededForNextLevel();
@@ -575,11 +579,12 @@ public class SkyrimGuiOverlayForge
                     int j = 182;
                     int k = (int)(mc.player.experienceProgress * 183.0F);
                     int l = guiGraphics.guiHeight() - 32 + 3;
-                    guiGraphics.blit(GUI_ICONS_LOCATION, pX, l, 0, 64, 182, 5);
+                    RenderUtil.blitWithBlend(poseStack, pX, l, 0, 64, 182, 5, 256, 256, 1, 1);
                     if (k > 0) {
-                        guiGraphics.blit(GUI_ICONS_LOCATION, 182, 5, 0, 69, pX, l, k, 5);
+                        RenderUtil.blitWithBlend(poseStack, pX, l, 0,69, (float) 182 / k, 5, 256, 256, 1, 1); //0, 69, pX, l, k, 5);
                     }
                 }
+                poseStack.popPose();
 
                 mc.getProfiler().pop();
                 if (mc.player.experienceLevel > 0) {

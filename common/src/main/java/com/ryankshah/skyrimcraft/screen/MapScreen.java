@@ -95,9 +95,9 @@ public class MapScreen extends Screen
         guiGraphics.fillGradient(0, this.height * 3 / 4 + 22, this.width, this.height * 3 / 4 + 23, 0xFF5D5A51, 0xFF5D5A51);
 
         // Draw buttons for input controls
-        drawGradientRect(guiGraphics, guiGraphics.pose(), 17, this.height - 29, 21 + font.width("↑ ↓ → ←") + 4, this.height - 14, 0xAA000000, 0xAA000000, 0xFF5D5A51);
-        guiGraphics.drawString(font, "↑ ↓ → ←", 21, this.height - 25, 0x00FFFFFF);
-        guiGraphics.drawString(font, "Move", 19 + font.width("↑ ↓ → ←") + 10, this.height - 25, 0x00FFFFFF);
+        drawGradientRect(guiGraphics, guiGraphics.pose(), 17, this.height - 29, 21 + font.width("[Arrow Keys]") + 4, this.height - 14, 0xAA000000, 0xAA000000, 0xFF5D5A51);
+        guiGraphics.drawString(font, "[Arrow Keys]", 21, this.height - 25, 0x00FFFFFF);
+        guiGraphics.drawString(font, "Move", 19 + font.width("[Arrow Keys]") + 10, this.height - 25, 0x00FFFFFF);
 
         // Render tooltip for hovered map feature
         if (hoveredFeature != null) {
