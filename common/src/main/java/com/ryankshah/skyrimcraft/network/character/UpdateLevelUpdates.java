@@ -28,7 +28,7 @@ public record UpdateLevelUpdates(LevelUpdates levelUpdates)
     }
 
     public static void handle(PacketContext<UpdateLevelUpdates> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

@@ -35,20 +35,22 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
     }
 
     public static void handle(PacketContext<CreateCharacter> context) {
-        if(context.side() == Side.CLIENT)
+        System.out.println("create character handle");
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);
     }
 
     public static void handleServer(PacketContext<CreateCharacter> context) {
+        System.out.println("create character server");
         ServerPlayer player = context.sender();
         Race race = Race.getRaces().stream().filter(r -> r.getId() == context.message().raceID()).findFirst().get();
         Character character = Character.get(player);
 
         character.setRace(race);
         character.setSkills(new ArrayList<>(character.getStartingSkills(race)));
-        character.setHasSetup(true);
+        character.setHasSetup(context.message().fin);
 
         if(context.message().fin) {
             for (Supplier<Spell> spell : SpellRegistry.getPowersForRace(race)) {
@@ -56,12 +58,16 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
             }
         }
 
-        final UpdateCharacter sendToClient = new UpdateCharacter(character);
+        final CreateCharacter sendToClient = new CreateCharacter(context.message().raceID, context.message().fin);
         Dispatcher.sendToClient(sendToClient, player);
-//        PacketDistributor.PLAYER.with(player).send(sendToClient);
+
+//        final UpdateCharacter sendToClient = new UpdateCharacter(character);
+//        Dispatcher.sendToClient(sendToClient, player);
+////        PacketDistributor.PLAYER.with(player).send(sendToClient);
     }
 
     public static void handleClient(PacketContext<CreateCharacter> context) {
+        System.out.println("create character client");
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> {
             Player player = minecraft.player;
@@ -71,13 +77,16 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
 
             character.setRace(race);
             character.setSkills(new ArrayList<>(character.getStartingSkills(race)));
-            character.setHasSetup(true);
+            character.setHasSetup(context.message().fin);
 
             if(context.message().fin) {
                 for (Supplier<Spell> spell : SpellRegistry.getPowersForRace(race)) {
                     character.addNewSpell(spell.get());
                 }
             }
+
+            final UpdateCharacter sendToServer = new UpdateCharacter(character);
+            Dispatcher.sendToServer(sendToServer);
         });
     }
 }

@@ -38,7 +38,7 @@ public record HandlePickpocket(int entity) //(int raceID, String raceName, Map<I
     }
 
     public static void handle(PacketContext<HandlePickpocket> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

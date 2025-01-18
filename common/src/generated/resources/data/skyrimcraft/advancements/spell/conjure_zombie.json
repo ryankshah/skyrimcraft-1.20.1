@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_conjure_zombie": {
+      "conditions": {
+        "spell": "skyrimcraft:conjure_zombie"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Conjure Zombie spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Conjure Zombie"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_conjure_zombie"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

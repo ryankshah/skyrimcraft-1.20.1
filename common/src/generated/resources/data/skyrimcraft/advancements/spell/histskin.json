@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_histskin": {
+      "conditions": {
+        "spell": "skyrimcraft:histskin"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Histskin spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Histskin"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_histskin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

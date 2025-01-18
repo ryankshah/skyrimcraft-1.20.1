@@ -100,7 +100,7 @@ public class SkyrimDragon extends PathfinderMob implements GeoEntity {
     private double ellipseAngle;
     private boolean isLanding = false;
 
-    private static final boolean DEBUG = true;  // Set this to true for detailed logging/testing
+    private static final boolean DEBUG = false;  // Set this to true for detailed logging/testing
 
     private void debugLog(String message) {
         if (DEBUG) {

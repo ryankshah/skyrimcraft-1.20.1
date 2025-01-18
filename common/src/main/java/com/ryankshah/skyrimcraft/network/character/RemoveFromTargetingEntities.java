@@ -28,7 +28,7 @@ public record RemoveFromTargetingEntities(int entityId)
     }
 
     public static void handle(PacketContext<RemoveFromTargetingEntities> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

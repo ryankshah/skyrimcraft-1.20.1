@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:shout/root",
+  "criteria": {
+    "spell_learned_frost_breath": {
+      "conditions": {
+        "spell": "skyrimcraft:frost_breath"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Frost Breath shout"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:shout_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Frost Breath"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_frost_breath"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

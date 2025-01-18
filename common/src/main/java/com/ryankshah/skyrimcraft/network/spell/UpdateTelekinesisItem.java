@@ -29,7 +29,7 @@ public record UpdateTelekinesisItem(int entityId, Vector3f position)
     }
 
     public static void handle(PacketContext<UpdateTelekinesisItem> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

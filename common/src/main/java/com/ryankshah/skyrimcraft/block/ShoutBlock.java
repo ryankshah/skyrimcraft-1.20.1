@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +29,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class ShoutBlock extends Block {
+public class ShoutBlock extends Block
+{
     private Random random = new Random();
 
     public static final BooleanProperty SHOUT_GIVEN;
@@ -57,7 +59,7 @@ public class ShoutBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pPlayer.getItemInHand(pHand).isEmpty()) {
+//        if(pPlayer.getItemInHand(pHand).isEmpty()) {
             if(!pLevel.isClientSide) {
                 ServerPlayer player = (ServerPlayer)pPlayer;
                 List<BlockState> nearbyShoutBlocks = pLevel.getBlockStates(new AABB(pPos.getX() - 5, pPos.getY() - 5, pPos.getZ() - 5,
@@ -116,8 +118,8 @@ public class ShoutBlock extends Block {
             } else {
                 return InteractionResult.SUCCESS;
             }
-        }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+//        }
+//        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     @Override

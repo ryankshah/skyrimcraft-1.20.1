@@ -1,6 +1,12 @@
 package com.ryankshah.skyrimcraft.data.advancement;
 
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.advancement.LearnSpellTrigger;
+import com.ryankshah.skyrimcraft.advancement.LevelUpTrigger;
+import com.ryankshah.skyrimcraft.character.magic.Spell;
+import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
+import com.ryankshah.skyrimcraft.registration.RegistryObject;
+import com.ryankshah.skyrimcraft.registry.BlockRegistry;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
@@ -11,10 +17,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -67,37 +75,35 @@ public class SkyrimAdvancementProvider extends ForgeAdvancementProvider {
                     )
                     .save(saver, Constants.MODID + "/arrow_to_knee");
 
-//            Advancement spells = Advancement.Builder.advancement().parent(skyrimcraft)
-//                    .display(ItemRegistry.FIREBALL_SPELLBOOK.get(), Component.literal("Spells"), Component.literal("Learned spells"), (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
-//                    .addCriterion("spells_list", ImpossibleTrigger.TriggerInstance::new)
-//                    .build()
-//                    .save(saver, new ResourceLocation(Constants.MODID, "spell/root"), existingFileHelper);
-//            Advancement shouts = Advancement.Builder.advancement().parent(skyrimcraft)
-//                    .display(BlockRegistry.SHOUT_BLOCK.get(), Component.literal("Shouts"), Component.literal("Learnt shouts"), (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
-//                    .addCriterion("shouts_list", ImpossibleTrigger.TriggerInstance::new).save(saver, new ResourceLocation(Constants.MODID, "shout/root"), existingFileHelper);
-//
-//            for(RegistryObject<Spell> spell : SpellRegistry.SPELLS.getEntries()) {
-//                if(spell.get().equals(SpellRegistry.EMPTY_SPELL.get()))
-//                    continue;
-//
-//                ItemLike provider = spell.get().getType() == Spell.SpellType.SHOUT ? BlockRegistry.SHOUT_BLOCK.get() : ItemRegistry.FIREBALL_SPELLBOOK.get();
-//                Advancement adv = Advancement.Builder.advancement().parent(spell.get().getType() == Spell.SpellType.SHOUT ? shouts : spells)
-//                        .display(provider, Component.literal(spell.get().getName()),
-//                                Component.literal("Learn the " + spell.get().getName() + " " + (spell.get().getType() == Spell.SpellType.SHOUT ? "shout" : "spell")),
-//                                (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
-//                        .addCriterion("spell_learned_" + spell.get().getName().toLowerCase(Locale.ENGLISH).replace(" ", "_"), LearnSpellTrigger.onLearn(spell.asHolder()))
-//                        .save(saver, new ResourceLocation(Constants.MODID, (spell.get().getType() == Spell.SpellType.SHOUT ? "shout" : "spell") + "/" + spell.get().getName().toLowerCase(Locale.ENGLISH).replace(" ", "_")), existingFileHelper);
-//            }
-//
-//
+            Advancement spells = Advancement.Builder.advancement().parent(skyrimcraft)
+                    .display(ItemRegistry.FIREBALL_SPELLBOOK.get(), Component.literal("Spells"), Component.literal("Learned spells"), (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
+                    .addCriterion("spells_list", new ImpossibleTrigger.TriggerInstance())
+                    .save(saver, new ResourceLocation(Constants.MODID, "spell/root"), existingFileHelper);
+            Advancement shouts = Advancement.Builder.advancement().parent(skyrimcraft)
+                    .display(BlockRegistry.SHOUT_BLOCK.get(), Component.literal("Shouts"), Component.literal("Learnt shouts"), (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
+                    .addCriterion("shouts_list", new ImpossibleTrigger.TriggerInstance()).save(saver, new ResourceLocation(Constants.MODID, "shout/root"), existingFileHelper);
+
+            for(RegistryObject<Spell> spell : SpellRegistry.SPELLS.getEntries()) {
+                if(spell.get().equals(SpellRegistry.EMPTY_SPELL.get()))
+                    continue;
+
+                ItemLike provider = spell.get().getType() == Spell.SpellType.SHOUT ? BlockRegistry.SHOUT_BLOCK.get() : ItemRegistry.FIREBALL_SPELLBOOK.get();
+                Advancement adv = Advancement.Builder.advancement().parent(spell.get().getType() == Spell.SpellType.SHOUT ? shouts : spells)
+                        .display(provider, Component.literal(spell.get().getName()),
+                                Component.literal("Learn the " + spell.get().getName() + " " + (spell.get().getType() == Spell.SpellType.SHOUT ? "shout" : "spell")),
+                                (ResourceLocation)null, FrameType.CHALLENGE, true, true, true)
+                        .addCriterion("spell_learned_" + spell.get().getName().toLowerCase(Locale.ENGLISH).replace(" ", "_"), new LearnSpellTrigger.Instance(spell.get()))
+                        .save(saver, new ResourceLocation(Constants.MODID, (spell.get().getType() == Spell.SpellType.SHOUT ? "shout" : "spell") + "/" + spell.get().getName().toLowerCase(Locale.ENGLISH).replace(" ", "_")), existingFileHelper);
+            }
+
 //            // Level-Based
             Advancement combat = Advancement.Builder.advancement().parent(skyrimcraft)
                     .display(ItemRegistry.DAEDRIC_SWORD.get(), Component.literal("Combat"), Component.literal("Skyrimcraft Combat Achievements"), (ResourceLocation)null, FrameType.CHALLENGE, false, false, false)
                     .addCriterion("deal_damage", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity()).save(saver, new ResourceLocation(Constants.MODID, "combat/root"), existingFileHelper);
 //
-//            Advancement reach_level_10 = Advancement.Builder.advancement().parent(combat)
-//                    .display(ItemRegistry.IRON_SWORD.get(), Component.literal("Level 10"), Component.literal("Reach Combat Level 10"), (ResourceLocation)null, AdvancementType.TASK, true, true, false)
-//                    .addCriterion("level_10", LevelUpTrigger.onLevelUp(Optional.of(10))).save(saver, ResourceLocation.fromNamespaceAndPath(Constants.MODID, "combat/reach_level_10"), existingFileHelper);
+            Advancement reach_level_10 = Advancement.Builder.advancement().parent(combat)
+                    .display(ItemRegistry.IRON_SWORD.get(), Component.literal("Level 10"), Component.literal("Reach Combat Level 10"), (ResourceLocation)null, FrameType.TASK, true, true, false)
+                    .addCriterion("level_10", new LevelUpTrigger.Instance(null, 10)).save(saver, new ResourceLocation(Constants.MODID, "combat/reach_level_10"), existingFileHelper);
 
         }
     }

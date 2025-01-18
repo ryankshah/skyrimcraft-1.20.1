@@ -22,7 +22,7 @@ public record CastSpell(ResourceKey<Spell> spell)
     }
 
     public void encode(FriendlyByteBuf buf) {
-        buf.writeResourceKey(SpellRegistry.SPELLS_KEY);
+        buf.writeResourceKey(spell);
     }
 
     public static void handle(final PacketContext<CastSpell> context) {

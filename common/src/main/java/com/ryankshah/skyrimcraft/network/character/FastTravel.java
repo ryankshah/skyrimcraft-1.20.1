@@ -27,7 +27,7 @@ public record FastTravel(BlockPos blockPos)
     }
 
     public static void handle(PacketContext<FastTravel> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

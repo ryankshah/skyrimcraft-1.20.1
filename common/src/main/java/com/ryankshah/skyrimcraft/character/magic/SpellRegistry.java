@@ -24,7 +24,7 @@ public class SpellRegistry
 
     public static final ResourceKey<Registry<Spell>> SPELLS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Constants.MODID, "spells_key"));
     public static final RegistrationProvider<Spell> SPELLS = RegistrationProvider.get(SPELLS_KEY, Constants.MODID);
-    public static final Supplier<Registry<Spell>> SPELLS_REGISTRY = SPELLS.registryBuilder().withFeature(RegistryFeatureType.SYNCED).withDefaultValue("empty", EmptySpell::new).build();
+    public static final Supplier<Registry<Spell>> SPELLS_REGISTRY = SPELLS.registryBuilder().withFeature(RegistryFeatureType.SYNCED).build(); //.withDefaultValue("empty", EmptySpell::new)
 
     // Shouts
     public static Supplier<Spell> EMPTY_SPELL = SPELLS.register("empty_spell", EmptySpell::new);

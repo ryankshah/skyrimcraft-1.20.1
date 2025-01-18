@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_detect_life": {
+      "conditions": {
+        "spell": "skyrimcraft:detect_life"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Detect Life spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Detect Life"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_detect_life"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

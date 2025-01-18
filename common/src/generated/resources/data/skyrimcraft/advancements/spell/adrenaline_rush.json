@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_adrenaline_rush": {
+      "conditions": {
+        "spell": "skyrimcraft:adrenaline_rush"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Adrenaline Rush spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Adrenaline Rush"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_adrenaline_rush"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

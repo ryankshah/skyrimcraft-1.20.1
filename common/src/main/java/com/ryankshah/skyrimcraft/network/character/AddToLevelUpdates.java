@@ -40,7 +40,7 @@ public record AddToLevelUpdates(String updateName, int level, int levelUpRenderT
     }
 
     public static void handle(PacketContext<AddToLevelUpdates> context) {
-        if(context.side() == Side.CLIENT) {
+        if(context.side().equals(Side.CLIENT)) {
             Minecraft minecraft = Minecraft.getInstance();
             minecraft.execute(() -> {
                 Player player = minecraft.player;

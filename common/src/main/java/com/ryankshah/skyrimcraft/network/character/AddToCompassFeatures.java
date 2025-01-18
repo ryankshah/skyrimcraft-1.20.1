@@ -34,7 +34,7 @@ public record AddToCompassFeatures(String uuid, ResourceLocation location, Block
     }
 
     public static void handle(PacketContext<AddToCompassFeatures> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

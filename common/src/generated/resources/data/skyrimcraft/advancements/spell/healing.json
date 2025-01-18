@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_healing": {
+      "conditions": {
+        "spell": "skyrimcraft:healing"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Healing spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Healing"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_healing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

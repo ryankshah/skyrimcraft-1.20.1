@@ -28,7 +28,7 @@ public record UpdateCharacter(Character character)
     }
 
     public static void handle(PacketContext<UpdateCharacter> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

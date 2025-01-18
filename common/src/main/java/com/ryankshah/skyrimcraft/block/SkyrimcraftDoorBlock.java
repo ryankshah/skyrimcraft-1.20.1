@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -185,15 +186,15 @@ public class SkyrimcraftDoorBlock extends DoorBlock
         }
     }
 
-    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
+    public InteractionResult use(BlockState $$0, Level $$1, BlockPos $$2, Player $$3, InteractionHand $$4, BlockHitResult $$5) {
         if (!this.type.canOpenByHand()) {
             return InteractionResult.PASS;
         } else {
-            pState = (BlockState)pState.cycle(OPEN);
-            pLevel.setBlock(pPos, pState, 10);
-            this.playSound(pPlayer, pLevel, pPos, (Boolean)pState.getValue(OPEN));
-            pLevel.gameEvent(pPlayer, this.isOpen(pState) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            $$0 = (BlockState)$$0.cycle(OPEN);
+            $$1.setBlock($$2, $$0, 10);
+            this.playSound($$3, $$1, $$2, (Boolean)$$0.getValue(OPEN));
+            $$1.gameEvent($$3, this.isOpen($$0) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, $$2);
+            return InteractionResult.sidedSuccess($$1.isClientSide);
         }
     }
 

@@ -1,0 +1,29 @@
+{
+  "parent": "skyrimcraft:root",
+  "criteria": {
+    "shouts_list": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learnt shouts"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:shout_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Shouts"
+    }
+  },
+  "requirements": [
+    [
+      "shouts_list"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -32,7 +32,7 @@ public record UpdateSelectedSpell(int position, ResourceKey<Spell> spell)
     }
 
     public static void handle(PacketContext<UpdateSelectedSpell> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

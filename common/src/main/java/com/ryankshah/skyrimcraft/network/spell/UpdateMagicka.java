@@ -30,7 +30,7 @@ public record UpdateMagicka(float magicka, float maxMagicka, float magickaRegenM
     }
 
     public static void handle(PacketContext<UpdateMagicka> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

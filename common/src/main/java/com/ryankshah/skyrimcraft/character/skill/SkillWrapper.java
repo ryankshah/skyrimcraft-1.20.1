@@ -45,8 +45,8 @@ public class SkillWrapper
 //            SkillWrapper::new
 //    );
 
-    protected Skill skill;
-    protected List<Perk> perks;
+    protected Skill skill = new EmptySkill();
+    protected List<Perk> perks = new ArrayList<>();
     private int identifier;
     protected int level, totalXp, skillUseOffset, skillImproveOffset;
     protected float xpProgress, skillUseMultiplier, skillImproveMultiplier;
@@ -86,7 +86,7 @@ public class SkillWrapper
     }
 
     public int getID() {
-        return skill.getID();
+        return identifier;
     }
 
     public String getName() {

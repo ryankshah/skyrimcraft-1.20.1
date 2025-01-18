@@ -52,7 +52,7 @@ public class RenderRaceLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
         this.getParentModel().getHead().translateAndRotate(matrixStack);
         //matrixStack.mulPose(YP.rotationDegrees(180F));
         getParentModel().copyPropertiesTo(highElfEarModel);
-        highElfEarModel.renderToBuffer(matrixStack, ivertexbuilder, packedLight, overlayCoords, 255, 255, 255, 1);
+        highElfEarModel.renderToBuffer(matrixStack, ivertexbuilder, packedLight, overlayCoords, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStack.popPose();
     }
 
@@ -64,7 +64,7 @@ public class RenderRaceLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
         this.getParentModel().getHead().translateAndRotate(matrixStack);
         //matrixStack.mulPose(YP.rotationDegrees(180F));
         getParentModel().copyPropertiesTo(dunmerEarModel);
-        dunmerEarModel.renderToBuffer(matrixStack, ivertexbuilder, packedLight, overlayCoords, 255, 255, 255, 1);
+        dunmerEarModel.renderToBuffer(matrixStack, ivertexbuilder, packedLight, overlayCoords, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStack.popPose();
     }
 
@@ -76,12 +76,12 @@ public class RenderRaceLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
         poseStack.pushPose();
         this.getParentModel().getHead().translateAndRotate(poseStack);
         getParentModel().copyPropertiesTo(khajiitHeadModel);
-        khajiitHeadModel.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlayCoords, 255, 255, 255, 1);
+        khajiitHeadModel.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlayCoords, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
 
         poseStack.pushPose();
         getParentModel().copyPropertiesTo(khajiitTailModel);
-        khajiitTailModel.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlayCoords, 255, 255, 255, 1);
+        khajiitTailModel.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlayCoords, 1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.popPose();
     }
 }

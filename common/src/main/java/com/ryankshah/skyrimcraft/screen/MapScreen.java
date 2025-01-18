@@ -24,6 +24,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.joml.Matrix4f;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.GameRenderer;
+import org.joml.Matrix4f;
 
 import java.util.List;
 
@@ -132,34 +136,42 @@ public class MapScreen extends Screen
         int startX = (screenWidth - mapSize) / 2;
         int startY = (screenHeight - mapSize) / 2;
 
+        // Setup rendering
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+        RenderSystem.setShaderTexture(0, 0);
 
-        PoseStack poseStack = guiGraphics.pose();
-        poseStack.pushPose();
-        poseStack.translate(startX, startY, 0);
-
-        Matrix4f matrix = poseStack.last().pose();
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.getBuilder();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
         int chunkRadius = renderDistance;
         int centerChunkX = (centerX + mapOffsetX) >> 4;
         int centerChunkZ = (centerZ + mapOffsetZ) >> 4;
 
+        // Apply translation
+        PoseStack poseStack = guiGraphics.pose();
+        poseStack.pushPose();
+        poseStack.translate(startX, startY, 0);
+
+        Matrix4f matrix = poseStack.last().pose();
+
+        // Render chunks
         for (int chunkX = centerChunkX - chunkRadius; chunkX <= centerChunkX + chunkRadius; chunkX++) {
             for (int chunkZ = centerChunkZ - chunkRadius; chunkZ <= centerChunkZ + chunkRadius; chunkZ++) {
                 renderChunkTopLayer(bufferBuilder, matrix, chunkX, chunkZ);
             }
         }
-        BufferUploader.drawWithShader(bufferBuilder.end());
+
+        tesselator.end();
+
+//        RenderSystem.enableTexture();
 
         // Render chunk grid lines
         renderChunkGridLines(guiGraphics, mapSize);
 
         poseStack.popPose();
-
     }
 
     private void renderPlayerMarker(GuiGraphics guiGraphics) {
@@ -436,8 +448,7 @@ public class MapScreen extends Screen
         }
     }
 
-
-    private void renderChunkTopLayer(VertexConsumer consumer, Matrix4f matrix, int chunkX, int chunkZ) {
+    private void renderChunkTopLayer(BufferBuilder bufferBuilder, Matrix4f matrix, int chunkX, int chunkZ) {
         LevelChunk chunk = level.getChunk(chunkX, chunkZ);
         if (chunk == null) {
             return;
@@ -455,13 +466,19 @@ public class MapScreen extends Screen
                 BlockState state = chunk.getBlockState(pos);
 
                 int color = getBlockColor(state, pos, y);
+                float r = ((color >> 16) & 0xFF) / 255.0F;
+                float g = ((color >> 8) & 0xFF) / 255.0F;
+                float b = (color & 0xFF) / 255.0F;
+                float a = ((color >> 24) & 0xFF) / 255.0F;
+
                 int x = startX + blockX * blockSize;
                 int z = startZ + blockZ * blockSize;
 
-                consumer.vertex(matrix, x, z + blockSize, 0).color(color);
-                consumer.vertex(matrix, x + blockSize, z + blockSize, 0).color(color);
-                consumer.vertex(matrix, x + blockSize, z, 0).color(color);
-                consumer.vertex(matrix, x, z, 0).color(color);
+                // Render block as quad
+                bufferBuilder.vertex(matrix, x, z + blockSize, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x + blockSize, z + blockSize, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x + blockSize, z, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x, z, 0).color(r, g, b, a).endVertex();
             }
         }
     }

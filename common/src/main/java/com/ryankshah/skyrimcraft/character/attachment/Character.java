@@ -116,6 +116,7 @@ public class Character {
                 -1,
                 0
         );
+//        this.skills = getStartingSkills(this.race);
     }
 
     public Character(

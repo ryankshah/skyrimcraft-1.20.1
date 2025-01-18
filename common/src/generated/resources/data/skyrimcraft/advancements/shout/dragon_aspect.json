@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:shout/root",
+  "criteria": {
+    "spell_learned_dragon_aspect": {
+      "conditions": {
+        "spell": "skyrimcraft:dragon_aspect"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Dragon Aspect shout"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:shout_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Dragon Aspect"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_dragon_aspect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

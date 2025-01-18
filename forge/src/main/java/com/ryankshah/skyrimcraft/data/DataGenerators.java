@@ -3,6 +3,7 @@ package com.ryankshah.skyrimcraft.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.data.advancement.SkyrimAdvancementProvider;
 import com.ryankshah.skyrimcraft.data.block.SkyrimcraftBlockStateProvider;
 import com.ryankshah.skyrimcraft.data.block.SkyrimcraftBlockTagsProvider;
 import com.ryankshah.skyrimcraft.data.item.SkyrimcraftItemModelProvider;
@@ -45,7 +46,7 @@ public class DataGenerators
             PackOutput output = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-//            generator.addProvider(true, new SkyrimAdvancementProvider(output, event.getLookupProvider(), existingFileHelper, List.of(new SkyrimAdvancementProvider.SkyrimAdvancements())));
+            generator.addProvider(true, new SkyrimAdvancementProvider(output, event.getLookupProvider(), existingFileHelper, List.of(new SkyrimAdvancementProvider.SkyrimAdvancements())));
             generator.addProvider(true, new SkyrimcraftLanguageProvider(output, Constants.MODID, "en_us"));
             generator.addProvider(true, new SkyrimBiomeTagsProvider(output, event.getLookupProvider(), Constants.MODID, existingFileHelper));
             generator.addProvider(true, new SkyrimcraftItemModelProvider(output, existingFileHelper));

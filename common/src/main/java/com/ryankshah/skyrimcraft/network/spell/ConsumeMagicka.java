@@ -28,7 +28,7 @@ public record ConsumeMagicka(float amount)
     }
 
     public static void handle(PacketContext<ConsumeMagicka> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

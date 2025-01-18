@@ -70,9 +70,11 @@ public class PlayerAttachmentEvents
 
     @SubscribeEvent
     public static void playerClone(PlayerEvent.Clone event) {
+        event.getOriginal().reviveCaps();
         Character.playerClone(event.isWasDeath(), event.getEntity(), event.getOriginal());
         ExtraCharacter.playerClone(event.isWasDeath(), event.getEntity(), event.getOriginal());
         LevelUpdates.playerClone(event.isWasDeath(), event.getEntity(), event.getOriginal());
         StatIncreases.playerClone(event.isWasDeath(), event.getEntity(), event.getOriginal());
+        event.getOriginal().invalidateCaps();
     }
 }

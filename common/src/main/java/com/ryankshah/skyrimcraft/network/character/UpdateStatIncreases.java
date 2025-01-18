@@ -32,7 +32,7 @@ public record UpdateStatIncreases(StatIncreases statIncreases)
     }
 
     public static void handle(PacketContext<UpdateStatIncreases> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

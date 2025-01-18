@@ -21,6 +21,7 @@ import com.ryankshah.skyrimcraft.util.RenderUtil;
 import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -31,6 +32,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
@@ -223,10 +225,11 @@ public class SkyrimGuiOverlayForge
     public static class SkyrimCrosshair implements IGuiOverlay
     {
         private final ResourceLocation OVERLAY_ICONS = new ResourceLocation(Constants.MODID, "textures/gui/overlay_icons.png");
-        //        protected static final ResourceLocation CROSSHAIR_SPRITE = new ResourceLocation("hud/crosshair");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_full");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_background");
-        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE = new ResourceLocation("hud/crosshair_attack_indicator_progress");
+        //        protected static final ResourceLocation CROSSHAIR_SPRITE = new ResourceLocation("textures/gui/hud/crosshair");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/crosshair_attack_indicator_full.png");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/crosshair_attack_indicator_background.png");
+        protected static final ResourceLocation CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/crosshair_attack_indicator_progress.png");
+        protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
 
         public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
@@ -317,24 +320,15 @@ public class SkyrimGuiOverlayForge
                     flag = flag & mc.crosshairPickEntity.isAlive();
                 }
 
-                int j = scaledHeight / 2 - 7 + 16;
-                int k = scaledWidth / 2 - 8;
-//                mc.textureManager.bind(AbstractGui.GUI_ICONS_LOCATION);
-                poseStack.pushPose();
+                int j = guiGraphics.guiHeight() / 2 - 7 + 16;
+                int k = guiGraphics.guiWidth() / 2 - 8;
                 if (flag) {
-                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_FULL_SPRITE, k, j, 0,0, 16, 16);
+                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 68, 94, 16, 16);
                 } else if (f < 1.0F) {
                     int l = (int)(f * 17.0F);
-                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_BACKGROUND_SPRITE, k, j, 0,0, 16, 4);
-                    guiGraphics.blit(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, k, j, l, 4);
+                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 36, 94, 16, 4);
+                    guiGraphics.blit(GUI_ICONS_LOCATION, k, j, 52, 94, l, 4);
                 }
-//                if (flag) {
-//                    RenderUtil.blitWithBlend(poseStack, k, j, 68, 94, 16, 16, 256, 256, 4, 1);
-//                } else if (f < 1.0F) {
-//                    int l = (int)(f * 17.0F);
-//                    RenderUtil.blitWithBlend(poseStack, k, j, 36, 94, 16, 4, 256, 256, 4, 1);
-//                    RenderUtil.blitWithBlend(poseStack, k, j, 52, 94, l, 4, 256, 256, 4, 1);
-//                }
                 poseStack.popPose();
             }
         }
@@ -530,8 +524,8 @@ public class SkyrimGuiOverlayForge
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
 
-            final ResourceLocation AIR_SPRITE = new ResourceLocation("hud/air");
-            final ResourceLocation AIR_BURSTING_SPRITE = new ResourceLocation("hud/air_bursting");
+            final ResourceLocation AIR_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/air.png");
+            final ResourceLocation AIR_BURSTING_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/air_bursting.png");
 
             mc.getProfiler().push("air");
             Player player = (Player)mc.getCameraEntity();
@@ -559,37 +553,38 @@ public class SkyrimGuiOverlayForge
 
     public static class SkyrimXPBar implements IGuiOverlay
     {
+        protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+
         public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
             PoseStack poseStack = guiGraphics.pose();
             Minecraft mc = Minecraft.getInstance();
             Window window = mc.getWindow();
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
-            final ResourceLocation EXPERIENCE_BAR_BACKGROUND_SPRITE = new ResourceLocation("hud/experience_bar_background");
-            final ResourceLocation EXPERIENCE_BAR_PROGRESS_SPRITE = new ResourceLocation("hud/experience_bar_progress");
+            final ResourceLocation EXPERIENCE_BAR_BACKGROUND_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/experience_bar_background.png");
+            final ResourceLocation EXPERIENCE_BAR_PROGRESS_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/experience_bar_progress.png");
 
             RenderSystem.enableBlend();
             guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             if (mc.gameMode.hasExperience()) {
                 int pX = guiGraphics.guiWidth() / 2 - 91;
-
                 mc.getProfiler().push("expBar");
                 int i = mc.player.getXpNeededForNextLevel();
                 if (i > 0) {
                     int j = 182;
                     int k = (int)(mc.player.experienceProgress * 183.0F);
                     int l = guiGraphics.guiHeight() - 32 + 3;
-                    guiGraphics.blit(EXPERIENCE_BAR_BACKGROUND_SPRITE, pX, l, 0, 0, 182, 5);
+                    guiGraphics.blit(GUI_ICONS_LOCATION, pX, l, 0, 64, 182, 5);
                     if (k > 0) {
-                        guiGraphics.blit(EXPERIENCE_BAR_PROGRESS_SPRITE, 182, 5, 0, 0, pX, l, k, 5);
+                        guiGraphics.blit(GUI_ICONS_LOCATION, 182, 5, 0, 69, pX, l, k, 5);
                     }
                 }
 
                 mc.getProfiler().pop();
                 if (mc.player.experienceLevel > 0) {
                     mc.getProfiler().push("expLevel");
-                    String s = mc.player.experienceLevel + "";
+                    String s = "" + mc.player.experienceLevel;
                     int i1 = (guiGraphics.guiWidth() - mc.font.width(s)) / 2;
                     int j1 = guiGraphics.guiHeight() - 31 - 4;
                     guiGraphics.drawString(mc.font, s, i1 + 1, j1, 0, false);
@@ -614,9 +609,9 @@ public class SkyrimGuiOverlayForge
             int scaledWidth = window.getGuiScaledWidth();
             int scaledHeight = window.getGuiScaledHeight();
 
-            final ResourceLocation ARMOR_EMPTY_SPRITE = new ResourceLocation("hud/armor_empty");
-            final ResourceLocation ARMOR_HALF_SPRITE = new ResourceLocation("hud/armor_half");
-            final ResourceLocation ARMOR_FULL_SPRITE = new ResourceLocation("hud/armor_full");
+            final ResourceLocation ARMOR_EMPTY_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/armor_empty.png");
+            final ResourceLocation ARMOR_HALF_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/armor_half.png");
+            final ResourceLocation ARMOR_FULL_SPRITE = new ResourceLocation(Constants.MODID, "textures/gui/hud/armor_full.png");
 
             mc.getProfiler().push("armor");
             RenderSystem.enableBlend();

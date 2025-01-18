@@ -32,7 +32,7 @@ public record UpdateShoutCooldown(ResourceKey<Spell> spell, float cooldown)
     }
 
     public static void handle(PacketContext<UpdateShoutCooldown> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

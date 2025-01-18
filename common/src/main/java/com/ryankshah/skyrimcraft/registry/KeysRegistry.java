@@ -24,25 +24,25 @@ public class KeysRegistry
     public static final KeyMapping MENU_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_menu", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_TAB, // Default key is TAB (previously M key)
+            GLFW.GLFW_KEY_M, // Default key is M (people wanted tab but no can do)
             "key.categories.skyrimcraft" // Mapping will be in the misc category
     );
     public static final KeyMapping SPELL_SLOT_1_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_spell_1", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_V, // Default key is P
+            GLFW.GLFW_KEY_V, // Default key is V
             "key.categories.skyrimcraft" // Mapping will be in the misc category
     );
     public static final KeyMapping SPELL_SLOT_2_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_spell_2", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_B, // Default key is P
+            GLFW.GLFW_KEY_B, // Default key is B
             "key.categories.skyrimcraft" // Mapping will be in the misc category
     );
     public static final KeyMapping PICKPOCKET_KEY = new KeyMapping(
             "key." + Constants.MODID + ".toggle_pickpocket", // Will be localized using this translation key
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_P, // Default key is P
+            GLFW.GLFW_KEY_H, // Default key is H
             "key.categories.skyrimcraft" // Mapping will be in the misc category
     );
 

@@ -1,13 +1,18 @@
 package com.ryankshah.skyrimcraft.network.spell;
 
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.advancement.LearnSpellTrigger;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.magic.Spell;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
+import com.ryankshah.skyrimcraft.registry.AdvancementTriggersRegistry;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
 import commonnetwork.networking.data.Side;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.data.advancements.packs.VanillaAdventureAdvancements;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -27,11 +32,11 @@ public record AddToKnownSpells(ResourceKey<Spell> spell)
     }
 
     public void encode(FriendlyByteBuf buf) {
-        buf.writeResourceKey(SpellRegistry.SPELLS_KEY);
+        buf.writeResourceKey(spell);
     }
 
     public static void handle(PacketContext<AddToKnownSpells> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);
@@ -44,7 +49,7 @@ public record AddToKnownSpells(ResourceKey<Spell> spell)
         character.addNewSpell(SpellRegistry.SPELLS_REGISTRY.get().get(data.spell));
 
         // TODO: fix the advancements registry and fix this!
-//        AdvancementTriggersRegistry.LEARN_SPELL.get().trigger(player, Holder.direct(SpellRegistry.SPELLS_REGISTRY.get(data.spell)));
+        ((LearnSpellTrigger)AdvancementTriggersRegistry.LEARN_SPELL).trigger(player, SpellRegistry.SPELLS_REGISTRY.get().get(data.spell));
 
         final AddToKnownSpells sendToClient = new AddToKnownSpells(data.spell);
         Dispatcher.sendToClient(sendToClient, player);

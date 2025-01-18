@@ -2,6 +2,7 @@ package com.ryankshah.skyrimcraft.network.character;
 
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
+import com.ryankshah.skyrimcraft.character.feature.Race;
 import com.ryankshah.skyrimcraft.screen.CharacterCreationScreen;
 import commonnetwork.api.Dispatcher;
 import commonnetwork.networking.data.PacketContext;
@@ -11,6 +12,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+
+import java.util.ArrayList;
 
 public record OpenCharacterCreationScreen(boolean hasSetup)
 {
@@ -29,7 +32,7 @@ public record OpenCharacterCreationScreen(boolean hasSetup)
     }
 
     public static void handle(PacketContext<OpenCharacterCreationScreen> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);
@@ -39,7 +42,7 @@ public record OpenCharacterCreationScreen(boolean hasSetup)
         ServerPlayer player = context.sender();
         Character character = Character.get(player);
 
-        character.setHasSetup(true);
+        character.setHasSetup(context.message().hasSetup);
 
         final OpenCharacterCreationScreen sendToClient = new OpenCharacterCreationScreen(context.message().hasSetup);
         Dispatcher.sendToClient(sendToClient, player);
@@ -51,7 +54,8 @@ public record OpenCharacterCreationScreen(boolean hasSetup)
         minecraft.execute(() -> {
             Player player = Minecraft.getInstance().player;
             Character character = Character.get(player);
-            character.setHasSetup(true);
+            character.setSkills(new ArrayList<>(character.getStartingSkills(Race.NORD)));
+            character.setHasSetup(context.message().hasSetup);
             Minecraft.getInstance().setScreen(new CharacterCreationScreen());
         });
     }

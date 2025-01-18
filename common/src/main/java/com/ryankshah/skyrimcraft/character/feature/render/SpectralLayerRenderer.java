@@ -30,7 +30,7 @@ public class SpectralLayerRenderer extends RenderLayer<AbstractClientPlayer, Pla
                     ivertexbuilder,
                     p_225628_3_,
                     PlayerRenderer.getOverlayCoords(p_225628_4_, 0.0F), //OverlayTexture.NO_OVERLAY,
-                    255, 255, 255, 1);
+                    1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableBlend();
         }
     }

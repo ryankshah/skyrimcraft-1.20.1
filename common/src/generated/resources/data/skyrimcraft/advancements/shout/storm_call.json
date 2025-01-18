@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:shout/root",
+  "criteria": {
+    "spell_learned_storm_call": {
+      "conditions": {
+        "spell": "skyrimcraft:storm_call"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Storm Call shout"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:shout_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Storm Call"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_storm_call"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

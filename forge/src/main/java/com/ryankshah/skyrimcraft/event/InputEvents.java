@@ -1,6 +1,7 @@
 package com.ryankshah.skyrimcraft.event;
 
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.capability.CharacterCapability;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.magic.Spell;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
@@ -20,6 +21,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,7 +53,11 @@ public class InputEvents {
         Minecraft mc = Minecraft.getInstance();
         if(mc.player == null)
             return;
-        Character character = Services.PLATFORM.getCharacter(mc.player);
+
+        LazyOptional<CharacterCapability> cap = mc.player.getCapability(CharacterCapability.CAPABILITY);
+        if(!cap.isPresent())
+            return;
+        Character character = cap.resolve().get().getCharacter();
 
         while (KeysRegistry.MENU_KEY.consumeClick()) {
             mc.setScreen(new MenuScreen());

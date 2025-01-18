@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:spell/root",
+  "criteria": {
+    "spell_learned_candlelight": {
+      "conditions": {
+        "spell": "skyrimcraft:candlelight"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Candlelight spell"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:fireball_spellbook"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Candlelight"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_candlelight"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

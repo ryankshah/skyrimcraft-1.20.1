@@ -28,7 +28,7 @@ public record AddToTargetingEntities(int entityId)
     }
 
     public static void handle(PacketContext<AddToTargetingEntities> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

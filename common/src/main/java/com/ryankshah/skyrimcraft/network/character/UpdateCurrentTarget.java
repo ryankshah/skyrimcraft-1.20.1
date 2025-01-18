@@ -28,7 +28,7 @@ public record UpdateCurrentTarget(int target)
     }
 
     public static void handle(PacketContext<UpdateCurrentTarget> context) {
-        if(context.side() == Side.CLIENT)
+        if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
             handleServer(context);

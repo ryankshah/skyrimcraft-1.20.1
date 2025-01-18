@@ -6,13 +6,23 @@ import java.util.List;
 public class EmptySkill extends Skill
 {
     @Override
+    public int getID() {
+        return 10000;
+    }
+
+    @Override
+    public String getName() {
+        return "Empty Spell";
+    }
+
+    @Override
     public AbstractMap.SimpleEntry<Integer, Integer> getIconUV() {
-        return null;
+        return new AbstractMap.SimpleEntry<>(0,0);
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Empty Spell";
     }
 
     @Override

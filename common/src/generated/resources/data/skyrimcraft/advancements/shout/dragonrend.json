@@ -1,0 +1,32 @@
+{
+  "parent": "skyrimcraft:shout/root",
+  "criteria": {
+    "spell_learned_dragonrend": {
+      "conditions": {
+        "spell": "skyrimcraft:dragonrend"
+      },
+      "trigger": "skyrimcraft:learn_spell"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Learn the Dragonrend shout"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "skyrimcraft:shout_block"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Dragonrend"
+    }
+  },
+  "requirements": [
+    [
+      "spell_learned_dragonrend"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

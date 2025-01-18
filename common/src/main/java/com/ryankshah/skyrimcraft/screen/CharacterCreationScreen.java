@@ -12,11 +12,13 @@ import commonnetwork.api.Dispatcher;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.LogoRenderer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.CubeMap;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -24,6 +26,8 @@ import net.minecraft.world.entity.LivingEntity;
 import org.joml.Quaternionf;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class CharacterCreationScreen extends Screen
 {
@@ -60,6 +64,10 @@ public class CharacterCreationScreen extends Screen
         return false;
     }
 
+    public static CompletableFuture<Void> preloadResources(TextureManager p_96755_, Executor p_96756_) {
+        return CompletableFuture.allOf(p_96755_.preload(LogoRenderer.MINECRAFT_LOGO, p_96756_), p_96755_.preload(LogoRenderer.MINECRAFT_EDITION, p_96756_), p_96755_.preload(PANORAMA_OVERLAY, p_96756_), CUBE_MAP.preload(p_96755_, p_96756_));
+    }
+
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         if (this.fadeInStart == 0L && this.fading) {
@@ -68,7 +76,7 @@ public class CharacterCreationScreen extends Screen
 
         float f = this.fading ? (float)(Util.getMillis() - this.fadeInStart) / 1000.0F : 1.0F;
 //        graphics.fill(0, 0, this.width, this.height, -1);
-        this.panorama.render(Mth.clamp(f, 0.0F, 1.0F), partialTicks); // TODO: Check this!
+        this.panorama.render(partialTicks, Mth.clamp(f, 0.0F, 1.0F)); // TODO: Check this!
 //        CUBE_MAP.render(this.minecraft, Mth.sin(cubeMapPosition * 0.001F) * 5.0F + 25.0F, -cubeMapPosition * 0.1F, Mth.clamp(f, 0.0F, 1.0F));
         int i = 274;
         int j = this.width / 2 + 40;
