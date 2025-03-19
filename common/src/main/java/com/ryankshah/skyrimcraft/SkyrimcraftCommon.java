@@ -79,8 +79,6 @@ import terrablender.api.SurfaceRuleManager;
 public class SkyrimcraftCommon
 {
     public static void init() {
-        DialogueManager dialogueManager = new DialogueManager();
-
         SpellRegistry.init();
         SkillRegistry.init();
 
@@ -89,7 +87,6 @@ public class SkyrimcraftCommon
         ModEffects.init();
         AttributeRegistry.init();
         SkyrimcraftLootConditionTypes.init();
-        KeysRegistry.init();
         EntityRegistry.init();
 
         ItemRegistry.init();
@@ -100,8 +97,6 @@ public class SkyrimcraftCommon
         TagsRegistry.init();
 
         ParticleRegistry.init();
-        ParticleRenderTypeRegistry.init();
-        RenderTypeRegistry.init();
 
         VillagerRegistry.init();
 
@@ -116,7 +111,7 @@ public class SkyrimcraftCommon
 
     public static void setupTerraBlender() {
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, Constants.MODID, AshWastesSurfaceRule.makeRules());
-        Regions.register(new SkyrimcraftOverworldRegion(5));
+        Regions.register(new SkyrimcraftOverworldRegion(4));
     }
 
     public static Iterable<EntityType<?>> getPickpocketableEntities() {

@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "RESTORE MAGICKA",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:vigorous_magicka_potion"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:creep_cluster"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:red_mountain_flower"
+    }
+  ],
+  "xp": 1
+}

@@ -1,0 +1,24 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "glass",
+  "levelToCreate": 70,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:glass_boots"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "minecraft:leather"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:moonstone_ingot"
+    },
+    {
+      "amount": 2,
+      "item": "skyrimcraft:malachite_ingot"
+    }
+  ],
+  "xp": 5
+}

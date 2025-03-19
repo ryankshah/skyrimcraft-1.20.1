@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "RESTORE MAGICKA",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:ultimate_magicka_potion"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:mora_tapinella"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:red_mountain_flower"
+    }
+  ],
+  "xp": 1
+}

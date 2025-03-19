@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "FORTIFY MARKSMAN",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:elixir_of_true_shot"
+  },
+  "recipe": [
+    {
+      "amount": 2,
+      "item": "skyrimcraft:spider_egg"
+    },
+    {
+      "amount": 2,
+      "item": "skyrimcraft:elves_ear"
+    }
+  ],
+  "xp": 1
+}

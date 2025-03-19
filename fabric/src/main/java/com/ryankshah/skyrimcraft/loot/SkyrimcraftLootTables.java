@@ -4,11 +4,15 @@ import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class SkyrimcraftLootTables
@@ -720,11 +724,7 @@ public class SkyrimcraftLootTables
                             resourceLocation.equals(new ResourceLocation(Constants.MODID, "chests/stronghold_corridor")) ||
                             resourceLocation.equals(new ResourceLocation(Constants.MODID, "gameplay/piglin_bartering"))
                                     )) {
-                    lootTableBuilder.withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(ItemRegistry.HORSE_MEAT.get())
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.875F, 1.0F)))
-                            ));
+                    lootTableBuilder.withPool(chestPool);
             }
         });
         LootTableEvents.MODIFY.register((resourceManager, lootDataManager, resourceLocation, lootTableBuilder, lootTableSource) -> {

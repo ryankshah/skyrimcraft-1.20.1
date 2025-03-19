@@ -1,2 +1,7 @@
-// 1.20.1	2025-01-11T23:17:49.2560084	Tags for minecraft:worldgen/structure mod id skyrimcraft
+// 1.20.1	2025-01-22T07:57:20.0770879	Tags for minecraft:worldgen/structure mod id skyrimcraft
 10b1898acda29c4c4a22d0c8f51524c06baf697f data/skyrimcraft/tags/worldgen/structure/fortress.json
+ebf4b25dfdc02a32b02766d5f7856a52e4f3e8cc data/skyrimcraft/tags/worldgen/structure/giant_camp.json
+7d144e52b87edf090c249af45d654d5019ff4f50 data/skyrimcraft/tags/worldgen/structure/pyramid.json
+f9c789895d5d610a9cfa90a24173bb89214f1850 data/skyrimcraft/tags/worldgen/structure/ruined_portal.json
+4983b9f0d27ca0af33686fdd3a243e62b8ae03a3 data/skyrimcraft/tags/worldgen/structure/shout_wall.json
+d515048bebefdc65e030a7e57b5e26f222386351 data/skyrimcraft/tags/worldgen/structure/watchtower.json

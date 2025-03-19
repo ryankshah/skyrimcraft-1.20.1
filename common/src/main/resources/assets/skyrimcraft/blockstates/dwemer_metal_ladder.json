@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "skyrimcraft:block/dwemer_metal_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "skyrimcraft:block/dwemer_metal_ladder"
+    },
+    "facing=south": {
+      "model": "skyrimcraft:block/dwemer_metal_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "skyrimcraft:block/dwemer_metal_ladder",
+      "y": 270
+    }
+  }
+}

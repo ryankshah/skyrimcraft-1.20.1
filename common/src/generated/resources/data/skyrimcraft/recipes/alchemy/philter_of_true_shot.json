@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "FORTIFY MARKSMAN",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:philter_of_true_shot"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:juniper_berries"
+    },
+    {
+      "amount": 2,
+      "item": "skyrimcraft:spider_egg"
+    }
+  ],
+  "xp": 1
+}

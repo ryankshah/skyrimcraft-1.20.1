@@ -74,6 +74,7 @@ public class BlockData
         provider.addBlock(BlockRegistry.DWEMER_METAL_TORCH, "Dwemer Metal Torch");
         provider.addBlock(BlockRegistry.DWEMER_REDSTONE_TORCH, "Dwemer Redstone Torch");
         provider.addBlock(BlockRegistry.DWEMER_SOUL_TORCH, "Dwemer Soul Torch");
+        provider.addBlock(BlockRegistry.DWEMER_METAL_LADDER, "Dwemer Metal Ladder");
 
         provider.addBlock(BlockRegistry.DWEMER_METAL_PILLAR, "Dwemer Metal Pillar");
         provider.addBlock(BlockRegistry.DWEMER_STONE_PILLAR, "Dwemer Stone Pillar");
@@ -110,6 +111,10 @@ public class BlockData
         provider.addBlock(BlockRegistry.DWEMER_GLASS, "Dwemer Glass");
         provider.addBlock(BlockRegistry.DWEMER_WINDOWED_GLASS, "Dwemer Windowed Glass");
         provider.addBlock(BlockRegistry.DWEMER_FRAMED_GLASS, "Dwemer Framed Glass");
+        provider.addBlock(BlockRegistry.DWEMER_GLASS_PANE, "Dwemer Glass Pane");
+        provider.addBlock(BlockRegistry.DWEMER_WINDOWED_GLASS_PANE, "Dwemer Windowed Glass Pane");
+        provider.addBlock(BlockRegistry.DWEMER_FRAMED_GLASS_PANE, "Dwemer Framed Glass Pane");
+
         provider.addBlock(BlockRegistry.DWEMER_OBSERVER, "Dwemer Observer");
         provider.addBlock(BlockRegistry.DWEMER_REPEATER, "Dwemer Repeater");
 
@@ -308,6 +313,13 @@ public class BlockData
         glassBlock(provider, BlockRegistry.DWEMER_FRAMED_GLASS.get());
         glassBlock(provider, BlockRegistry.DWEMER_WINDOWED_GLASS.get());
 
+        provider.paneBlock(BlockRegistry.DWEMER_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_glass"), new ResourceLocation(Constants.MODID, "block/dwemer_glass_side"));
+        paneItem(provider, BlockRegistry.DWEMER_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_glass"));
+        provider.paneBlock(BlockRegistry.DWEMER_WINDOWED_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_windowed_glass"), new ResourceLocation(Constants.MODID, "block/dwemer_glass_side"));
+        paneItem(provider, BlockRegistry.DWEMER_WINDOWED_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_windowed_glass"));
+        provider.paneBlock(BlockRegistry.DWEMER_FRAMED_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_framed_glass"), new ResourceLocation(Constants.MODID, "block/dwemer_framed_glass_side"));
+        paneItem(provider, BlockRegistry.DWEMER_FRAMED_GLASS_PANE.get(), new ResourceLocation(Constants.MODID, "block/dwemer_framed_glass"));
+
         dwemerChair(provider, BlockRegistry.DWEMER_CHAIR.get());
         dwemerBed(provider, BlockRegistry.DWEMER_BED_BROWN.get());
         dwemerBed(provider, BlockRegistry.DWEMER_BED_ORANGE.get());
@@ -402,18 +414,18 @@ public class BlockData
     }
 
     private static void internalTallDoorBlock(BlockStateProvider provider, TallDoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation middle, ResourceLocation top) {
-        ModelFile bottomLeft = provider.models().withExistingParent(baseName + "_door_bottom_left", ":" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile bottomLeftOpen = provider.models().withExistingParent(baseName + "_door_bottom_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile bottomRight = provider.models().withExistingParent(baseName + "_door_bottom_right", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile bottomRightOpen = provider.models().withExistingParent(baseName + "_door_bottom_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top);
-        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_door_middle_left", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_door_middle_left_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleRight = provider.models().withExistingParent(baseName + "_door_middle_right", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_door_middle_right_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle);
-        ModelFile topLeft = provider.models().withExistingParent(baseName + "_door_top_left", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile topLeftOpen = provider.models().withExistingParent(baseName + "_door_top_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile topRight = provider.models().withExistingParent(baseName + "_door_top_right", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right").texture("bottom", bottom).texture("middle", middle).texture("top", top);
-        ModelFile topRightOpen = provider.models().withExistingParent(baseName + "_door_top_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top);
+        ModelFile bottomLeft = provider.models().withExistingParent(baseName + "_door_bottom_left", ":" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile bottomLeftOpen = provider.models().withExistingParent(baseName + "_door_bottom_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile bottomRight = provider.models().withExistingParent(baseName + "_door_bottom_right", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile bottomRightOpen = provider.models().withExistingParent(baseName + "_door_bottom_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_bottom_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top).renderType("cutout");
+        ModelFile middleLeft = provider.models().withExistingParent(baseName + "_door_middle_left", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
+        ModelFile middleLeftOpen = provider.models().withExistingParent(baseName + "_door_middle_left_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_left_open").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
+        ModelFile middleRight = provider.models().withExistingParent(baseName + "_door_middle_right", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
+        ModelFile middleRightOpen = provider.models().withExistingParent(baseName + "_door_middle_right_open", "skyrimcraft:" + ModelProvider.BLOCK_FOLDER + "/door_middle_right_open").texture("bottom", middle).texture("middle", middle).texture("top", middle).renderType("cutout");
+        ModelFile topLeft = provider.models().withExistingParent(baseName + "_door_top_left", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile topLeftOpen = provider.models().withExistingParent(baseName + "_door_top_left_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_left_open").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile topRight = provider.models().withExistingParent(baseName + "_door_top_right", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right").texture("bottom", bottom).texture("middle", middle).texture("top", top).renderType("cutout");
+        ModelFile topRightOpen = provider.models().withExistingParent(baseName + "_door_top_right_open", "" + ModelProvider.BLOCK_FOLDER + "/door_top_right_open").texture("bottom", bottom).texture("middle", middle).texture("top",top).renderType("cutout");
         tallDoorBlock(provider, block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, middleLeft, middleLeftOpen, middleRight, middleRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
     }
 
@@ -851,34 +863,38 @@ public class BlockData
         ModelFile stairs = provider.models().stairs(baseName, side, bottom, top);
         ModelFile stairsInner = provider.models().stairsInner(baseName + "_inner", side, bottom, top);
         ModelFile stairsOuter = provider.models().stairsOuter(baseName + "_outer", side, bottom, top);
-        stairsBlock(provider, block, (ModelFile)stairs, (ModelFile)stairsInner, (ModelFile)stairsOuter);
+        stairsBlock(provider, block, stairs, stairsInner, stairsOuter);
     }
 
     private static void stairsBlockInternalWithRenderType(BlockStateProvider provider, SkyrimStairBlock block, String baseName, ResourceLocation side, ResourceLocation bottom, ResourceLocation top, ResourceLocation renderType) {
-        ModelFile stairs = ((BlockModelBuilder)provider.models().stairs(baseName, side, bottom, top)).renderType(renderType);
-        ModelFile stairsInner = ((BlockModelBuilder)provider.models().stairsInner(baseName + "_inner", side, bottom, top)).renderType(renderType);
-        ModelFile stairsOuter = ((BlockModelBuilder)provider.models().stairsOuter(baseName + "_outer", side, bottom, top)).renderType(renderType);
-        stairsBlock(provider, block, (ModelFile)stairs, (ModelFile)stairsInner, (ModelFile)stairsOuter);
+        ModelFile stairs = provider.models().stairs(baseName, side, bottom, top).renderType(renderType);
+        ModelFile stairsInner = provider.models().stairsInner(baseName + "_inner", side, bottom, top).renderType(renderType);
+        ModelFile stairsOuter = provider.models().stairsOuter(baseName + "_outer", side, bottom, top).renderType(renderType);
+        stairsBlock(provider, block, stairs, stairsInner, stairsOuter);
     }
 
     public static void stairsBlock(BlockStateProvider provider, SkyrimStairBlock block, ModelFile stairs, ModelFile stairsInner, ModelFile stairsOuter) {
-        provider.getVariantBuilder(block).forAllStatesExcept((state) -> {
-            Direction facing = (Direction)state.getValue(SkyrimStairBlock.FACING);
-            Half half = (Half)state.getValue(SkyrimStairBlock.HALF);
-            StairsShape shape = (StairsShape)state.getValue(SkyrimStairBlock.SHAPE);
-            int yRot = (int)facing.getClockWise().toYRot();
-            if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT) {
-                yRot += 270;
-            }
-
-            if (shape != StairsShape.STRAIGHT && half == Half.TOP) {
-                yRot += 90;
-            }
-
-            yRot %= 360;
-            boolean uvlock = yRot != 0 || half == Half.TOP;
-            return ConfiguredModel.builder().modelFile(shape == StairsShape.STRAIGHT ? stairs : (shape != StairsShape.INNER_LEFT && shape != StairsShape.INNER_RIGHT ? stairsOuter : stairsInner)).rotationX(half == Half.BOTTOM ? 0 : 180).rotationY(yRot).uvLock(uvlock).build();
-        }, new Property[]{SkyrimStairBlock.WATERLOGGED});
+        provider.getVariantBuilder(block)
+                .forAllStatesExcept(state -> {
+                    Direction facing = state.getValue(SkyrimStairBlock.FACING);
+                    Half half = state.getValue(SkyrimStairBlock.HALF);
+                    StairsShape shape = state.getValue(SkyrimStairBlock.SHAPE);
+                    int yRot = (int) facing.getClockWise().toYRot(); // Stairs model is rotated 90 degrees clockwise for some reason
+                    if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT) {
+                        yRot += 270; // Left facing stairs are rotated 90 degrees clockwise
+                    }
+                    if (shape != StairsShape.STRAIGHT && half == Half.TOP) {
+                        yRot += 90; // Top stairs are rotated 90 degrees clockwise
+                    }
+                    yRot %= 360;
+                    boolean uvlock = yRot != 0 || half == Half.TOP; // Don't set uvlock for states that have no rotation
+                    return ConfiguredModel.builder()
+                            .modelFile(shape == StairsShape.STRAIGHT ? stairs : shape == StairsShape.INNER_LEFT || shape == StairsShape.INNER_RIGHT ? stairsInner : stairsOuter)
+                            .rotationX(half == Half.BOTTOM ? 0 : 180)
+                            .rotationY(yRot)
+                            .uvLock(uvlock)
+                            .build();
+                }, SkyrimStairBlock.WATERLOGGED);
     }
 
     public static void woolAndCarpet(BlockStateProvider provider, Block woolBlock, Block carpetBlock) {
@@ -945,6 +961,13 @@ public class BlockData
 //                            .build();
 //                });
         provider.simpleBlockItem(block, provider.models().getExistingFile(new ResourceLocation(Constants.MODID, "block/" + name(block))));
+    }
+
+    public static ItemModelBuilder paneItem(BlockStateProvider provider, Block block, ResourceLocation item)
+    {
+        return provider.itemModels().getBuilder(key(block).toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(item.getNamespace(), item.getPath()));
     }
 
     private static String name(Block block) {

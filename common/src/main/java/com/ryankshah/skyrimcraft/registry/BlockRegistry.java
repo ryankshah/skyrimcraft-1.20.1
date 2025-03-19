@@ -278,6 +278,9 @@ public class BlockRegistry
 
     public static final RegistryObject<Block> PEARL_OYSTER_BLOCK = registerBlock("pearl_oyster",
             PearlOysterBlock::new);
+    public static final RegistryObject<BlockItem> PEARL_OYSTER_BLOCK_ITEM = ItemRegistry.ITEMS.register("pearl_oyster",
+            () -> new BlockItem(PEARL_OYSTER_BLOCK.get(), new Item.Properties()));
+
     public static final RegistryObject<Block> TOMATO_CROP = registerBlock("tomatoes", () -> new TomatoCrop(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PLANT)
@@ -409,12 +412,18 @@ public class BlockRegistry
             () -> new WallTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH), ParticleTypes.SMALL_FLAME));
     public static final RegistryObject<BlockItem> DWEMER_SOUL_TORCH_ITEM = ItemRegistry.ITEMS.register("dwemer_soul_torch",
             () -> new BlockItem(DWEMER_SOUL_TORCH.get(), new Item.Properties()));
-    public static final RegistryObject<RedstoneTorchBlock> DWEMER_REDSTONE_TORCH = registerBlock("dwemer_redstone_torch", //RedstoneTorchBlock
+    public static final RegistryObject<RedstoneTorchBlock> DWEMER_REDSTONE_TORCH = registerBlock("dwemer_redstone_torch",
             () -> new RedstoneTorchBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_TORCH)));
-    public static final RegistryObject<RedstoneWallTorchBlock> DWEMER_REDSTONE_WALL_TORCH = registerBlock("dwemer_redstone_wall_torch", //RedstoneTorchBlock
+    public static final RegistryObject<RedstoneWallTorchBlock> DWEMER_REDSTONE_WALL_TORCH = registerBlock("dwemer_redstone_wall_torch",
             () -> new RedstoneWallTorchBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_TORCH)));
     public static final RegistryObject<BlockItem> DWEMER_REDSTONE_TORCH_ITEM = ItemRegistry.ITEMS.register("dwemer_redstone_torch",
             () -> new BlockItem(DWEMER_REDSTONE_TORCH.get(), new Item.Properties()));
+
+    public static final RegistryObject<SkyrimLadderBlock> DWEMER_METAL_LADDER = registerBlock("dwemer_metal_ladder",
+            () -> new SkyrimLadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER)));
+    public static final RegistryObject<BlockItem> DWEMER_METAL_LADDER_ITEM = ItemRegistry.ITEMS.register("dwemer_metal_ladder",
+            () -> new BlockItem(DWEMER_METAL_LADDER.get(), new Item.Properties()));
+
 
     public static final RegistryObject<RepeaterBlock> DWEMER_REPEATER = registerBlock("dwemer_repeater",
             () -> new RepeaterBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
@@ -536,6 +545,19 @@ public class BlockRegistry
             () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     public static final RegistryObject<BlockItem> DWEMER_FRAMED_GLASS_ITEM = ItemRegistry.ITEMS.register("dwemer_framed_glass",
             () -> new BlockItem(DWEMER_FRAMED_GLASS.get(), new Item.Properties()));
+
+    public static final RegistryObject<StainedGlassPaneBlock> DWEMER_GLASS_PANE = registerBlock("dwemer_glass_pane",
+            () -> new StainedGlassPaneBlock(DyeColor.LIME, BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<BlockItem> DWEMER_GLASS_PANE_ITEM = ItemRegistry.ITEMS.register("dwemer_glass_pane",
+            () -> new BlockItem(DWEMER_GLASS_PANE.get(), new Item.Properties()));
+    public static final RegistryObject<StainedGlassPaneBlock> DWEMER_WINDOWED_GLASS_PANE = registerBlock("dwemer_windowed_glass_pane",
+            () -> new StainedGlassPaneBlock(DyeColor.LIME, BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<BlockItem> DWEMER_WINDOWED_GLASS_PANE_ITEM = ItemRegistry.ITEMS.register("dwemer_windowed_glass_pane",
+            () -> new BlockItem(DWEMER_WINDOWED_GLASS_PANE.get(), new Item.Properties()));
+    public static final RegistryObject<StainedGlassPaneBlock> DWEMER_FRAMED_GLASS_PANE = registerBlock("dwemer_framed_glass_pane",
+            () -> new StainedGlassPaneBlock(DyeColor.LIME, BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<BlockItem> DWEMER_FRAMED_GLASS_PANE_ITEM = ItemRegistry.ITEMS.register("dwemer_framed_glass_pane",
+            () -> new BlockItem(DWEMER_FRAMED_GLASS_PANE.get(), new Item.Properties()));
 
     public static final RegistryObject<RedstoneLampBlock> DWEMER_REDSTONE_LAMP = registerBlock("dwemer_redstone_lamp",
             () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_LAMP)));

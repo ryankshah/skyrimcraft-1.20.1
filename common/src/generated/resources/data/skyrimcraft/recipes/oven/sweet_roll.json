@@ -1,0 +1,28 @@
+{
+  "type": "skyrimcraft:oven",
+  "category": "food",
+  "levelToCreate": 1,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:sweet_roll"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "minecraft:egg"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:salt_pile"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:flour"
+    },
+    {
+      "amount": 1,
+      "item": "minecraft:milk_bucket"
+    }
+  ],
+  "xp": 5
+}

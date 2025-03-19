@@ -1,0 +1,16 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "elven",
+  "levelToCreate": 30,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:elven_bow"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:quicksilver_ingot"
+    }
+  ],
+  "xp": 5
+}

@@ -19,7 +19,8 @@ public class ExtraCharacter
             Codec.BOOL.fieldOf("isVampireAfflicted").forGetter(ExtraCharacter::isVampireAfflicted),
             Codec.BOOL.fieldOf("isVampire").forGetter(ExtraCharacter::isVampire),
             Codec.INT.fieldOf("vampirismInfectionTime").forGetter(ExtraCharacter::getInfectionTime),
-            Waypoint.CODEC.listOf().fieldOf("waypoints").forGetter(ExtraCharacter::getWaypoints)
+            Waypoint.CODEC.listOf().fieldOf("waypoints").forGetter(ExtraCharacter::getWaypoints),
+            MapData.CODEC.fieldOf("mapdata").forGetter(ExtraCharacter::getMapData)
     ).apply(characterInstance, ExtraCharacter::new));
 
 //    public static StreamCodec<FriendlyByteBuf, ExtraCharacter> STREAM_CODEC = StreamCodec.composite(
@@ -39,13 +40,15 @@ public class ExtraCharacter
     protected int dragonSouls, infectionTime;
     protected boolean isVampireAfflicted, isVampire;
     protected List<Waypoint> waypoints;
+    private MapData mapData;
 
-    public ExtraCharacter(int dragonSouls, boolean isVampireAfflicted, boolean isVampire, int infectionTime, List<Waypoint> waypoints) {
+    public ExtraCharacter(int dragonSouls, boolean isVampireAfflicted, boolean isVampire, int infectionTime, List<Waypoint> waypoints, MapData mapData) {
         this.dragonSouls = dragonSouls;
         this.isVampireAfflicted = isVampireAfflicted;
         this.isVampire = isVampire;
         this.infectionTime = infectionTime;
         this.waypoints = new ArrayList<>(waypoints);
+        this.mapData = mapData;
     }
 
     public ExtraCharacter() {
@@ -54,8 +57,16 @@ public class ExtraCharacter
                 false,
                 false,
                 0,
-                new ArrayList<>()
+                new ArrayList<>(),
+                new MapData()
         );
+    }
+
+    public MapData getMapData() {
+        return mapData;
+    }
+    public void setMapData(MapData mapData) {
+        this.mapData = mapData;
     }
 
     public int getDragonSouls() {

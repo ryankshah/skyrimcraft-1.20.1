@@ -1,0 +1,16 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "dwarven",
+  "levelToCreate": 30,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:dwarven_bow"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "xp": 5
+}

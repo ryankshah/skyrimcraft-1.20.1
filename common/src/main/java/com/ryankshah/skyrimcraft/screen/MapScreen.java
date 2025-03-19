@@ -19,24 +19,22 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.joml.Matrix4f;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.renderer.GameRenderer;
-import org.joml.Matrix4f;
 
 import java.util.List;
+import java.util.Set;
 
 public class MapScreen extends Screen
 {
     private static final int INITIAL_RENDER_DISTANCE = 8;
     private static final int CHUNK_SIZE = 16;
-    private static final int MIN_BLOCK_SIZE = 1;
-    private static final int MAX_BLOCK_SIZE = 8;
+    private static final int MIN_BLOCK_SIZE = 2; //1
+    private static final int MAX_BLOCK_SIZE = 6; //8
     private static final int ICON_WIDTH = 12;
     private static final int ICON_HEIGHT = 16;
     private static final float BASE_MARKER_SIZE = 8.0f;
@@ -59,6 +57,12 @@ public class MapScreen extends Screen
     private boolean showFastTravelPopup = false;
     private int selectedOption = 0; // 0 for Yes, 1 for No
 
+    private static final int MAP_BACKGROUND_COLOR = 0xFF000000;
+    private static final int TERRAIN_LINE_COLOR = 0xFF404040;
+    private static final int CROSS_HATCH_COLOR = 0xFF505050;
+    private static final int MAP_BORDER_COLOR = 0xFF8B4513;
+    private static final int TERRAIN_BASE_COLOR = 0xFF3E2723;
+
     public MapScreen() {
         super(Component.empty());
         this.mc = Minecraft.getInstance();
@@ -73,8 +77,15 @@ public class MapScreen extends Screen
             return;
         }
 
+        guiGraphics.fill(0, 0, this.width, this.height, 0xFF000000);
+
         this.character = Services.PLATFORM.getCharacter(mc.player);
         this.extraCharacter = Services.PLATFORM.getExtraCharacter(mc.player);
+        if (extraCharacter == null || extraCharacter.getMapData() == null) {
+            return;
+        }
+
+        updateVisitedChunks();
 
         List<CompassFeature> mapFeatures = character.getCompassFeatures();
         List<Waypoint> waypoints = extraCharacter.getWaypoints();
@@ -95,9 +106,11 @@ public class MapScreen extends Screen
         guiGraphics.fillGradient(0, this.height * 3 / 4 + 22, this.width, this.height * 3 / 4 + 23, 0xFF5D5A51, 0xFF5D5A51);
 
         // Draw buttons for input controls
-        drawGradientRect(guiGraphics, guiGraphics.pose(), 17, this.height - 29, 21 + font.width("[Arrow Keys]") + 4, this.height - 14, 0xAA000000, 0xAA000000, 0xFF5D5A51);
-        guiGraphics.drawString(font, "[Arrow Keys]", 21, this.height - 25, 0x00FFFFFF);
-        guiGraphics.drawString(font, "Move", 19 + font.width("[Arrow Keys]") + 10, this.height - 25, 0x00FFFFFF);
+        drawGradientRect(guiGraphics, guiGraphics.pose(), 17, this.height - 29,
+                21 + font.width("[↑↓←→/WASD]") + 4, this.height - 14,
+                0xAA000000, 0xAA000000, 0xFF5D5A51);
+        guiGraphics.drawString(font, "[↑↓←→/WASD]", 21, this.height - 25, 0x00FFFFFF);
+        guiGraphics.drawString(font, "Move", 19 + font.width("[↑↓←→/WASD]") + 10, this.height - 25, 0x00FFFFFF);
 
         // Render tooltip for hovered map feature
         if (hoveredFeature != null) {
@@ -136,12 +149,23 @@ public class MapScreen extends Screen
         int startX = (screenWidth - mapSize) / 2;
         int startY = (screenHeight - mapSize) / 2;
 
-        // Setup rendering
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        // Draw parchment colored background
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderTexture(0, 0);
 
+        int padding = 20;
+        int backgroundWidth = mapSize + padding * 2;
+        int backgroundHeight = mapSize + padding * 2;
+
+        // Draw base map background
+        renderMapBackground(guiGraphics,
+                startX - padding,
+                startY - padding,
+                backgroundWidth,
+                backgroundHeight);
+
+        // Setup terrain rendering
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder bufferBuilder = tesselator.getBuilder();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
@@ -150,28 +174,408 @@ public class MapScreen extends Screen
         int centerChunkX = (centerX + mapOffsetX) >> 4;
         int centerChunkZ = (centerZ + mapOffsetZ) >> 4;
 
-        // Apply translation
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.translate(startX, startY, 0);
 
         Matrix4f matrix = poseStack.last().pose();
 
+        // Get the visited chunks from player data
+        Set<Long> visitedChunks = this.extraCharacter.getMapData().getVisitedChunks();
+
         // Render chunks
         for (int chunkX = centerChunkX - chunkRadius; chunkX <= centerChunkX + chunkRadius; chunkX++) {
-            for (int chunkZ = centerChunkZ - chunkRadius; chunkZ <= centerChunkZ + chunkRadius; chunkZ++) {
-                renderChunkTopLayer(bufferBuilder, matrix, chunkX, chunkZ);
+            for (int chunkZ = centerChunkZ - chunkRadius; chunkZ <= centerChunkZ + renderDistance; chunkZ++) {
+                ChunkPos pos = new ChunkPos(chunkX, chunkZ);
+
+                // Check if the chunk has been visited
+                if (visitedChunks.contains(pos.toLong())) {
+                    // Render visited chunk with terrain
+                    renderAntiqueChunkStyle(bufferBuilder, matrix, chunkX, chunkZ);
+                } else {
+                    // Render unexplored chunk
+                    renderUnexploredChunk(bufferBuilder, matrix, chunkX, chunkZ);
+                }
             }
         }
 
         tesselator.end();
 
-//        RenderSystem.enableTexture();
-
-        // Render chunk grid lines
-        renderChunkGridLines(guiGraphics, mapSize);
+        // Draw decorative border
+        renderMapBorder(guiGraphics, startX - padding, startY - padding,
+                mapSize + padding * 2, mapSize + padding * 2);
 
         poseStack.popPose();
+    }
+
+    private void renderUnexploredChunk(BufferBuilder bufferBuilder, Matrix4f matrix, int chunkX, int chunkZ) {
+        int startX = (chunkX - ((centerX + mapOffsetX) >> 4) + renderDistance) * CHUNK_SIZE * blockSize;
+        int startZ = (chunkZ - ((centerZ + mapOffsetZ) >> 4) + renderDistance) * CHUNK_SIZE * blockSize;
+        int chunkPixelSize = CHUNK_SIZE * blockSize;
+
+        // Use the same brown color as the border
+//        float r = 0.545f; // 139/255
+//        float g = 0.271f; // 69/255
+//        float b = 0.075f; // 19/255
+//        float a = 1.0f;
+
+        float r = 0.37f; // ~94
+        float g = 0.35f; // ~90
+        float b = 0.32f; // ~81
+        float a = 1.0f;
+
+        // Simple solid colored quad
+        bufferBuilder.vertex(matrix, startX, startZ + chunkPixelSize, 0).color(r, g, b, a).endVertex();
+        bufferBuilder.vertex(matrix, startX + chunkPixelSize, startZ + chunkPixelSize, 0).color(r, g, b, a).endVertex();
+        bufferBuilder.vertex(matrix, startX + chunkPixelSize, startZ, 0).color(r, g, b, a).endVertex();
+        bufferBuilder.vertex(matrix, startX, startZ, 0).color(r, g, b, a).endVertex();
+    }
+
+    private void updateVisitedChunks() {
+        int playerChunkX = (int)mc.player.getX() >> 4;
+        int playerChunkZ = (int)mc.player.getZ() >> 4;
+        int loadDistance = mc.options.renderDistance().get();
+
+        for (int x = playerChunkX - loadDistance; x <= playerChunkX + loadDistance; x++) {
+            for (int z = playerChunkZ - loadDistance; z <= playerChunkZ + loadDistance; z++) {
+                if (level.hasChunk(x, z)) {
+                    extraCharacter.getMapData().addVisitedChunk(new ChunkPos(x, z));
+                }
+            }
+        }
+    }
+
+    private void renderAntiqueChunkStyle(BufferBuilder bufferBuilder, Matrix4f matrix, int chunkX, int chunkZ) {
+        LevelChunk chunk = level.getChunk(chunkX, chunkZ);
+        if (chunk == null) return;
+
+        int startX = (chunkX - ((centerX + mapOffsetX) >> 4) + renderDistance) * CHUNK_SIZE * blockSize;
+        int startZ = (chunkZ - ((centerZ + mapOffsetZ) >> 4) + renderDistance) * CHUNK_SIZE * blockSize;
+
+        // Cell size matches the grid pattern
+        int cellSize = blockSize;
+
+        // First pass: Gather water block information
+        boolean[][] isWater = new boolean[CHUNK_SIZE][CHUNK_SIZE];
+        for (int blockX = 0; blockX < CHUNK_SIZE; blockX++) {
+            for (int blockZ = 0; blockZ < CHUNK_SIZE; blockZ++) {
+                int worldX = chunkX * CHUNK_SIZE + blockX;
+                int worldZ = chunkZ * CHUNK_SIZE + blockZ;
+                int y = chunk.getHeight(Heightmap.Types.WORLD_SURFACE, blockX, blockZ);
+                BlockPos pos = new BlockPos(worldX, y, worldZ);
+                BlockState state = chunk.getBlockState(pos);
+
+                // Check if the block is water (you might need to adjust this check based on your mod's water blocks)
+                isWater[blockX][blockZ] = state.getMapColor(level, pos).col == 0x4444FF ||
+                        state.getMapColor(level, pos).col == 0x3F76E4;
+            }
+        }
+
+        // Second pass: Render terrain and water with borders
+        for (int blockX = 0; blockX < CHUNK_SIZE; blockX++) {
+            for (int blockZ = 0; blockZ < CHUNK_SIZE; blockZ++) {
+                int worldX = chunkX * CHUNK_SIZE + blockX;
+                int worldZ = chunkZ * CHUNK_SIZE + blockZ;
+                int y = chunk.getHeight(Heightmap.Types.WORLD_SURFACE, blockX, blockZ);
+                BlockPos pos = new BlockPos(worldX, y, worldZ);
+                BlockState state = chunk.getBlockState(pos);
+
+                int baseColor = state.getMapColor(level, pos).col;
+                int mapColor = convertToMapColor(baseColor, y);
+
+                float r = ((mapColor >> 16) & 0xFF) / 255.0F;
+                float g = ((mapColor >> 8) & 0xFF) / 255.0F;
+                float b = (mapColor & 0xFF) / 255.0F;
+                float a = 1.0F;
+
+                int x = startX + blockX * cellSize;
+                int z = startZ + blockZ * cellSize;
+
+                // Draw base terrain cell
+                bufferBuilder.vertex(matrix, x, z + cellSize, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x + cellSize, z + cellSize, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x + cellSize, z, 0).color(r, g, b, a).endVertex();
+                bufferBuilder.vertex(matrix, x, z, 0).color(r, g, b, a).endVertex();
+
+                // If it's water, check for borders
+                if (isWater[blockX][blockZ]) {
+                    // Darken the colors for water borders
+                    float borderR = r * 0.7f;
+                    float borderG = g * 0.7f;
+                    float borderB = b * 0.7f;
+
+                    int borderWidth = Math.max(1, cellSize / 4);
+
+                    // Check adjacent blocks and draw borders where water meets land
+                    // Top border
+                    if (blockZ == 0 || !isWater[blockX][blockZ - 1]) {
+                        bufferBuilder.vertex(matrix, x, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z + borderWidth, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x, z + borderWidth, 0).color(borderR, borderG, borderB, a).endVertex();
+                    }
+
+                    // Bottom border
+                    if (blockZ == CHUNK_SIZE - 1 || !isWater[blockX][blockZ + 1]) {
+                        bufferBuilder.vertex(matrix, x, z + cellSize - borderWidth, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z + cellSize - borderWidth, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                    }
+
+                    // Left border
+                    if (blockX == 0 || !isWater[blockX - 1][blockZ]) {
+                        bufferBuilder.vertex(matrix, x, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + borderWidth, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + borderWidth, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                    }
+
+                    // Right border
+                    if (blockX == CHUNK_SIZE - 1 || !isWater[blockX + 1][blockZ]) {
+                        bufferBuilder.vertex(matrix, x + cellSize - borderWidth, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                        bufferBuilder.vertex(matrix, x + cellSize - borderWidth, z + cellSize, 0).color(borderR, borderG, borderB, a).endVertex();
+                    }
+                }
+            }
+        }
+    }
+
+    private int convertToMapColor(int originalColor, int height) {
+        // Extract RGB components
+        int r = (originalColor >> 16) & 0xFF;
+        int g = (originalColor >> 8) & 0xFF;
+        int b = originalColor & 0xFF;
+
+        // Calculate base brightness and saturation
+        float brightness = (r * 0.299f + g * 0.587f + b * 0.114f) / 255f;
+        float saturation = Math.max(Math.max(r, g), b) - Math.min(Math.min(r, g), b);
+        float heightFactor = (float)(height - minHeight) / (maxHeight - minHeight);
+
+        // Define color ranges for different terrain types
+        boolean isSnow = brightness > 0.8f && saturation < 30;
+        boolean isWater = b > Math.max(r, g) && saturation > 20;
+        boolean isDesert = r > g && g > b && brightness > 0.6f;
+        boolean isGrass = g > Math.max(r, b);
+
+        // Base parchment color (lighter)
+        int parchmentR = 0xea;
+        int parchmentG = 0xd8;
+        int parchmentB = 0xc1;
+
+        // Darker shade for contrast
+        int darkR = 0x8b;
+        int darkG = 0x6b;
+        int darkB = 0x4c;
+
+        // Adjust colors based on terrain type
+        if (isSnow) {
+            // More yellow-tinted for snow to avoid pure white
+            parchmentR = 0xf5;
+            parchmentG = 0xeb;
+            parchmentB = 0xdc;
+            darkR = 0xd8;
+            darkG = 0xd0;
+            darkB = 0xc0;
+        } else if (isWater) {
+            // Deeper blue-tinted browns for water
+            parchmentR = 0xc8;
+            parchmentG = 0xc0;
+            parchmentB = 0xb8;
+            darkR = 0x70;
+            darkG = 0x60;
+            darkB = 0x58;
+        } else if (isDesert) {
+            // Warmer browns for desert
+            parchmentR = 0xf0;
+            parchmentG = 0xe0;
+            parchmentB = 0xc8;
+            darkR = 0xa0;
+            darkG = 0x80;
+            darkB = 0x60;
+        } else if (isGrass) {
+            // Olive-tinted browns for vegetation
+            parchmentR = 0xe0;
+            parchmentG = 0xd8;
+            parchmentB = 0xb8;
+            darkR = 0x80;
+            darkG = 0x85;
+            darkB = 0x60;
+        }
+
+        // Calculate blending factor based on height and brightness
+        float factor = brightness * 0.6f + heightFactor * 0.4f;
+        factor = 1.0f - factor; // Invert to make higher/brighter areas darker
+
+        // Add slight variation based on position to avoid flat areas
+        float variation = ((height * 31) & 0x7) / 128.0f;
+        factor = Math.max(0.0f, Math.min(1.0f, factor + variation));
+
+        int finalR = interpolate(parchmentR, darkR, factor);
+        int finalG = interpolate(parchmentG, darkG, factor);
+        int finalB = interpolate(parchmentB, darkB, factor);
+
+        return (0xFF << 24) | (finalR << 16) | (finalG << 8) | finalB;
+    }
+
+    private int interpolate(int a, int b, float factor) {
+        return (int)(a + (b - a) * factor);
+    }
+
+    private void renderMapBorder(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        // Draw ornate border
+        int borderWidth = 4;
+        guiGraphics.fill(x, y, x + width, y + borderWidth, MAP_BORDER_COLOR); // Top
+        guiGraphics.fill(x, y + height - borderWidth, x + width, y + height, MAP_BORDER_COLOR); // Bottom
+        guiGraphics.fill(x, y, x + borderWidth, y + height, MAP_BORDER_COLOR); // Left
+        guiGraphics.fill(x + width - borderWidth, y, x + width, y + height, MAP_BORDER_COLOR); // Right
+
+        // Add corner decorations
+        int cornerSize = 12;
+        renderCornerDecoration(guiGraphics, x, y, cornerSize, 0); // Top left
+        renderCornerDecoration(guiGraphics, x + width - cornerSize, y, cornerSize, 1); // Top right
+        renderCornerDecoration(guiGraphics, x, y + height - cornerSize, cornerSize, 2); // Bottom left
+        renderCornerDecoration(guiGraphics, x + width - cornerSize, y + height - cornerSize, cornerSize, 3); // Bottom right
+    }
+
+    private void renderMapBackground(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        // Draw parchment colored background
+        guiGraphics.fill(x, y, x + width, y + height, 0xFFEAD8C1); // Base parchment color
+
+        PoseStack poseStack = guiGraphics.pose();
+        poseStack.pushPose();
+
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        Matrix4f matrix = poseStack.last().pose();
+
+        // Fixed cell size
+        int cellSize = 8;
+        float lineAlpha = 0.2f; // Subtle grid lines
+
+        bufferBuilder.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
+
+        // Dark brown grid lines
+        float r = 0.55f; // ~139
+        float g = 0.42f; // ~107
+        float b = 0.30f; // ~76
+
+        // Draw horizontal lines
+        for (int j = 0; j <= height; j += cellSize) {
+            bufferBuilder.vertex(matrix, x, y + j, 0)
+                    .color(r, g, b, lineAlpha)
+                    .endVertex();
+            bufferBuilder.vertex(matrix, x + width, y + j, 0)
+                    .color(r, g, b, lineAlpha)
+                    .endVertex();
+        }
+
+        // Draw vertical lines
+        for (int i = 0; i <= width; i += cellSize) {
+            bufferBuilder.vertex(matrix, x + i, y, 0)
+                    .color(r, g, b, lineAlpha)
+                    .endVertex();
+            bufferBuilder.vertex(matrix, x + i, y + height, 0)
+                    .color(r, g, b, lineAlpha)
+                    .endVertex();
+        }
+
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        poseStack.popPose();
+    }
+
+    private void renderCornerDecoration(GuiGraphics guiGraphics, int x, int y, int size, int corner) {
+        PoseStack poseStack = guiGraphics.pose();
+        poseStack.pushPose();
+
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        Matrix4f matrix = poseStack.last().pose();
+
+        // Set corner decoration color
+        float r = 0.37f; // ~94
+        float g = 0.35f; // ~90
+        float b = 0.32f; // ~81
+        float a = 1.0f;
+
+        bufferBuilder.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR);
+
+        // Draw corner design based on position
+        switch(corner) {
+            case 0: // Top left
+                drawCornerLines(bufferBuilder, matrix, x, y, size, 0, 0, r, g, b, a);
+                break;
+            case 1: // Top right
+                drawCornerLines(bufferBuilder, matrix, x + size, y, size, 1, 0, r, g, b, a);
+                break;
+            case 2: // Bottom left
+                drawCornerLines(bufferBuilder, matrix, x, y + size, size, 0, 1, r, g, b, a);
+                break;
+            case 3: // Bottom right
+                drawCornerLines(bufferBuilder, matrix, x + size, y + size, size, 1, 1, r, g, b, a);
+                break;
+        }
+
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        poseStack.popPose();
+    }
+
+    private void drawCornerLines(BufferBuilder buffer, Matrix4f matrix, int x, int y, int size, int flipX, int flipY, float r, float g, float b, float a) {
+        int dirX = flipX == 0 ? 1 : -1;
+        int dirY = flipY == 0 ? 1 : -1;
+
+        // Draw main corner accent
+        for(int i = 0; i < size; i += 2) {
+            float startX = x;
+            float startY = y + (dirY * i);
+            float endX = x + (dirX * (size - i));
+            float endY = y;
+
+            buffer.vertex(matrix, startX, startY, 0).color(r, g, b, a).endVertex();
+            buffer.vertex(matrix, endX, endY, 0).color(r, g, b, a).endVertex();
+        }
+
+        // Draw secondary decorative lines
+        int smallSize = size / 2;
+        for(int i = 0; i < smallSize; i += 2) {
+            float startX = x + (dirX * i);
+            float startY = y + (dirY * (smallSize - i/2));
+            float endX = x + (dirX * smallSize);
+            float endY = y + (dirY * i/2);
+
+            buffer.vertex(matrix, startX, startY, 0).color(r, g, b, a * 0.7f).endVertex();
+            buffer.vertex(matrix, endX, endY, 0).color(r, g, b, a * 0.7f).endVertex();
+        }
+    }
+
+    private int convertToAntiqueColor(int originalColor, int height) {
+        // Extract RGB components
+        int r = (originalColor >> 16) & 0xFF;
+        int g = (originalColor >> 8) & 0xFF;
+        int b = originalColor & 0xFF;
+
+        // Convert to sepia-like tones
+        float heightFactor = (float)(height - minHeight) / (maxHeight - minHeight);
+
+        // Adjust colors to be more brown/sepia toned
+        int newR = (int)(r * 0.8f + g * 0.2f);
+        int newG = (int)(r * 0.6f + g * 0.4f);
+        int newB = (int)(r * 0.4f + g * 0.2f + b * 0.1f);
+
+        // Darken based on height
+        float shadingFactor = 1.0f - (heightFactor * 0.4f);
+        newR = (int)(newR * shadingFactor);
+        newG = (int)(newG * shadingFactor);
+        newB = (int)(newB * shadingFactor);
+
+        // Ensure values are in valid range
+        newR = Math.min(255, Math.max(0, newR));
+        newG = Math.min(255, Math.max(0, newG));
+        newB = Math.min(255, Math.max(0, newB));
+
+        return (0xFF << 24) | (newR << 16) | (newG << 8) | newB;
     }
 
     private void renderPlayerMarker(GuiGraphics guiGraphics) {
@@ -293,14 +697,14 @@ public class MapScreen extends Screen
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (isDragging) {
-            // Reverse the direction of drag
-            mapOffsetX -= (int) (dragX / blockSize);
-            mapOffsetZ -= (int) (dragY / blockSize);
+            // Scale movement to match key movement (16 blocks per key press)
+            double moveScale = 16.0 / blockSize;
+            mapOffsetX -= (int) (dragX * moveScale);
+            mapOffsetZ -= (int) (dragY * moveScale);
             return true;
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
-
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -344,22 +748,43 @@ public class MapScreen extends Screen
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        // Store mouse position relative to map center
+        int mapSize = renderDistance * 2 * CHUNK_SIZE * blockSize;
+        int mapCenterX = this.width / 2;
+        int mapCenterZ = this.height / 2;
+
+        double relativeX = mouseX - mapCenterX;
+        double relativeZ = mouseY - mapCenterZ;
+
+        // Store the world coordinates under the mouse
+        double worldX = centerX + mapOffsetX + (relativeX / blockSize);
+        double worldZ = centerZ + mapOffsetZ + (relativeZ / blockSize);
+
+        // Adjust zoom level with smoother transitions
         int oldBlockSize = blockSize;
+        boolean zoomChanged = false;
+
         if (delta > 0 && blockSize < MAX_BLOCK_SIZE) {
             blockSize++;
-            renderDistance = Math.max(1, renderDistance - 1);
-        } else if (delta < 0) {
-            int minBlockSize = Math.max(MIN_BLOCK_SIZE, this.width / (renderDistance * 2 * CHUNK_SIZE));
-            if (blockSize > minBlockSize) {
-                blockSize--;
-                renderDistance = Math.min(16, renderDistance + 1);
-            }
+            renderDistance = Math.max(4, (int)(renderDistance * ((float)oldBlockSize / blockSize)));
+            zoomChanged = true;
+        } else if (delta < 0 && blockSize > MIN_BLOCK_SIZE) {
+            blockSize--;
+            renderDistance = Math.min(32, (int)(renderDistance * ((float)oldBlockSize / blockSize)));
+            zoomChanged = true;
         }
 
-        // If blockSize changed, recenter the map
-        if (oldBlockSize != blockSize) {
-            mapOffsetX = mapOffsetX * blockSize / oldBlockSize;
-            mapOffsetZ = mapOffsetZ * blockSize / oldBlockSize;
+        if (zoomChanged) {
+            // Calculate new offsets to keep the mouse position over the same world coordinates
+            // Use floating-point arithmetic for more precise positioning
+            double newRelativeX = relativeX * (oldBlockSize / (double)blockSize);
+            double newRelativeZ = relativeZ * (oldBlockSize / (double)blockSize);
+
+            mapOffsetX = (int)(worldX - centerX - (newRelativeX / blockSize));
+            mapOffsetZ = (int)(worldZ - centerZ - (newRelativeZ / blockSize));
+
+            // Ensure render distance stays within reasonable bounds
+            renderDistance = Math.max(4, Math.min(32, renderDistance));
         }
 
         return true;
@@ -369,7 +794,7 @@ public class MapScreen extends Screen
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (showFastTravelPopup) {
             if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode) || KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
-                selectedOption = 1 - selectedOption; // Toggle between 0 and 1
+                selectedOption = 1 - selectedOption;
                 return true;
             } else if (KeysRegistry.SKYRIM_MENU_ENTER.matches(keyCode, scanCode)) {
                 handleFastTravelChoice(selectedOption == 0);
@@ -377,18 +802,24 @@ public class MapScreen extends Screen
             }
         } else {
             int moveAmount = 16; // Move by one chunk
-            if (KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode)) {
+            boolean handled = true;
+
+            // Check both arrow keys and WASD
+            if (KeysRegistry.SKYRIM_MENU_NORTH.matches(keyCode, scanCode) || keyCode == 87) { // W
                 mapOffsetZ -= moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_SOUTH.matches(keyCode, scanCode) || keyCode == 83) { // S
                 mapOffsetZ += moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode)) {
-                mapOffsetX -= moveAmount;
-            } else if (KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode)) {
+            } else if (KeysRegistry.SKYRIM_MENU_WEST.matches(keyCode, scanCode) || keyCode == 68) { // D
                 mapOffsetX += moveAmount;
+            } else if (KeysRegistry.SKYRIM_MENU_EAST.matches(keyCode, scanCode) || keyCode == 65) { // A
+                mapOffsetX -= moveAmount;
             } else {
-                return super.keyPressed(keyCode, scanCode, modifiers);
+                handled = false;
             }
-            return true;
+
+            if (handled) {
+                return true;
+            }
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
@@ -502,6 +933,15 @@ public class MapScreen extends Screen
         b = (int) (b * shadingFactor);
 
         return (r << 16) | (g << 8) | b | 0xFF000000;
+    }
+
+    private void renderChunkBorder(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        // Render a subtle border around each chunk
+        int borderColor = 0x20FFFFFF; // Very subtle white border
+        guiGraphics.fill(x, y, x + width, y + 1, borderColor); // Top
+        guiGraphics.fill(x, y + height - 1, x + width, y + height, borderColor); // Bottom
+        guiGraphics.fill(x, y, x + 1, y + height, borderColor); // Left
+        guiGraphics.fill(x + width - 1, y, x + width, y + height, borderColor); // Right
     }
 
     private void renderChunkGridLines(GuiGraphics guiGraphics, int mapSize) {

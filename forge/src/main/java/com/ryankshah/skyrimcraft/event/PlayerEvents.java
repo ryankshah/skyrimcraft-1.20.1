@@ -150,7 +150,11 @@ public class PlayerEvents
                     BuiltinStructures.VILLAGE_PLAINS, BuiltinStructures.VILLAGE_SNOWY, BuiltinStructures.VILLAGE_SAVANNA, BuiltinStructures.SHIPWRECK, BuiltinStructures.SHIPWRECK_BEACHED,
                     BuiltinStructures.FORTRESS, BuiltinStructures.MINESHAFT, BuiltinStructures.MINESHAFT_MESA);
 
-            List<TagKey<Structure>> structureTags = List.of(StructureTags.VILLAGE, StructureTags.MINESHAFT, TagsRegistry.StructureTagsInit.NETHER_FORTRESS, StructureTags.SHIPWRECK);
+            List<TagKey<Structure>> structureTags = List.of(
+                    StructureTags.VILLAGE, StructureTags.MINESHAFT, TagsRegistry.StructureTagsInit.NETHER_FORTRESS, StructureTags.SHIPWRECK,
+                    TagsRegistry.StructureTagsInit.GIANT_CAMP, TagsRegistry.StructureTagsInit.SHOUT_WALL, TagsRegistry.StructureTagsInit.WATCHTOWER,
+                    TagsRegistry.StructureTagsInit.PYRAMID, TagsRegistry.StructureTagsInit.RUINED_PORTAL
+            );
 
             for (TagKey<Structure> structure : structureTags) {
                 BlockPos featureStartPos = locateFeatureStartChunkFromPlayerBlockPos(level, player.blockPosition(), structure);

@@ -5,6 +5,7 @@ import com.ryankshah.skyrimcraft.character.feature.render.RenderRaceLayer;
 import com.ryankshah.skyrimcraft.character.feature.render.SpectralLayerRenderer;
 import com.ryankshah.skyrimcraft.character.magic.Spell;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
+import com.ryankshah.skyrimcraft.event.FabricChunkEvents;
 import com.ryankshah.skyrimcraft.network.skill.HandlePickpocket;
 import com.ryankshah.skyrimcraft.network.spell.CastSpell;
 import com.ryankshah.skyrimcraft.network.spell.ConsumeMagicka;
@@ -68,7 +69,10 @@ public class SkyrimcraftFabricClient implements ClientModInitializer
 
     @Override
     public void onInitializeClient() {
-        // TODO: fix all of this shit
+        SkyrimcraftCommonClient.initClient();
+
+        FabricChunkEvents.register();
+
         KeyBindingHelper.registerKeyBinding(KeysRegistry.MENU_KEY);
         KeyBindingHelper.registerKeyBinding(KeysRegistry.SPELL_SLOT_1_KEY);
         KeyBindingHelper.registerKeyBinding(KeysRegistry.SPELL_SLOT_2_KEY);
@@ -235,6 +239,7 @@ public class SkyrimcraftFabricClient implements ClientModInitializer
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_METAL_TALL_GATE.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_STONE_BRICK_WALL.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_METAL_BRICK_WALL.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_METAL_LADDER.get(), RenderType.cutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_WOOL_BROWN_CARPET.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.DWEMER_WOOL_BLACK_CARPET.get(), RenderType.cutout());

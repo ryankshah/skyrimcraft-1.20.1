@@ -1,5 +1,6 @@
 {
   "parent": "skyrimcraft:block/door_middle_right",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "skyrimcraft:block/steel_tall_gate_door_middle",
     "middle": "skyrimcraft:block/steel_tall_gate_door_middle",

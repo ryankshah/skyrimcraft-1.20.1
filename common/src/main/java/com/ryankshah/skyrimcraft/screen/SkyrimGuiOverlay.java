@@ -724,7 +724,7 @@ public class SkyrimGuiOverlay
             final float finalYaw = yaw;
 
             List<CompassFeature> compassFeatures = character.getCompassFeatures();
-            if (compassFeatures.size() > 0) {
+            if (!compassFeatures.isEmpty()) {
                 List<CompassFeature> sortedFeatures = Lists.newArrayList(compassFeatures);
                 sortedFeatures.sort((a, b) -> {
                     Vec3 positionA = new Vec3(a.getBlockPos().getX(), 0, a.getBlockPos().getZ()); //mc.player.getY()

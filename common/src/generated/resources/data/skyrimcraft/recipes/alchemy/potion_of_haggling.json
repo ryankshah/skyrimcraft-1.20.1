@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "FORTIFY BARTER",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:potion_of_haggling"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:butterfly_wing"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:dragons_tongue"
+    }
+  ],
+  "xp": 1
+}

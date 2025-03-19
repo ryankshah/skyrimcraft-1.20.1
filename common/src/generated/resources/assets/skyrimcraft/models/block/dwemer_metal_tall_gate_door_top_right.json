@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_top_right",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "skyrimcraft:block/dwemer_metal_tall_gate_door_bottom",
     "middle": "skyrimcraft:block/dwemer_metal_tall_gate_door_middle",

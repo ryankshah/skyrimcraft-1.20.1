@@ -84,56 +84,56 @@ public class KeysRegistry
             "key.categories.skyrimcraft" // Mapping will be in the misc category
     );
 
-    public static void onKeyInput(int key, int scanCode, int action, int modifiers) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null)
-            return;
-        if (mc.screen != null)
-            return;
-
-        while (MENU_KEY.consumeClick()) {
-            mc.setScreen(new MenuScreen());
-            return;
-        }
-        while (SPELL_SLOT_1_KEY.consumeClick()) { // TODO: Check if `isDown` for continuous cast?
-            Character character = Character.get(mc.player);
-            Spell spell = character.getSelectedSpell1();
-            if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
-                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
-                Dispatcher.sendToServer(castSpell);
-//                    PacketDistributor.SERVER.noArg().send(castSpell);
-            } else
-                mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
-            return;
-        }
-        while (SPELL_SLOT_2_KEY.consumeClick()) {
-            Character character = Character.get(mc.player);
-            Spell spell = character.getSelectedSpell2();
-            if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
-                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
-                Dispatcher.sendToServer(castSpell);
-//                    PacketDistributor.SERVER.noArg().send(castSpell);
-            } else
-                mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
-            return;
-        }
-        while (PICKPOCKET_KEY.consumeClick()) {
-            if (mc.crosshairPickEntity instanceof LivingEntity && mc.player.isCrouching()) {
-                LivingEntity entity = (LivingEntity) mc.crosshairPickEntity;
-
-                if(entity.getTags().contains(EntityRegistry.PICKPOCKET_TAG)) {
-                    if(ClientUtil.canEntitySee(entity, mc.player)) {
-                        mc.player.hurt(mc.player.damageSources().mobAttack(entity), 0.5f);
-                        mc.player.knockback(0.5f, (double) -Mth.sin(mc.player.yRotO * ((float)Math.PI / 180F)), (double)(Mth.cos(mc.player.yRotO * ((float)Math.PI / 180F))));
-                    } else {
-                        final HandlePickpocket handlePickpocket = new HandlePickpocket(entity.getId());
-                        Dispatcher.sendToServer(handlePickpocket);
-//                            PacketDistributor.SERVER.noArg().send(handlePickpocket);
-                    }
-                }
-            }
-        }
-    }
+//    public static void onKeyInput(int key, int scanCode, int action, int modifiers) {
+//        Minecraft mc = Minecraft.getInstance();
+//        if (mc.player == null)
+//            return;
+//        if (mc.screen != null)
+//            return;
+//
+//        while (MENU_KEY.consumeClick()) {
+//            mc.setScreen(new MenuScreen());
+//            return;
+//        }
+//        while (SPELL_SLOT_1_KEY.consumeClick()) { // TODO: Check if `isDown` for continuous cast?
+//            Character character = Character.get(mc.player);
+//            Spell spell = character.getSelectedSpell1();
+//            if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
+//                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
+//                Dispatcher.sendToServer(castSpell);
+////                    PacketDistributor.SERVER.noArg().send(castSpell);
+//            } else
+//                mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
+//            return;
+//        }
+//        while (SPELL_SLOT_2_KEY.consumeClick()) {
+//            Character character = Character.get(mc.player);
+//            Spell spell = character.getSelectedSpell2();
+//            if (spell != null && spell.getID() != SpellRegistry.EMPTY_SPELL.get().getID()) {
+//                final CastSpell castSpell = new CastSpell(SpellRegistry.SPELLS_REGISTRY.get().getResourceKey(spell).get());
+//                Dispatcher.sendToServer(castSpell);
+////                    PacketDistributor.SERVER.noArg().send(castSpell);
+//            } else
+//                mc.player.displayClientMessage(Component.translatable("skyrimcraft.spell.noselect"), false);
+//            return;
+//        }
+//        while (PICKPOCKET_KEY.consumeClick()) {
+//            if (mc.crosshairPickEntity instanceof LivingEntity && mc.player.isCrouching()) {
+//                LivingEntity entity = (LivingEntity) mc.crosshairPickEntity;
+//
+//                if(entity.getTags().contains(EntityRegistry.PICKPOCKET_TAG)) {
+//                    if(ClientUtil.canEntitySee(entity, mc.player)) {
+//                        mc.player.hurt(mc.player.damageSources().mobAttack(entity), 0.5f);
+//                        mc.player.knockback(0.5f, (double) -Mth.sin(mc.player.yRotO * ((float)Math.PI / 180F)), (double)(Mth.cos(mc.player.yRotO * ((float)Math.PI / 180F))));
+//                    } else {
+//                        final HandlePickpocket handlePickpocket = new HandlePickpocket(entity.getId());
+//                        Dispatcher.sendToServer(handlePickpocket);
+////                            PacketDistributor.SERVER.noArg().send(handlePickpocket);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private static boolean didPress(int key, int scanCode, int action, KeyMapping keyBinding) {
         return action == GLFW.GLFW_PRESS && isKey(key,scanCode, keyBinding);

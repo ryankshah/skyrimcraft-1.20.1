@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "daedric",
+  "levelToCreate": 90,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:daedric_war_axe"
+  },
+  "recipe": [
+    {
+      "amount": 2,
+      "item": "skyrimcraft:ebony_ingot"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:daedra_heart"
+    }
+  ],
+  "xp": 15
+}

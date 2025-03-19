@@ -1,0 +1,24 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "glass",
+  "levelToCreate": 70,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:glass_chestplate"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "minecraft:leather"
+    },
+    {
+      "amount": 2,
+      "item": "skyrimcraft:moonstone_ingot"
+    },
+    {
+      "amount": 4,
+      "item": "skyrimcraft:malachite_ingot"
+    }
+  ],
+  "xp": 5
+}

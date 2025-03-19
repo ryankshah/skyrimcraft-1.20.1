@@ -1,5 +1,6 @@
 package com.ryankshah.skyrimcraft.data.world;
 
+import com.ryankshah.skyrimcraft.registry.StructureRegistry;
 import com.ryankshah.skyrimcraft.registry.TagsRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -19,7 +20,23 @@ public class SkyrimcraftStructureTagsProvider extends StructureTagsProvider
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(TagsRegistry.StructureTagsInit.NETHER_FORTRESS)
                 .add(BuiltinStructures.FORTRESS);
-//        this.tag(TagsRegistry.StructureTagsInit.SHOUT_WALL)
-//                .add(StructureRegistry.SHOUT_WALL.getResourceKey());
+        this.tag(TagsRegistry.StructureTagsInit.PYRAMID)
+                .add(BuiltinStructures.DESERT_PYRAMID);
+        this.tag(TagsRegistry.StructureTagsInit.RUINED_PORTAL)
+                .add(BuiltinStructures.RUINED_PORTAL_DESERT)
+                .add(BuiltinStructures.RUINED_PORTAL_JUNGLE)
+                .add(BuiltinStructures.RUINED_PORTAL_MOUNTAIN)
+                .add(BuiltinStructures.RUINED_PORTAL_OCEAN)
+                .add(BuiltinStructures.RUINED_PORTAL_NETHER)
+                .add(BuiltinStructures.RUINED_PORTAL_STANDARD)
+                .add(BuiltinStructures.RUINED_PORTAL_SWAMP);
+        this.tag(TagsRegistry.StructureTagsInit.SHOUT_WALL)
+                .add(StructureRegistry.SHOUT_WALL_KEY);
+//        this.tag(TagsRegistry.StructureTagsInit.DWARVEN_RUINS)
+//                .add(StructureRegistry.DWARVEN_RUINS_KEY);
+        this.tag(TagsRegistry.StructureTagsInit.WATCHTOWER)
+                .add(StructureRegistry.WATCHTOWER_1_KEY);
+        this.tag(TagsRegistry.StructureTagsInit.GIANT_CAMP)
+                .add(StructureRegistry.GIANT_CAMP_PLAINS_KEY);
     }
 }

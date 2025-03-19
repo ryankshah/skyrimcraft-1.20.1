@@ -59,11 +59,32 @@ public class SkyrimcraftBlockTagsProvider extends BlockTagsProvider
                 BlockRegistry.DWEMER_STONE_PRESSURE_PLATE.get()
         );
 
+        tag(BlockTags.SLABS).add(
+                BlockRegistry.DWEMER_METAL_BRICK_SLAB.get(),
+                BlockRegistry.DWEMER_STONE_BRICK_SLAB.get(),
+                BlockRegistry.DWEMER_METAL_TILE_SLAB.get(),
+                BlockRegistry.ORNATE_DWEMER_METAL_TILE_SLAB.get()
+        );
+
+        tag(BlockTags.TRAPDOORS).add(
+                BlockRegistry.DWEMER_METAL_TRAPDOOR.get(),
+                BlockRegistry.STEEL_TRAPDOOR.get()
+        );
+
         tag(BlockTags.STAIRS).add(
                 BlockRegistry.ORNATE_DWEMER_METAL_TILE_STAIRS.get(),
                 BlockRegistry.DWEMER_METAL_TILE_STAIRS.get(),
                 BlockRegistry.DWEMER_METAL_BRICK_STAIRS.get(),
                 BlockRegistry.DWEMER_STONE_BRICK_STAIRS.get()
+        );
+
+        tag(BlockTags.BEDS).add(
+                BlockRegistry.DWEMER_BED_BROWN.get(),
+                BlockRegistry.DWEMER_BED_ORANGE.get()
+        );
+
+        tag(BlockTags.CLIMBABLE).add(
+                BlockRegistry.DWEMER_METAL_LADDER.get()
         );
 
         // deepslate ores

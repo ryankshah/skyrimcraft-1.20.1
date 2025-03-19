@@ -94,10 +94,10 @@ public class SkyrimLoadingScreen extends Screen
         renderItem = random.nextBoolean();
         if (renderItem) {
             rotatingItem = ROTATING_ITEMS[random.nextInt(ROTATING_ITEMS.length)];
-            System.out.println("Selected item: " + rotatingItem);
+//            System.out.println("Selected item: " + rotatingItem);
         } else {
             selectedMobType = ROTATING_MOBS[random.nextInt(ROTATING_MOBS.length)];
-            System.out.println("Selected mob: " + selectedMobType.getDescriptionId());
+//            System.out.println("Selected mob: " + selectedMobType.getDescriptionId());
         }
         String currentFact = MINECRAFT_FACTS[random.nextInt(MINECRAFT_FACTS.length)];
         wrappedFact = wrapText(currentFact, 100);
@@ -222,7 +222,7 @@ public class SkyrimLoadingScreen extends Screen
 //            // Apply the spin rotation in the opposite direction
 //            poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-            System.out.println("Rendering entity: " + selectedMobType.getDescriptionId());
+//            System.out.println("Rendering entity: " + selectedMobType.getDescriptionId());
             try {
                 Entity entity = selectedMobType.create(minecraft.level);
                 if (entity instanceof LivingEntity livingEntity) {
@@ -257,93 +257,6 @@ public class SkyrimLoadingScreen extends Screen
 
         poseStack.popPose();
     }
-
-    public static void renderEntityOrItem(GuiGraphics graphics, int x, int y, int size, float yaw, float pitch, Object toRender) {
-        graphics.pose().pushPose();
-        graphics.pose().translate((float)x, (float)y, 300F);
-        graphics.pose().scale(1.0F, 1.0F, -1.0F);
-        graphics.pose().translate(0.0D, 0.0D, 1000.0D);
-        graphics.pose().scale((float)size, (float)size, (float)size);
-
-        Quaternionf rotation = Axis.ZP.rotationDegrees(180.0F)
-                .mul(Axis.XP.rotationDegrees(pitch))
-                .mul(Axis.YP.rotationDegrees(yaw));
-        graphics.pose().mulPose(rotation);
-
-        if (toRender instanceof LivingEntity) {
-            LivingEntity entity = (LivingEntity) toRender;
-            float originalBodyYaw = entity.yBodyRot;
-            float originalYaw = entity.getYRot();
-            float originalPitch = entity.getXRot();
-            float originalHeadYawO = entity.yHeadRotO;
-            float originalHeadYaw = entity.yHeadRot;
-
-            entity.yBodyRot = 180.0F + yaw * 20.0F;
-            entity.setYRot(180.0F + yaw * 20.0F);
-            entity.setXRot(-pitch * 20.0F);
-            entity.yHeadRot = entity.getYRot();
-            entity.yHeadRotO = entity.getYRot();
-
-            Lighting.setupForFlatItems();
-            EntityRenderDispatcher entityRenderer = Minecraft.getInstance().getEntityRenderDispatcher();
-            entityRenderer.setRenderShadow(false);
-            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-
-            RenderSystem.runAsFancy(() -> {
-                entityRenderer.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, graphics.pose(), bufferSource, 15728880);
-            });
-
-            bufferSource.endBatch();
-
-            // Restore original entity state
-            entity.yBodyRot = originalBodyYaw;
-            entity.setYRot(originalYaw);
-            entity.setXRot(originalPitch);
-            entity.yHeadRotO = originalHeadYawO;
-            entity.yHeadRot = originalHeadYaw;
-        } else if (toRender instanceof Item) {
-            Item item = (Item) toRender;
-            BakedModel itemModel = Minecraft.getInstance().getItemRenderer().getModel(item.getDefaultInstance(), null, null, 0);
-            graphics.pose().translate(-0.5F, -0.5F, -0.5F);
-            Minecraft.getInstance().getItemRenderer().render(item.getDefaultInstance(), ItemDisplayContext.FIXED, false, graphics.pose(), Minecraft.getInstance().renderBuffers().bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, itemModel);
-        }
-
-        graphics.pose().popPose();
-        Lighting.setupFor3DItems();
-    }
-
-    private void renderRotatingItem(GuiGraphics graphics) {
-        PoseStack poseStack = graphics.pose();
-
-        // Push pose stack to ensure item rendering transforms are isolated
-        poseStack.pushPose();
-
-        // Translate to the location where the item should be rendered
-        poseStack.translate(this.width / 4f, this.height / 2f, 100);
-
-        // Scale the item for rendering (adjust scale if needed)
-        poseStack.scale(128, 128, 128);
-
-        // Rotate the item
-        poseStack.mulPose(Axis.XP.rotationDegrees(180));
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
-
-        // Render the item using the item renderer
-        minecraft.getItemRenderer().renderStatic(
-                rotatingItem.getDefaultInstance(),
-                ItemDisplayContext.GUI,
-                15728880,
-                15728880,
-                poseStack,
-                minecraft.renderBuffers().bufferSource(),
-                minecraft.level,
-                0
-        );
-
-        // Pop the pose stack to revert transformations
-        poseStack.popPose();
-    }
-
 
     private void renderLevel(GuiGraphics graphics) {
         PoseStack poseStack = graphics.pose();
@@ -407,7 +320,7 @@ public class SkyrimLoadingScreen extends Screen
 
     @Override
     public boolean isPauseScreen() {
-        return false;
+        return true;
     }
 
     public void startFadeOut() {

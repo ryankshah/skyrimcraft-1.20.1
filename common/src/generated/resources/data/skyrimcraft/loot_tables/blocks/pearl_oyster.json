@@ -27,7 +27,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:air"
+              "name": "skyrimcraft:pearl_oyster"
             }
           ]
         }
@@ -59,7 +59,7 @@
               }
             }
           ],
-          "name": "minecraft:air"
+          "name": "skyrimcraft:pearl_oyster"
         }
       ],
       "rolls": 1.0

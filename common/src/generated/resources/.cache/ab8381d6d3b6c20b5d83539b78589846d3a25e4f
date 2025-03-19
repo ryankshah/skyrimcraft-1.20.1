@@ -1,9 +1,13 @@
-// 1.20.1	2025-01-11T23:17:49.2404973	Tags for minecraft:block mod id skyrimcraft
+// 1.20.1	2025-03-19T10:18:43.6577738	Tags for minecraft:block mod id skyrimcraft
+5b12b2eff7e90a5bd96a2110764512cce713e71d data/minecraft/tags/blocks/beds.json
+ed75b72be023572ec0320ceed9e106bf4cccb77c data/minecraft/tags/blocks/climbable.json
 6fdf65e422880ec0884a6a881f748f30046ea90c data/minecraft/tags/blocks/dampens_vibrations.json
 94aa69413c717798401573e379ab1609470c54ea data/minecraft/tags/blocks/mineable/pickaxe.json
 5a4f99d8192ad136c22c332217c30c6d6dc58b6c data/minecraft/tags/blocks/needs_diamond_tool.json
 ed82db5c79de6b925090425922231a5426a8e8e1 data/minecraft/tags/blocks/needs_iron_tool.json
+b9b41f4a99c37001fc4f829f040f7688c859d8cd data/minecraft/tags/blocks/slabs.json
 ddee557ad57ed22c3a57ac11a99d13a84fd32158 data/minecraft/tags/blocks/stairs.json
+576a25f6acbf2fea42eba5240b80b7a4b633a9d6 data/minecraft/tags/blocks/trapdoors.json
 a9a8130bccf7547abfb11c95e88f510fd48af326 data/minecraft/tags/blocks/walls.json
 c3ea59af560268e23a564b4c3a1db165a599fc7a data/minecraft/tags/blocks/wall_post_override.json
 79c85616ca049f99cf95b4b5476e4b6883ef7918 data/skyrimcraft/tags/blocks/ores/corundum_ore.json

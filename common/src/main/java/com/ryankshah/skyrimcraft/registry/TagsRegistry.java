@@ -123,6 +123,10 @@ public class TagsRegistry
         public static TagKey<Structure> NETHER_FORTRESS = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "fortress"));
         public static TagKey<Structure> SHOUT_WALL = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "shout_wall"));
         public static TagKey<Structure> GIANT_CAMP = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "giant_camp"));
+//        public static TagKey<Structure> DWARVEN_RUINS = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "dwarven_ruins"));
+        public static TagKey<Structure> WATCHTOWER = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "watchtower"));
+        public static TagKey<Structure> PYRAMID = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "pyramid"));
+        public static TagKey<Structure> RUINED_PORTAL = TagKey.create(Registries.STRUCTURE, new ResourceLocation(Constants.MODID,  "ruined_portal"));
     }
 
     public static class BiomeTagsInit {

@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 public record AddToKnownSpells(ResourceKey<Spell> spell)
 {

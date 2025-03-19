@@ -1,0 +1,24 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "dwarven",
+  "levelToCreate": 30,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:dwarven_chestplate"
+  },
+  "recipe": [
+    {
+      "amount": 3,
+      "item": "skyrimcraft:leather_strips"
+    },
+    {
+      "amount": 1,
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:steel_ingot"
+    }
+  ],
+  "xp": 5
+}

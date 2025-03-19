@@ -2,9 +2,9 @@
   "render_type": "cutout",
   "ambientocclusion": false,
   "textures": {
-    "particle": "skyrimcraft:block/dwemer_metal_lever",
-    "base": "skyrimcraft:block/dwemer_metal_lever",
-    "lever": "skyrimcraft:block/dwemer_metal_lever"
+    "particle": "block/cobbled_deepslate",
+    "base": "block/cobbled_deepslate",
+    "lever": "skyrimcraft:block/dwemer_framed_glass_side"
   },
   "elements": [
     {   "from": [ 5, -0.02, 4 ],
@@ -20,7 +20,7 @@
     },
     {   "from": [ 7, 1, 7 ],
       "to": [ 9, 11, 9 ],
-      "rotation": { "origin": [ 8, 1, 8 ], "axis": "x", "angle": 45 },
+      "rotation": { "origin": [ 8, 1, 8 ], "axis": "x", "angle": -45 },
       "faces": {
         "up":    { "uv": [ 7, 6, 9,  8 ], "texture": "#lever" },
         "north": { "uv": [ 7, 6, 9, 16 ], "texture": "#lever" },

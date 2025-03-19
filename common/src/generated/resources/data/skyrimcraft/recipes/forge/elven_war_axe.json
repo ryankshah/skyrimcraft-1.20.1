@@ -1,0 +1,24 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "elven",
+  "levelToCreate": 30,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:elven_war_axe"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:moonstone_ingot"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:quicksilver_ingot"
+    }
+  ],
+  "xp": 5
+}

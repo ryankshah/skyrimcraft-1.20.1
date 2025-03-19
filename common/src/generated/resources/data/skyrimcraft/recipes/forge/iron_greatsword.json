@@ -1,0 +1,16 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "iron",
+  "levelToCreate": 1,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:iron_greatsword"
+  },
+  "recipe": [
+    {
+      "amount": 4,
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "xp": 5
+}

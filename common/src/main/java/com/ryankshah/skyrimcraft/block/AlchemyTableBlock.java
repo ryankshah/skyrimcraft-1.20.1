@@ -1,12 +1,17 @@
 package com.ryankshah.skyrimcraft.block;
 
 import com.ryankshah.skyrimcraft.data.recipe.AlchemyRecipe;
+import com.ryankshah.skyrimcraft.network.Networking;
+import com.ryankshah.skyrimcraft.network.recipe.OpenAlchemyScreen;
 import com.ryankshah.skyrimcraft.registry.RecipeRegistry;
 import com.ryankshah.skyrimcraft.screen.AlchemyScreen;
+import commonnetwork.api.Dispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +29,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlchemyTableBlock extends Block
 {
@@ -35,17 +41,14 @@ public class AlchemyTableBlock extends Block
     );
 
     public AlchemyTableBlock() {
-        super(Properties.copy(Blocks.OAK_WOOD).strength(2.0f).requiresCorrectToolForDrops().noOcclusion()); // axe, 2
+        super(Properties.copy(Blocks.OAK_WOOD).strength(2.0f).requiresCorrectToolForDrops().noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pPlayer.getItemInHand(pHand).isEmpty()) {
-            List<AlchemyRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.ALCHEMY.get());
-//        System.out.println(recipes);
-            if (pPlayer instanceof AbstractClientPlayer)
-                Minecraft.getInstance().setScreen(new AlchemyScreen(recipes));
+        if(!pLevel.isClientSide) {
+            Dispatcher.sendToClient(new OpenAlchemyScreen(), (ServerPlayer) pPlayer);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

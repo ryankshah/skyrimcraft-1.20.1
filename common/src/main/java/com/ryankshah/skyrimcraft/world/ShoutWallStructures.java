@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 import java.util.Optional;
 
+
 public class ShoutWallStructures extends Structure
 {
     public static final MapCodec<ShoutWallStructures> CODEC = RecordCodecBuilder.<ShoutWallStructures>mapCodec(instance ->

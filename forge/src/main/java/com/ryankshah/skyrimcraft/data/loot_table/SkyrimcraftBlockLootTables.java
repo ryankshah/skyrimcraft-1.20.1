@@ -72,6 +72,8 @@ public class SkyrimcraftBlockLootTables extends BlockLootSubProvider
         dropSelf(BlockRegistry.STONE_4.get());
         dropSelf(BlockRegistry.STONE_5.get());
 
+        dropSelf(BlockRegistry.DWEMER_METAL_LADDER.get());
+
         dropSelf(BlockRegistry.RED_MOUNTAIN_FLOWER.get());
         dropSelf(BlockRegistry.BLUE_MOUNTAIN_FLOWER.get());
         dropSelf(BlockRegistry.YELLOW_MOUNTAIN_FLOWER.get());
@@ -259,6 +261,10 @@ public class SkyrimcraftBlockLootTables extends BlockLootSubProvider
         dropSelf(BlockRegistry.DWEMER_GLASS.get());
         dropSelf(BlockRegistry.DWEMER_FRAMED_GLASS.get());
         dropSelf(BlockRegistry.DWEMER_WINDOWED_GLASS.get());
+
+        dropSelf(BlockRegistry.DWEMER_GLASS_PANE.get());
+        dropSelf(BlockRegistry.DWEMER_FRAMED_GLASS_PANE.get());
+        dropSelf(BlockRegistry.DWEMER_WINDOWED_GLASS_PANE.get());
 
         dropSelf(BlockRegistry.DWEMER_REDSTONE_LAMP.get());
         dropSelf(BlockRegistry.DWEMER_REDSTONE_SOUL_LAMP.get());

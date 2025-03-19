@@ -26,7 +26,7 @@ public class SkeeverRenderer extends MobRenderer<Skeever, SkeeverModel<Skeever>>
         return MODEL_TEXTURE;
     }
 
-    protected void setupRotations(Skeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick, float pScale) {
+    protected void setupRotations(Skeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick) {
         super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick);
     }
 }

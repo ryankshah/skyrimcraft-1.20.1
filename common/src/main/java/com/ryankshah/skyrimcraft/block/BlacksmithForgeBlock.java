@@ -1,13 +1,17 @@
 package com.ryankshah.skyrimcraft.block;
 
 import com.ryankshah.skyrimcraft.data.recipe.ForgeRecipe;
+import com.ryankshah.skyrimcraft.network.recipe.OpenAlchemyScreen;
+import com.ryankshah.skyrimcraft.network.recipe.OpenForgeScreen;
 import com.ryankshah.skyrimcraft.registry.RecipeRegistry;
 import com.ryankshah.skyrimcraft.screen.BlacksmithForgeScreen;
+import commonnetwork.api.Dispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -44,11 +48,8 @@ public class BlacksmithForgeBlock extends Block
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pPlayer.getItemInHand(pHand).isEmpty()) {
-            List<ForgeRecipe> recipes = pLevel.getRecipeManager().getAllRecipesFor(RecipeRegistry.FORGE.get());
-//        System.out.println(recipes);
-            if (pPlayer instanceof AbstractClientPlayer)
-                Minecraft.getInstance().setScreen(new BlacksmithForgeScreen(recipes));
+        if(!pLevel.isClientSide) {
+            Dispatcher.sendToClient(new OpenForgeScreen(), (ServerPlayer) pPlayer);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

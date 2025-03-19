@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:alchemy",
+  "category": "FORTIFY MARKSMAN",
+  "levelToCreate": 2,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:draught_of_true_shot"
+  },
+  "recipe": [
+    {
+      "amount": 2,
+      "item": "skyrimcraft:canis_root"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:juniper_berries"
+    }
+  ],
+  "xp": 1
+}

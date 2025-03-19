@@ -198,6 +198,8 @@ public class CharacterCreationScreen extends Screen
         p_228187_5_.yHeadRot = 225f + f;
         p_228187_5_.yHeadRotO = 225f + f;
         Lighting.setupForFlatItems();
+        if(Minecraft.getInstance().getEntityRenderDispatcher() == null)
+            return;
         EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
         quaternion1.conjugate();
         entityrenderermanager.overrideCameraOrientation(quaternion1);

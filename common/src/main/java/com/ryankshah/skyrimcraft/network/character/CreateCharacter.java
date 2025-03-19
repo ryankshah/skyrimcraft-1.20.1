@@ -35,7 +35,7 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
     }
 
     public static void handle(PacketContext<CreateCharacter> context) {
-        System.out.println("create character handle");
+//        System.out.println("create character handle");
         if(context.side().equals(Side.CLIENT))
             handleClient(context);
         else
@@ -43,7 +43,7 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
     }
 
     public static void handleServer(PacketContext<CreateCharacter> context) {
-        System.out.println("create character server");
+//        System.out.println("create character server");
         ServerPlayer player = context.sender();
         Race race = Race.getRaces().stream().filter(r -> r.getId() == context.message().raceID()).findFirst().get();
         Character character = Character.get(player);
@@ -67,7 +67,7 @@ public record CreateCharacter(int raceID, boolean fin) //(int raceID, String rac
     }
 
     public static void handleClient(PacketContext<CreateCharacter> context) {
-        System.out.println("create character client");
+//        System.out.println("create character client");
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> {
             Player player = minecraft.player;

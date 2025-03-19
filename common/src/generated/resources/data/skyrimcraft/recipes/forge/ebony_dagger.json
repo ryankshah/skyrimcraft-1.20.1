@@ -1,0 +1,16 @@
+{
+  "type": "skyrimcraft:forge",
+  "category": "ebony",
+  "levelToCreate": 80,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:ebony_dagger"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:ebony_ingot"
+    }
+  ],
+  "xp": 5
+}

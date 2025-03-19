@@ -1,0 +1,20 @@
+{
+  "type": "skyrimcraft:oven",
+  "category": "food",
+  "levelToCreate": 1,
+  "output": {
+    "amount": 1,
+    "item": "skyrimcraft:garlic_bread"
+  },
+  "recipe": [
+    {
+      "amount": 1,
+      "item": "skyrimcraft:garlic"
+    },
+    {
+      "amount": 1,
+      "item": "skyrimcraft:flour"
+    }
+  ],
+  "xp": 5
+}

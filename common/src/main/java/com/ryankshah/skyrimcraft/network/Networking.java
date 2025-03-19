@@ -1,9 +1,7 @@
 package com.ryankshah.skyrimcraft.network;
 
 import com.ryankshah.skyrimcraft.network.character.*;
-import com.ryankshah.skyrimcraft.network.recipe.FinishAlchemyRecipe;
-import com.ryankshah.skyrimcraft.network.recipe.FinishForgeRecipe;
-import com.ryankshah.skyrimcraft.network.recipe.FinishOvenRecipe;
+import com.ryankshah.skyrimcraft.network.recipe.*;
 import com.ryankshah.skyrimcraft.network.skill.AddXpToSkill;
 import com.ryankshah.skyrimcraft.network.skill.HandlePickpocket;
 import com.ryankshah.skyrimcraft.network.spell.*;
@@ -24,6 +22,7 @@ public class Networking
         Network.registerPacket(UpdateShoutCooldown.TYPE, UpdateShoutCooldown.class, UpdateShoutCooldown::encode, UpdateShoutCooldown::decode, UpdateShoutCooldown::handle);
         Network.registerPacket(CastSpell.TYPE, CastSpell.class, CastSpell::encode, CastSpell::decode, CastSpell::handle);
         Network.registerPacket(FastTravel.TYPE, FastTravel.class, FastTravel::encode, FastTravel::decode, FastTravel::handle);
+        Network.registerPacket(AddVisitedChunk.TYPE, AddVisitedChunk.class, AddVisitedChunk::encode, AddVisitedChunk::decode, AddVisitedChunk::handle);
 
         Network.registerPacket(DetectLife.TYPE, DetectLife.class, DetectLife::encode, DetectLife::decode, DetectLife::handle);
         Network.registerPacket(UpdateTelekinesisItem.TYPE, UpdateTelekinesisItem.class, UpdateTelekinesisItem::encode, UpdateTelekinesisItem::decode, UpdateTelekinesisItem::handle);
@@ -42,5 +41,8 @@ public class Networking
         Network.registerPacket(FinishAlchemyRecipe.TYPE, FinishAlchemyRecipe.class, FinishAlchemyRecipe::encode, FinishAlchemyRecipe::decode, FinishAlchemyRecipe::handle);
         Network.registerPacket(FinishOvenRecipe.TYPE, FinishOvenRecipe.class, FinishOvenRecipe::encode, FinishOvenRecipe::decode, FinishOvenRecipe::handle);
         Network.registerPacket(FinishForgeRecipe.TYPE, FinishForgeRecipe.class, FinishForgeRecipe::encode, FinishForgeRecipe::decode, FinishForgeRecipe::handle);
+        Network.registerPacket(OpenAlchemyScreen.TYPE, OpenAlchemyScreen.class, OpenAlchemyScreen::encode, OpenAlchemyScreen::decode, OpenAlchemyScreen::handle);
+        Network.registerPacket(OpenForgeScreen.TYPE, OpenForgeScreen.class, OpenForgeScreen::encode, OpenForgeScreen::decode, OpenForgeScreen::handle);
+        Network.registerPacket(OpenOvenScreen.TYPE, OpenOvenScreen.class, OpenOvenScreen::encode, OpenOvenScreen::decode, OpenOvenScreen::handle);
     }
 }

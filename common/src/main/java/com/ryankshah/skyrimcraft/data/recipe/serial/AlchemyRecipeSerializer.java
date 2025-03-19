@@ -1,13 +1,19 @@
 package com.ryankshah.skyrimcraft.data.recipe.serial;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ryankshah.skyrimcraft.data.recipe.AlchemyRecipe;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public class AlchemyRecipeSerializer implements RecipeSerializer<AlchemyRecipe>
 {
@@ -16,7 +22,30 @@ public class AlchemyRecipeSerializer implements RecipeSerializer<AlchemyRecipe>
 
     @Override
     public AlchemyRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-        return null;
+        String category = GsonHelper.getAsString(pSerializedRecipe, "category");
+        int levelToCreate = GsonHelper.getAsInt(pSerializedRecipe, "levelToCreate", 0);
+        int xpGained = GsonHelper.getAsInt(pSerializedRecipe, "xp", 0);
+        JsonObject outputObject = GsonHelper.getAsJsonObject(pSerializedRecipe, "output");
+        String outputItem = GsonHelper.getAsString(outputObject, "item");
+        int outputAmount = GsonHelper.getAsInt(outputObject, "amount", 1);
+
+        ResourceLocation outputItemId = new ResourceLocation(outputItem);
+        ItemStack resultStack = new ItemStack(BuiltInRegistries.ITEM.get(outputItemId), outputAmount);
+
+        JsonArray recipeArray = GsonHelper.getAsJsonArray(pSerializedRecipe, "recipe");
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+
+        for (JsonElement element : recipeArray) {
+            JsonObject ingredientObject = element.getAsJsonObject();
+            String itemName = GsonHelper.getAsString(ingredientObject, "item");
+            int amount = GsonHelper.getAsInt(ingredientObject, "amount", 1);
+
+            ResourceLocation itemId = new ResourceLocation(itemName);
+            ItemStack ingredientStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId), amount);
+            ingredients.add(Ingredient.of(ingredientStack));
+        }
+
+        return new AlchemyRecipe(category, resultStack, xpGained, levelToCreate, ingredients);
     }
 
     @Override

@@ -23,6 +23,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -44,6 +45,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import software.bernie.geckolib.GeckoLib;
 
 import java.util.Iterator;
 import java.util.List;
@@ -93,6 +95,7 @@ public class SkyrimcraftFabric implements ModInitializer
     
     @Override
     public void onInitialize() {
+        GeckoLib.initialize();
         SkyrimcraftCommon.init();
         EntityRegistry.registerEntityAttributes(FabricDefaultAttributeRegistry::register);
 
@@ -131,6 +134,13 @@ public class SkyrimcraftFabric implements ModInitializer
             }
         });
         ServerEntityEvents.ENTITY_LOAD.register(((entity, world) -> {
+//            if(entity instanceof ServerPlayer serverPlayer) {
+//                Character character = Character.get(serverPlayer);
+//                if (!character.getHasSetup()) {
+//                    final OpenCharacterCreationScreen packet = new OpenCharacterCreationScreen(character.getHasSetup());
+//                    Dispatcher.sendToClient(packet, serverPlayer);
+//                }
+//            }
             if (pickPocketableEntities.contains(entity.getType())) {
                 entity.addTag(EntityRegistry.PICKPOCKET_TAG);
             }

@@ -174,21 +174,21 @@ public class TallDoorBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHit) {
-        if(player.getItemInHand(pHand).isEmpty()) {
-            ItemStack itemstack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!this.type.canOpenByHand() && !state.is(TagsRegistry.BlockTagsInit.MOB_INTERACTABLE_TALL_DOORS)) {
-                return InteractionResult.PASS;
-            }
-            else {
-                tryOpenDoubleDoor(level, state, pos);
-                state = state.cycle(OPEN);
-                level.setBlock(pos, state, 10);
-                this.playSound(player, level, pos, state.getValue(OPEN));
-                level.gameEvent(player, state.getValue(OPEN) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-                return InteractionResult.sidedSuccess(level.isClientSide);
-            }
-        }
-        return super.use(state, level, pos, player, pHand, pHit);
+//        if(player.getItemInHand(pHand).isEmpty()) {
+//            ItemStack itemstack = player.getItemInHand(InteractionHand.MAIN_HAND);
+//            if (!this.type.canOpenByHand() && !state.is(TagsRegistry.BlockTagsInit.MOB_INTERACTABLE_TALL_DOORS)) {
+//                return InteractionResult.PASS;
+//            }
+//            else {
+        tryOpenDoubleDoor(level, state, pos);
+        state = state.cycle(OPEN);
+        level.setBlock(pos, state, 10);
+        this.playSound(player, level, pos, state.getValue(OPEN));
+        level.gameEvent(player, state.getValue(OPEN) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+        return InteractionResult.sidedSuccess(level.isClientSide);
+//            }
+//        }
+//        return super.use(state, level, pos, player, pHand, pHit);
     }
 
     @Override

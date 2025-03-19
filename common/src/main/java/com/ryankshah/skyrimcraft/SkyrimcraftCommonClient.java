@@ -8,10 +8,7 @@ import com.ryankshah.skyrimcraft.character.feature.model.DunmerEarModel;
 import com.ryankshah.skyrimcraft.character.feature.model.HighElfEarModel;
 import com.ryankshah.skyrimcraft.character.feature.model.KhajiitHeadModel;
 import com.ryankshah.skyrimcraft.character.feature.model.KhajiitTailModel;
-import com.ryankshah.skyrimcraft.character.magic.entity.render.DisarmRenderer;
-import com.ryankshah.skyrimcraft.character.magic.entity.render.FireballRenderer;
-import com.ryankshah.skyrimcraft.character.magic.entity.render.LightBallRenderer;
-import com.ryankshah.skyrimcraft.character.magic.entity.render.UnrelentingForceRenderer;
+import com.ryankshah.skyrimcraft.character.magic.entity.render.*;
 import com.ryankshah.skyrimcraft.entity.boss.dragon.render.SkyrimDragonRenderer;
 import com.ryankshah.skyrimcraft.entity.creature.model.DraugrModel;
 import com.ryankshah.skyrimcraft.entity.creature.model.SkeeverModel;
@@ -25,8 +22,7 @@ import com.ryankshah.skyrimcraft.entity.npc.render.FalmerRenderer;
 import com.ryankshah.skyrimcraft.entity.npc.render.KhajiitRenderer;
 import com.ryankshah.skyrimcraft.entity.passive.flying.BlueButterfly;
 import com.ryankshah.skyrimcraft.entity.passive.flying.render.*;
-import com.ryankshah.skyrimcraft.registry.BlockEntityRegistry;
-import com.ryankshah.skyrimcraft.registry.EntityRegistry;
+import com.ryankshah.skyrimcraft.registry.*;
 import net.minecraft.client.model.HumanoidArmorModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -42,15 +38,19 @@ import java.util.function.BiConsumer;
 
 public class SkyrimcraftCommonClient
 {
+    public static void initClient() {
+        KeysRegistry.init();
+        ParticleRenderTypeRegistry.init();
+        RenderTypeRegistry.init();
+    }
+
     public static void registerRenderers(BiConsumer<EntityType<? extends Entity>, EntityRendererProvider> entityRenderers,
                                          BiConsumer<BlockEntityType<? extends BlockEntity>, BlockEntityRendererProvider> blockEntityRenderers) {
-        blockEntityRenderers.accept(BlockEntityRegistry.TURN_STONE.get(), TurnStoneBlockEntityRenderer::new);
-        blockEntityRenderers.accept(BlockEntityRegistry.DWEMER_PISTON.get(), DwemerPistonHeadRenderer::new);
-
         entityRenderers.accept(EntityRegistry.SHOUT_UNRELENTING_FORCE_ENTITY.get(), UnrelentingForceRenderer::new);
         entityRenderers.accept(EntityRegistry.SPELL_FIREBALL_ENTITY.get(), FireballRenderer::new);
         entityRenderers.accept(EntityRegistry.SHOUT_DISARM_ENTITY.get(), DisarmRenderer::new);
         entityRenderers.accept(EntityRegistry.LIGHTBALL_ENTITY.get(), LightBallRenderer::new);
+        entityRenderers.accept(EntityRegistry.SKYRIM_LIGHTNING.get(), LightningRenderer::new);
 
         // Mobs
         entityRenderers.accept(EntityRegistry.SABRE_CAT.get(), SabreCatRenderer::new);
@@ -79,7 +79,6 @@ public class SkyrimcraftCommonClient
         entityRenderers.accept(EntityRegistry.ABECEAN_LONGFIN.get(), AbeceanLongfinRenderer::new);
         entityRenderers.accept(EntityRegistry.CYRODILIC_SPADETAIL.get(), CyrodilicSpadetailRenderer::new);
         entityRenderers.accept(EntityRegistry.SLAUGHTERFISH.get(), SlaughterfishRenderer::new);
-
         entityRenderers.accept(EntityRegistry.DWEMER_CHAIR.get(), DwemerChairRenderer::new);
         entityRenderers.accept(EntityRegistry.DWEMER_BENCH.get(), DwemerBenchRenderer::new);
 

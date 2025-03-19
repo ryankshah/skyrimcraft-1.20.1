@@ -26,7 +26,7 @@ public class VenomfangSkeeverRenderer extends MobRenderer<VenomfangSkeever, Veno
         return MODEL_TEXTURE;
     }
 
-    protected void setupRotations(VenomfangSkeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick, float pScale) {
+    protected void setupRotations(VenomfangSkeever pEntityLiving, PoseStack pPoseStack, float pBob, float pYBodyRot, float pPartialTick) {
         super.setupRotations(pEntityLiving, pPoseStack, pBob, pYBodyRot, pPartialTick);
     }
 }

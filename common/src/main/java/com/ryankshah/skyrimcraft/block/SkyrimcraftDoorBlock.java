@@ -187,15 +187,15 @@ public class SkyrimcraftDoorBlock extends DoorBlock
     }
 
     public InteractionResult use(BlockState $$0, Level $$1, BlockPos $$2, Player $$3, InteractionHand $$4, BlockHitResult $$5) {
-        if (!this.type.canOpenByHand()) {
-            return InteractionResult.PASS;
-        } else {
-            $$0 = (BlockState)$$0.cycle(OPEN);
-            $$1.setBlock($$2, $$0, 10);
-            this.playSound($$3, $$1, $$2, (Boolean)$$0.getValue(OPEN));
-            $$1.gameEvent($$3, this.isOpen($$0) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, $$2);
-            return InteractionResult.sidedSuccess($$1.isClientSide);
-        }
+//        if (!this.type.canOpenByHand()) {
+//            return InteractionResult.PASS;
+//        } else {
+        $$0 = (BlockState)$$0.cycle(OPEN);
+        $$1.setBlock($$2, $$0, 10);
+        this.playSound($$3, $$1, $$2, (Boolean)$$0.getValue(OPEN));
+        $$1.gameEvent($$3, this.isOpen($$0) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, $$2);
+        return InteractionResult.sidedSuccess($$1.isClientSide);
+//        }
     }
 
     public boolean isOpen(BlockState pState) {
