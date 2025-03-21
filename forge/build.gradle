@@ -84,6 +84,7 @@ minecraft {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":common")
@@ -96,6 +97,7 @@ dependencies {
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${terrablender_version}")
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
+//    jarJar(implementation fg.deobf("curse.maven:locks-unofficial-1128357:6115787"))
 }
 
 tasks.withType(JavaCompile).configureEach {

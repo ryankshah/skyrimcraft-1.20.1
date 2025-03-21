@@ -22,4 +22,6 @@ public class FeatureRegistry
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> LAVA_FOUNTAIN = FEATURES.register("lava_fountain", LavaFountainFeature::new);
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> DEAD_TREE = FEATURES.register("dead_tree", DeadTreeFeature::new);
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> PINE_TREE = FEATURES.register("pine_tree", PineTreeFeature::new);
+
+    public static final RegistryObject<LocksFeature> BOULDER_TRAP = FEATURES.register("locks", () -> new LocksFeature(NoneFeatureConfiguration.CODEC));
 }

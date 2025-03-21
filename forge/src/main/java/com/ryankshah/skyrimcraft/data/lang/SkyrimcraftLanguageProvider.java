@@ -22,6 +22,7 @@ public class SkyrimcraftLanguageProvider extends LanguageProvider
         add(CreativeTabRegistry.SKYRIMCRAFT_JEWELLERY_TAB_TITLE, "Skyrimcraft Jewellery");
         add(CreativeTabRegistry.SKYRIMCRAFT_ALL_TITLE, "Skyrimcraft");
         add(CreativeTabRegistry.SKYRIMCRAFT_MAGIC_TITLE, "Skyrimcraft Magic");
+        add(CreativeTabRegistry.SKYRIMCRAFT_SKILLING_TITLE, "Skyrimcraft Skilling");
 
         add("effect.skyrimcraft.ethereal", "Ethereal");
         add("effect.skyrimcraft.frozen", "Frozen");
@@ -176,5 +177,57 @@ public class SkyrimcraftLanguageProvider extends LanguageProvider
         add("sound." + Constants.MODID + ".freeze_spell_hit", "Freeze Spell Hit");
         add("sound." + Constants.MODID + ".draugr_grunt", "Draugr Grunts");
         add("sound." + Constants.MODID + ".draugr_attack", "Draugr Attacks");
+
+
+        add("language.skyrimcraft.translation_author", "<Your name here>");
+
+        add("itemGroup.skyrimcraft", "Locks");
+
+        add("item.skyrimcraft.spring", "Spring");
+        add("item.skyrimcraft.wood_lock_mechanism", "Wood Lock Mechanism");
+        add("item.skyrimcraft.iron_lock_mechanism", "Iron Lock Mechanism");
+        add("item.skyrimcraft.steel_lock_mechanism", "Steel Lock Mechanism");
+        add("item.skyrimcraft.wood_lock", "Wood Lock");
+        add("item.skyrimcraft.iron_lock", "Iron Lock");
+        add("item.skyrimcraft.steel_lock", "Steel Lock");
+        add("item.skyrimcraft.gold_lock", "Gold Plated Lock");
+        add("item.skyrimcraft.diamond_lock", "Diamond Plated Lock");
+        add("item.skyrimcraft.wood_lock_pick", "Bobby Pin Lock Pick");
+        add("item.skyrimcraft.iron_lock_pick", "Iron Lock Pick");
+        add("item.skyrimcraft.steel_lock_pick", "Steel Lock Pick");
+        add("item.skyrimcraft.gold_lock_pick", "Gold Lock Pick");
+        add("item.skyrimcraft.diamond_lock_pick", "Diamond Lock Pick");
+        add("item.skyrimcraft.key", "Key");
+        add("item.skyrimcraft.master_key", "Master Key");
+        add("item.skyrimcraft.key_blank", "Key Blank");
+        add("item.skyrimcraft.key_ring", "Key Ring");
+
+        add("enchantment.skyrimcraft.shocking", "Shocking");
+        add("enchantment.skyrimcraft.shocking.desc", "Shocks thieves that fail to pick the lock");
+        add("enchantment.skyrimcraft.sturdy", "Sturdy");
+        add("enchantment.skyrimcraft.sturdy.desc", "Reduces the strength of lock picks");
+        add("enchantment.skyrimcraft.complexity", "Complexity");
+        add("enchantment.skyrimcraft.complexity.desc", "Makes the lock too complex to pick with lower tier lock picks");
+
+        add("death.attack.skyrimcraft.shock", "%1$s was electrocuted after failing to pick an enchanted lock");
+        add("death.attack.skyrimcraft.shock.player", "%1$s was electrocuted by an enchanted lock whilst simultaneously picking it and fighting off %2$s");
+
+        add("skyrimcraft.gui.lockpicking.title", "Lock picking");
+        add("skyrimcraft.gui.lockpicking.open", "Press `ESC` to open");
+
+        add("skyrimcraft.subtitle.key_ring", "Keys jingle");
+        add("skyrimcraft.subtitle.lock.close", "Lock clicks");
+        add("skyrimcraft.subtitle.lock.open", "Key turned in lock");
+        add("skyrimcraft.subtitle.lock.rattle", "Lock rattles");
+        add("skyrimcraft.subtitle.pin.fail", "Pin clacks hollowly");
+        add("skyrimcraft.subtitle.pin.match", "Pin clicks lightly");
+        add("skyrimcraft.subtitle.shock", "Sudden electric zap");
+
+        add("skyrimcraft.tooltip.id", "ID, %s");
+        add("skyrimcraft.tooltip.length",  "Length, %s");
+        add("skyrimcraft.tooltip.strength", "Strength, %s");
+
+        add("skyrimcraft.status.locked", "This block is locked");
+        add("skyrimcraft.status.too_complex", "This lock is too complex for this lock pick");
     }
 }

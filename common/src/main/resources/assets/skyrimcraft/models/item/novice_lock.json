@@ -1,0 +1,17 @@
+{
+	"parent": "item/generated",
+	"textures":
+	{
+		"layer0": "skyrimcraft:item/novice_lock"
+	},
+	"overrides":
+	[
+		{
+			"predicate":
+			{
+				"skyrimcraft:open": 1
+			},
+			"model": "skyrimcraft:item/open_novice_lock"
+		}
+	]
+}

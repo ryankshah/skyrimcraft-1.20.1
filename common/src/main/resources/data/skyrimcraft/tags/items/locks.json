@@ -1,0 +1,11 @@
+{
+	"replace": false,
+	"values":
+	[
+		"skyrimcraft:apprentice_lock",
+		"skyrimcraft:adept_lock",
+		"skyrimcraft:novice_lock",
+		"skyrimcraft:expert_lock",
+		"skyrimcraft:master_lock"
+	]
+}

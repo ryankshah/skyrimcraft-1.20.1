@@ -1,0 +1,8 @@
+{
+  "feature": "skyrimcraft:locks_block",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

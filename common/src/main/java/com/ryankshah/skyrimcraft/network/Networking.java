@@ -4,6 +4,7 @@ import com.ryankshah.skyrimcraft.network.character.*;
 import com.ryankshah.skyrimcraft.network.recipe.*;
 import com.ryankshah.skyrimcraft.network.skill.AddXpToSkill;
 import com.ryankshah.skyrimcraft.network.skill.HandlePickpocket;
+import com.ryankshah.skyrimcraft.network.skill.lockpicking.*;
 import com.ryankshah.skyrimcraft.network.spell.*;
 import commonnetwork.api.Network;
 
@@ -44,5 +45,14 @@ public class Networking
         Network.registerPacket(OpenAlchemyScreen.TYPE, OpenAlchemyScreen.class, OpenAlchemyScreen::encode, OpenAlchemyScreen::decode, OpenAlchemyScreen::handle);
         Network.registerPacket(OpenForgeScreen.TYPE, OpenForgeScreen.class, OpenForgeScreen::encode, OpenForgeScreen::decode, OpenForgeScreen::handle);
         Network.registerPacket(OpenOvenScreen.TYPE, OpenOvenScreen.class, OpenOvenScreen::encode, OpenOvenScreen::decode, OpenOvenScreen::handle);
+
+
+        Network.registerPacket(AddLockablePacket.TYPE, AddLockablePacket.class, AddLockablePacket::encode, AddLockablePacket::decode, AddLockablePacket::handle);
+        Network.registerPacket(AddLockableToChunkPacket.TYPE, AddLockableToChunkPacket.class, AddLockableToChunkPacket::encode, AddLockableToChunkPacket::decode, AddLockableToChunkPacket::handle);
+        Network.registerPacket(RemoveLockablePacket.TYPE, RemoveLockablePacket.class, RemoveLockablePacket::encode, RemoveLockablePacket::decode, RemoveLockablePacket::handle);
+        Network.registerPacket(UpdateLockablePacket.TYPE, UpdateLockablePacket.class, UpdateLockablePacket::encode, UpdateLockablePacket::decode, UpdateLockablePacket::handle);
+        Network.registerPacket(TryPinPacket.TYPE, TryPinPacket.class, TryPinPacket::encode, TryPinPacket::decode, TryPinPacket::handle);
+        Network.registerPacket(TryPinResultPacket.TYPE, TryPinResultPacket.class, TryPinResultPacket::encode, TryPinResultPacket::decode, TryPinResultPacket::handle);
+        Network.registerPacket(UpdateSelection.TYPE, UpdateSelection.class, UpdateSelection::encode, UpdateSelection::decode, UpdateSelection::handle);
     }
 }

@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SSS",
+		"TTT",
+		"WWW"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "minecraft:string"
+		},
+		"T":
+		{
+			"item": "minecraft:stick"
+		},
+		"W":
+		{
+			"tag": "minecraft:planks"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:novice_lock_mechanism"
+	}
+}

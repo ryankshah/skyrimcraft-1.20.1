@@ -12,6 +12,7 @@ import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import com.ryankshah.skyrimcraft.util.ClientUtil;
 import com.ryankshah.skyrimcraft.util.IngredientEffect;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -767,6 +768,30 @@ public class ItemRegistry
 //    public static final RegistryObject<Item> KHAJIIT_SPAWN_EGG = ITEMS.register("khajiit_spawn_egg", () -> new SpawnEggItem(EntityRegistry.KHAJIIT.get(), 0x505050, 0x606060, new Item.Properties()));
 //    public static final RegistryObject<Item> FALMER_SPAWN_EGG = ITEMS.register("falmer_spawn_egg", () -> new SpawnEggItem(EntityRegistry.FALMER.get(), 0x505050, 0x606060, new Item.Properties()));
 
+
+    // Lockpicking
+    public static final RegistryObject<Item>
+            SPRING = ITEMS.register("spring", () -> new Item(new Item.Properties())),
+            NOVICE_LOCK_MECHANISM = ITEMS.register("novice_lock_mechanism", () -> new Item(new Item.Properties())),
+            APPRENTICE_LOCK_MECHANISM = ITEMS.register("apprentice_lock_mechanism", () -> new Item(new Item.Properties())),
+            ADEPT_LOCK_MECHANISM = ITEMS.register("adept_lock_mechanism", () -> new Item(new Item.Properties())),
+            EXPERT_LOCK_MECHANISM = ITEMS.register("expert_lock_mechanism", () -> new Item(new Item.Properties())),
+            MASTER_LOCK_MECHANISM = ITEMS.register("master_lock_mechanism", () -> new Item(new Item.Properties())),
+            KEY_BLANK = ITEMS.register("key_blank", () -> new Item(new Item.Properties())),
+            NOVICE_LOCK = ITEMS.register("novice_lock", () -> new LockItem(5, 15, 4, new Item.Properties())),
+            APPRENTICE_LOCK = ITEMS.register("apprentice_lock", () -> new LockItem(7, 14, 12, new Item.Properties())),
+            ADEPT_LOCK = ITEMS.register("adept_lock", () -> new LockItem(9, 12, 20, new Item.Properties())),
+            EXPERT_LOCK = ITEMS.register("expert_lock", () -> new LockItem(6, 22, 6, new Item.Properties())),
+            MASTER_LOCK = ITEMS.register("master_lock", () -> new LockItem(11, 10, 100, new Item.Properties())),
+            KEY = ITEMS.register("key", () -> new KeyItem(new Item.Properties())),
+            MASTER_KEY = ITEMS.register("master_key", () -> new MasterKeyItem(new Item.Properties())),
+            LOCKPICK = ITEMS.register("lockpick", () -> new LockPickItem(0.7f, new Item.Properties()));
+//            IRON_LOCK_PICK = add("iron_lock_pick", () -> new LockPickItem(0.35f, new Item.Properties())),
+//            STEEL_LOCK_PICK = add("steel_lock_pick", () -> new LockPickItem(0.7f, new Item.Properties())),
+//            GOLD_LOCK_PICK = add("gold_lock_pick", () -> new LockPickItem(0.25f, new Item.Properties())),
+//            DIAMOND_LOCK_PICK = add("diamond_lock_pick", () -> new LockPickItem(0.85f, new Item.Properties()));
+
+
     public static void registerItemModelProperties() {
         registerTwoHandedProperties(ANCIENT_NORD_BATTLEAXE.get());
         registerTwoHandedProperties(ANCIENT_NORD_GREATSWORD.get());
@@ -826,6 +851,9 @@ public class ItemRegistry
         // misc
         registerBowProperties(HUNTING_BOW.get());
         registerBowProperties(LONGBOW.get());
+
+
+        ItemProperties.register(ItemRegistry.LOCKPICK.get(), new ResourceLocation(Constants.MODID, "open"), ClientUtil::isOpen);
     }
 
     private static void registerTwoHandedProperties(Item item) {

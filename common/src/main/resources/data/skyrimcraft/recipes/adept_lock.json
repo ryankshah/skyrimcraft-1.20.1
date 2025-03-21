@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" S ",
+		"SLS",
+		"SSS"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "skyrimcraft:steel_ingot"
+		},
+		"L":
+		{
+			"item": "skyrimcraft:adept_lock_mechanism"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:adept_lock"
+	}
+}

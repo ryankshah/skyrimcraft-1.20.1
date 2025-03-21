@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" W ",
+		"WLW",
+		"WWW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"tag": "minecraft:planks"
+		},
+		"L":
+		{
+			"item": "skyrimcraft:novice_lock_mechanism"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:novice_lock"
+	}
+}

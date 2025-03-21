@@ -3,7 +3,6 @@ package com.ryankshah.skyrimcraft.data.recipe.serial;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.ryankshah.skyrimcraft.data.recipe.AlchemyRecipe;
 import com.ryankshah.skyrimcraft.data.recipe.OvenRecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +12,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public class OvenRecipeSerializer implements RecipeSerializer<OvenRecipe>
 {
@@ -50,43 +48,38 @@ public class OvenRecipeSerializer implements RecipeSerializer<OvenRecipe>
 
     @Override
     public OvenRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
-        NonNullList<Ingredient> recipeItems = NonNullList.create();
         String category = buf.readUtf();
+        int level = buf.readInt();
+        int xp = buf.readInt();
         ItemStack stackToCreate = buf.readItem();
 
+        NonNullList<Ingredient> recipeItems = NonNullList.create();
         int length = buf.readInt();
         for (int i = 0; i < length; i++) {
             int ingLen = buf.readInt();
             ItemStack[] stacks = new ItemStack[ingLen];
-            for(int j = 0; j < ingLen; j++)
-                stacks[i] = buf.readItem();
+            for(int j = 0; j < ingLen; j++) {
+                stacks[j] = buf.readItem();
+            }
             recipeItems.add(Ingredient.of(stacks));
         }
-
-        int level = buf.readInt();
-        int xp = buf.readInt();
 
         return new OvenRecipe(category, stackToCreate, xp, level, recipeItems);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buf, OvenRecipe alchemyRecipe) {
-        buf.writeUtf(alchemyRecipe.getCategory());
+    public void toNetwork(FriendlyByteBuf buf, OvenRecipe ovenRecipe) {
+        buf.writeUtf(ovenRecipe.getCategory());
+        buf.writeInt(ovenRecipe.getRequiredLevel());
+        buf.writeInt(ovenRecipe.getXpGained());
+        buf.writeItem(ovenRecipe.getResult());
 
-        if (alchemyRecipe.getResult() != null) {
-            buf.writeItem(alchemyRecipe.getResult());
-        }
-
-        if (alchemyRecipe.getRecipeItems() != null && !alchemyRecipe.getRecipeItems().isEmpty()) {
-            buf.writeInt(alchemyRecipe.getRecipeItems().size());
-            for (Ingredient ing : alchemyRecipe.getRecipeItems()) {
-                buf.writeInt(ing.getItems().length);
-                for(int i = 0; i < ing.getItems().length; i++)
-                    buf.writeItem(ing.getItems()[i]);
+        buf.writeInt(ovenRecipe.getRecipeItems().size());
+        for (Ingredient ing : ovenRecipe.getRecipeItems()) {
+            buf.writeInt(ing.getItems().length);
+            for(int i = 0; i < ing.getItems().length; i++) {
+                buf.writeItem(ing.getItems()[i]);
             }
         }
-
-        buf.writeInt(alchemyRecipe.getRequiredLevel());
-        buf.writeInt(alchemyRecipe.getXpGained());
     }
 }

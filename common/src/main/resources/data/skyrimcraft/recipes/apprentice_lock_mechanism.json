@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SSS",
+		"NNN",
+		"III"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "skyrimcraft:spring"
+		},
+		"N":
+		{
+			"item": "minecraft:iron_nugget"
+		},
+		"I":
+		{
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:novice_lock_mechanism"
+	}
+}

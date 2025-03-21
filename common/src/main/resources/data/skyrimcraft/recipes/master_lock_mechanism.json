@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"SSS",
+		"NNN",
+		"III"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "skyrimcraft:spring"
+		},
+		"N":
+		{
+			"item": "minecraft:gold_nugget"
+		},
+		"I":
+		{
+			"item": "minecraft:diamond"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:master_lock_mechanism"
+	}
+}

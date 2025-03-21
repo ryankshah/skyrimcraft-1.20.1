@@ -3,10 +3,15 @@ package com.ryankshah.skyrimcraft.platform;
 import com.ryankshah.skyrimcraft.capability.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.*;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
+import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import com.ryankshah.skyrimcraft.platform.services.IPlatformHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -89,5 +94,35 @@ public class ForgePlatformHelper implements IPlatformHelper {
         tag.putLong(id, value);
         entity.getPersistentData().put(id, tag);
 //        entity.setData(SkyrimcraftNeoForge.CONJURE_FAMILIAR_SPELL_DATA, value);
+    }
+
+    @Override
+    public LockableHandler getLockableHandler(Level level) {
+        return new LockableHandler(level);
+    }
+
+    @Override
+    public void setLockableHandler(Level level, LockableHandler handler) {
+        
+    }
+
+    @Override
+    public LockableStorage getLockableStorage(LevelChunk chunk) {
+        return null;
+    }
+
+    @Override
+    public void setLockableStorage(LevelChunk chunk, LockableStorage storage) {
+
+    }
+
+    @Override
+    public Selection getSelection(Player player) {
+        return player.getCapability(SelectionCapability.CAPABILITY).resolve().get().getSelection();
+    }
+
+    @Override
+    public void setSelection(Player player, Selection selection) {
+        player.getCapability(SelectionCapability.CAPABILITY).orElse(new SelectionCapability()).setSelection(selection);
     }
 }

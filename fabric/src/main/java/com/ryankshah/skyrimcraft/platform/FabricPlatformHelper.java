@@ -1,13 +1,18 @@
 package com.ryankshah.skyrimcraft.platform;
 
 import com.ryankshah.skyrimcraft.SkyrimcraftFabric;
-import com.ryankshah.skyrimcraft.character.attachment.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
+import com.ryankshah.skyrimcraft.character.attachment.*;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
+import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import com.ryankshah.skyrimcraft.platform.services.IPlatformHelper;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public class FabricPlatformHelper implements IPlatformHelper {
 
@@ -84,5 +89,35 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public void setEntityPersistentData(LivingEntity entity, String id, long value) {
         ((AttachmentTarget)entity).getAttachedOrSet(SkyrimcraftFabric.CONJURE_FAMILIAR_SPELL_DATA, value);
+    }
+
+    @Override
+    public LockableHandler getLockableHandler(Level level) {
+        return null;
+    }
+
+    @Override
+    public void setLockableHandler(Level level, LockableHandler handler) {
+
+    }
+
+    @Override
+    public LockableStorage getLockableStorage(LevelChunk chunk) {
+        return null;
+    }
+
+    @Override
+    public void setLockableStorage(LevelChunk chunk, LockableStorage storage) {
+
+    }
+
+    @Override
+    public Selection getSelection(Player player) {
+        return player == null ? new Selection() : ((AttachmentTarget)player).getAttachedOrCreate(SkyrimcraftFabric.SELECTION_DATA, Selection::new);
+    }
+
+    @Override
+    public void setSelection(Player player, Selection selection) {
+        ((AttachmentTarget)player).setAttached(SkyrimcraftFabric.SELECTION_DATA, selection);
     }
 }

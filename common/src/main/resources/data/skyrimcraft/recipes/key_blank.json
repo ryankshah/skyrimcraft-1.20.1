@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"NN",
+		"NN",
+		"I "
+	],
+	"key":
+	{
+		"N":
+		{
+			"item": "minecraft:iron_nugget"
+		},
+		"I":
+		{
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:key_blank"
+	}
+}

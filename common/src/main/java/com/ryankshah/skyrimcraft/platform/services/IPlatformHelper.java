@@ -2,8 +2,13 @@ package com.ryankshah.skyrimcraft.platform.services;
 
 import com.ryankshah.skyrimcraft.character.attachment.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
+import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public interface IPlatformHelper {
 
@@ -56,4 +61,13 @@ public interface IPlatformHelper {
 
     boolean doesEntityHavePersistentData(LivingEntity entity, String id);
     void setEntityPersistentData(LivingEntity entity, String id, long value);
+
+    LockableHandler getLockableHandler(Level level);
+    void setLockableHandler(Level level, LockableHandler handler);
+
+    LockableStorage getLockableStorage(LevelChunk chunk);
+    void setLockableStorage(LevelChunk chunk, LockableStorage storage);
+
+    Selection getSelection(Player player);
+    void setSelection(Player player, Selection selection);
 }

@@ -70,6 +70,9 @@ subprojects {
             }
         }
         maven { url = 'https://maven.minecraftforge.net/' }
+        maven {
+            url "https://cursemaven.com"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {

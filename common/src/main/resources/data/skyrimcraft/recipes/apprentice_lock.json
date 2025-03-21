@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" I ",
+		"ILI",
+		"III"
+	],
+	"key":
+	{
+		"I":
+		{
+			"item": "minecraft:iron_ingot"
+		},
+		"L":
+		{
+			"item": "skyrimcraft:novice_lock_mechanism"
+		}
+	},
+	"result":
+	{
+		"item": "skyrimcraft:novice_lock"
+	}
+}

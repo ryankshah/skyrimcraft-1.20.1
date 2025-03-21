@@ -3,9 +3,11 @@ package com.ryankshah.skyrimcraft;
 import com.mojang.serialization.Codec;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.*;
+import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
 import com.ryankshah.skyrimcraft.effect.ModEffects;
+import com.ryankshah.skyrimcraft.event.LockpickingEvents;
 import com.ryankshah.skyrimcraft.goal.DismayGoal;
 import com.ryankshah.skyrimcraft.goal.UndeadFleeGoal;
 import com.ryankshah.skyrimcraft.item.SkyrimArmor;
@@ -43,6 +45,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import software.bernie.geckolib.GeckoLib;
@@ -92,12 +95,19 @@ public class SkyrimcraftFabric implements ModInitializer
                     .persistent(Codec.LONG)
                     .buildAndRegister(new ResourceLocation(Constants.MODID, "conjure_familiar_spell_data"));
 
-    
+    public static AttachmentType<Selection> SELECTION_DATA =
+            AttachmentRegistryImpl.<Selection>builder()
+                    .initializer(Selection::new)
+                    .persistent(Selection.CODEC)
+                    .buildAndRegister(new ResourceLocation(Constants.MODID, "selection"));
+
     @Override
     public void onInitialize() {
         GeckoLib.initialize();
         SkyrimcraftCommon.init();
         EntityRegistry.registerEntityAttributes(FabricDefaultAttributeRegistry::register);
+
+        LockpickingEvents.register();
 
         initAttachments();
 
@@ -174,6 +184,7 @@ public class SkyrimcraftFabric implements ModInitializer
             LevelUpdates.playerJoinWorld(player);
             StatIncreases.playerJoinWorld(player);
             PlayerQuests.playerJoinWorld(player);
+            Selection.playerJoinWorld(player);
         });
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if(entity instanceof Player player) {
@@ -182,6 +193,7 @@ public class SkyrimcraftFabric implements ModInitializer
                 LevelUpdates.playerDeath(player);
                 StatIncreases.playerDeath(player);
                 PlayerQuests.playerDeath(player);
+                Selection.playerDeath(player);
             }
         });
         ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> {
@@ -190,6 +202,7 @@ public class SkyrimcraftFabric implements ModInitializer
             LevelUpdates.playerChangedDimension(player);
             StatIncreases.playerChangedDimension(player);
             PlayerQuests.playerChangedDimension(player);
+            Selection.playerChangedDimension(player);
         });
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             Character.playerClone(alive, newPlayer, oldPlayer);
@@ -197,6 +210,7 @@ public class SkyrimcraftFabric implements ModInitializer
             LevelUpdates.playerClone(alive, newPlayer, oldPlayer);
             StatIncreases.playerClone(alive, newPlayer, oldPlayer);
             PlayerQuests.playerClone(alive, newPlayer, oldPlayer);
+            Selection.playerClone(alive, newPlayer, oldPlayer);
         });
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
             Character.playerClone(alive, newPlayer, oldPlayer);
@@ -204,6 +218,7 @@ public class SkyrimcraftFabric implements ModInitializer
             LevelUpdates.playerClone(alive, newPlayer, oldPlayer);
             StatIncreases.playerClone(alive, newPlayer, oldPlayer);
             PlayerQuests.playerClone(alive, newPlayer, oldPlayer);
+            Selection.playerClone(alive, newPlayer, oldPlayer);
         });
 //        EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
 //            Character.playerStartTracking(player);

@@ -12,6 +12,7 @@ import com.ryankshah.skyrimcraft.world.WorldGenConstants;
 import com.ryankshah.skyrimcraft.world.biome.SkyrimcraftBiomes;
 import com.ryankshah.skyrimcraft.world.region.SkyrimcraftOverworldRegion;
 import com.ryankshah.skyrimcraft.world.surface_rule.AshWastesSurfaceRule;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
@@ -88,6 +89,7 @@ public class SkyrimcraftCommon
         AttributeRegistry.init();
         SkyrimcraftLootConditionTypes.init();
         EntityRegistry.init();
+        ContainerRegistry.init();
 
         ItemRegistry.init();
         BlockRegistry.init();

@@ -24,6 +24,7 @@ public class CreativeTabRegistry
     public static String SKYRIMCRAFT_MAGIC_TITLE = "creativetab.skyrimcraft.magic";
     public static String SKYRIMCRAFT_JEWELLERY_TAB_TITLE = "creativetab.skyrimcraft.jewellery";
     public static String SKYRIMCRAFT_ALL_TITLE = "creativetab.skyrimcraft.all";
+    public static String SKYRIMCRAFT_SKILLING_TITLE = "creativetab.skyrimcraft.skilling";
 
     public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_BLOCKS_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_blocks_tab", () -> {
         CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
@@ -296,6 +297,33 @@ public class CreativeTabRegistry
 
         builder.icon(() -> new ItemStack(ItemRegistry.SWEET_ROLL.get()));
         builder.title(Component.translatable(SKYRIMCRAFT_FOOD_TAB_TITLE));
+
+        return builder.build();
+    });
+
+    public static final RegistryObject<CreativeModeTab> SKYRIMCRAFT_SKILLING_TAB = CREATIVE_MODE_TABS.register("skyrimcraft_skilling_tab", () -> {
+        CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0);
+
+        builder.displayItems((itemDisplayParameters, output) -> {
+            output.accept(ItemRegistry.LOCKPICK.get());
+            output.accept(ItemRegistry.SPRING.get());
+            output.accept(ItemRegistry.KEY.get());
+            output.accept(ItemRegistry.KEY_BLANK.get());
+            output.accept(ItemRegistry.MASTER_KEY.get());
+            output.accept(ItemRegistry.NOVICE_LOCK.get());
+            output.accept(ItemRegistry.NOVICE_LOCK_MECHANISM.get());
+            output.accept(ItemRegistry.ADEPT_LOCK.get());
+            output.accept(ItemRegistry.ADEPT_LOCK_MECHANISM.get());
+            output.accept(ItemRegistry.APPRENTICE_LOCK.get());
+            output.accept(ItemRegistry.APPRENTICE_LOCK_MECHANISM.get());
+            output.accept(ItemRegistry.EXPERT_LOCK.get());
+            output.accept(ItemRegistry.EXPERT_LOCK_MECHANISM.get());
+            output.accept(ItemRegistry.MASTER_LOCK.get());
+            output.accept(ItemRegistry.MASTER_LOCK_MECHANISM.get());
+        });
+
+        builder.icon(() -> new ItemStack(ItemRegistry.LOCKPICK.get()));
+        builder.title(Component.translatable(SKYRIMCRAFT_SKILLING_TITLE));
 
         return builder.build();
     });

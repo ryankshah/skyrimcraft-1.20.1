@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" II",
+		" I ",
+		"I  "
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"item": "skyrimcraft:lockpick",
+		"count": 2
+	}
+}

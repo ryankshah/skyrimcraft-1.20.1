@@ -50,21 +50,21 @@ public class AlchemyRecipeSerializer implements RecipeSerializer<AlchemyRecipe>
 
     @Override
     public AlchemyRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
-        NonNullList<Ingredient> recipeItems = NonNullList.create();
         String category = buf.readUtf();
+        int level = buf.readInt();
+        int xp = buf.readInt();
         ItemStack stackToCreate = buf.readItem();
 
+        NonNullList<Ingredient> recipeItems = NonNullList.create();
         int length = buf.readInt();
         for (int i = 0; i < length; i++) {
             int ingLen = buf.readInt();
             ItemStack[] stacks = new ItemStack[ingLen];
-            for(int j = 0; j < ingLen; j++)
-                stacks[i] = buf.readItem();
+            for(int j = 0; j < ingLen; j++) {
+                stacks[j] = buf.readItem();
+            }
             recipeItems.add(Ingredient.of(stacks));
         }
-
-        int level = buf.readInt();
-        int xp = buf.readInt();
 
         return new AlchemyRecipe(category, stackToCreate, xp, level, recipeItems);
     }
@@ -72,21 +72,16 @@ public class AlchemyRecipeSerializer implements RecipeSerializer<AlchemyRecipe>
     @Override
     public void toNetwork(FriendlyByteBuf buf, AlchemyRecipe alchemyRecipe) {
         buf.writeUtf(alchemyRecipe.getCategory());
-
-        if (alchemyRecipe.getResult() != null) {
-            buf.writeItem(alchemyRecipe.getResult());
-        }
-
-        if (alchemyRecipe.getRecipeItems() != null && !alchemyRecipe.getRecipeItems().isEmpty()) {
-            buf.writeInt(alchemyRecipe.getRecipeItems().size());
-            for (Ingredient ing : alchemyRecipe.getRecipeItems()) {
-                buf.writeInt(ing.getItems().length);
-                for(int i = 0; i < ing.getItems().length; i++)
-                    buf.writeItem(ing.getItems()[i]);
-            }
-        }
-
         buf.writeInt(alchemyRecipe.getRequiredLevel());
         buf.writeInt(alchemyRecipe.getXpGained());
+        buf.writeItem(alchemyRecipe.getResult());
+
+        buf.writeInt(alchemyRecipe.getRecipeItems().size());
+        for (Ingredient ing : alchemyRecipe.getRecipeItems()) {
+            buf.writeInt(ing.getItems().length);
+            for(int i = 0; i < ing.getItems().length; i++) {
+                buf.writeItem(ing.getItems()[i]);
+            }
+        }
     }
 }
