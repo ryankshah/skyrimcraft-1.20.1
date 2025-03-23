@@ -45,19 +45,6 @@ public final class LockpickingEvents
 
     private LockpickingEvents() {}
 
-    public static void onLootTableLoad(ResourceManager resourceManager, LootDataManager lootManager, ResourceLocation id, LootTable.Builder tableBuilder, LootTableSource source) {
-        // Only modify if it was a vanilla chest loot table
-        if (!id.getNamespace().equals("minecraft") || !id.getPath().startsWith("chests"))
-            return;
-        // And only if there is a corresponding inject table...
-        ResourceLocation injectLoc = new ResourceLocation(Constants.MODID, "loot_tables/inject/" + id.getPath() + ".json");
-        if (CommonUtil.resourceManager.getResource(injectLoc).isEmpty())
-            return;
-        // todo (kota): bring back
-
-    }
-
-
     public static InteractionResult onRightClick(Player player, Level world, InteractionHand hand, BlockHitResult result) {
         BlockPos pos = result.getBlockPos();
         ILockableHandler handler = Services.PLATFORM.getLockableHandler(world); //LocksComponents.LOCKABLE_HANDLER.get(world);
@@ -134,7 +121,7 @@ public final class LockpickingEvents
     }
 
     public static void register() {
-        LootTableEvents.MODIFY.register(LockpickingEvents::onLootTableLoad);
+//        LootTableEvents.MODIFY.register(LockpickingEvents::onLootTableLoad);
         PlayerBlockBreakEvents.BEFORE.register(LockpickingEvents::onBlockBreaking);
         PlayerBlockBreakEvents.AFTER.register(LockpickingEvents::onBlockBreak);
         UseBlockCallback.EVENT.register(LockpickingEvents::onRightClick);

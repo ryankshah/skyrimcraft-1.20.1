@@ -113,6 +113,10 @@ public class TagsRegistry
 //        // Raw ore scrap
 //        public static TagKey<Item> SCRAPS_EXAMPLE = bind(createResourceLocation("scraps/example"));
 
+        public static final TagKey<Item>
+                KEYS = bind(createResourceLocation("keys")),
+                LOCKS = bind(createResourceLocation("locks"));
+
 
         private static ResourceLocation createResourceLocation(String name) {
             return new ResourceLocation(Constants.MODID,  name);

@@ -7,9 +7,11 @@
     "mixins": [
         "LivingEntityMixin",
         "MeleeAttackGoalMixin",
-        "ServerPlayerMixin"
+        "ServerPlayerMixin",
+        "RandomizableContainerBlockEntityMixin"
     ],
     "client": [
+        "ChunkCacheMixin"
     ],
     "server": [
     ],

@@ -5,10 +5,17 @@ import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
 import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
 import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
+import com.ryankshah.skyrimcraft.util.Lockable;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
+
+import java.util.function.Consumer;
 
 public interface IPlatformHelper {
 
@@ -70,4 +77,6 @@ public interface IPlatformHelper {
 
     Selection getSelection(Player player);
     void setSelection(Player player, Selection selection);
+
+    void openLockpickingMenu(ServerPlayer player, MenuProvider provider, InteractionHand hand, Lockable lkb, Consumer<FriendlyByteBuf> buf);
 }

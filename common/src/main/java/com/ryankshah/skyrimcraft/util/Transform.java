@@ -1,6 +1,9 @@
 package com.ryankshah.skyrimcraft.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -20,6 +23,29 @@ public enum Transform
     SOUTH_DOWN(Direction.SOUTH, AttachFace.FLOOR),
     WEST_DOWN(Direction.WEST, AttachFace.FLOOR),
     EAST_DOWN(Direction.EAST, AttachFace.FLOOR);
+
+    // Create a codec for AttachFace using StringRepresentable
+    public static final Codec<AttachFace> ATTACH_FACE_CODEC = StringRepresentable.fromEnum(AttachFace::values);
+
+    // Direct codec using enum name
+    public static final Codec<Transform> NAME_CODEC = Codec.STRING.xmap(
+            name -> Transform.valueOf(name),
+            transform -> transform.name()
+    );
+
+    // Helper method to safely get the Transform from direction and face
+    private static Transform getTransform(Direction direction, AttachFace face) {
+        return Transform.LOOKUP.get(Pair.of(direction, face));
+    }
+
+    // Codec that serializes the transform by its components
+    public static final Codec<Transform> COMPONENT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Direction.CODEC.fieldOf("direction").forGetter(transform -> transform.dir),
+            ATTACH_FACE_CODEC.fieldOf("face").forGetter(transform -> transform.face)
+    ).apply(instance, Transform::getTransform));
+
+    // Default codec to use
+    public static final Codec<Transform> CODEC = NAME_CODEC;
 
     public static final HashMap<Pair<Direction, AttachFace>, Transform> LOOKUP = new HashMap<>(16); // 12 / 0.75
 

@@ -7,12 +7,26 @@ import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
 import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
 import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import com.ryankshah.skyrimcraft.platform.services.IPlatformHelper;
+import com.ryankshah.skyrimcraft.screen.container.LockPickingContainer;
+import com.ryankshah.skyrimcraft.util.Lockable;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 public class FabricPlatformHelper implements IPlatformHelper {
 
@@ -88,27 +102,27 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public void setEntityPersistentData(LivingEntity entity, String id, long value) {
-        ((AttachmentTarget)entity).getAttachedOrSet(SkyrimcraftFabric.CONJURE_FAMILIAR_SPELL_DATA, value);
+        ((AttachmentTarget)entity).setAttached(SkyrimcraftFabric.CONJURE_FAMILIAR_SPELL_DATA, value); //getAttachedOrSet
     }
 
     @Override
     public LockableHandler getLockableHandler(Level level) {
-        return null;
+        return level == null ? new LockableHandler(level) : ((AttachmentTarget)level).getAttachedOrCreate(SkyrimcraftFabric.LOCKABLE_HANDLER_DATA, LockableHandler::new);
     }
 
     @Override
     public void setLockableHandler(Level level, LockableHandler handler) {
-
+        ((AttachmentTarget)level).setAttached(SkyrimcraftFabric.LOCKABLE_HANDLER_DATA, handler);
     }
 
     @Override
     public LockableStorage getLockableStorage(LevelChunk chunk) {
-        return null;
+        return chunk == null ? new LockableStorage(chunk) : ((AttachmentTarget)chunk).getAttachedOrCreate(SkyrimcraftFabric.LOCKABLE_STORAGE_DATA, LockableStorage::new);
     }
 
     @Override
     public void setLockableStorage(LevelChunk chunk, LockableStorage storage) {
-
+        ((AttachmentTarget)chunk).setAttached(SkyrimcraftFabric.LOCKABLE_STORAGE_DATA, storage);
     }
 
     @Override
@@ -119,5 +133,34 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public void setSelection(Player player, Selection selection) {
         ((AttachmentTarget)player).setAttached(SkyrimcraftFabric.SELECTION_DATA, selection);
+    }
+
+    @Override
+    public void openLockpickingMenu(ServerPlayer player, MenuProvider provider, InteractionHand hand, Lockable lkb, Consumer<FriendlyByteBuf> bufConsumer) {
+        final ExtendedScreenHandlerFactory extendedProvider = new ExtendedScreenHandlerFactory() {
+
+            @Override
+            public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+                return provider.createMenu(i, inventory, player);
+            }
+
+            @Override
+            public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+                bufConsumer.accept(buf);
+            }
+
+            @Override
+            public Component getDisplayName() {
+                return provider.getDisplayName();
+            }
+
+//            @Override
+//            public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+//
+//                bufConsumer.accept(buf);
+//            }
+        };
+
+        player.openMenu(extendedProvider);
     }
 }

@@ -4,6 +4,7 @@ import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.capability.*;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.ExtraCharacter;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
 import com.ryankshah.skyrimcraft.character.magic.Spell;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
@@ -26,7 +27,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.client.event.InputEvent;
@@ -229,6 +232,22 @@ public class PlayerEvents
             ConjureFamiliarCapability cFC = new ConjureFamiliarCapability();
             event.addCapability(ConjureFamiliarCapability.ID, cFC);
 //            event.addListener(cFC::onInvalidate);
+
+            SelectionCapability sC = new SelectionCapability();
+            event.addCapability(SelectionCapability.ID, sC);
         }
     }
+
+    @SubscribeEvent
+    public static void attachCapabilitiesToWorld(AttachCapabilitiesEvent<Level> e) {
+        LockableHandlerCapability lHC = new LockableHandlerCapability(e.getObject());
+        e.addCapability(LockableHandlerCapability.ID, lHC);
+    }
+
+    @SubscribeEvent
+    public static void attachCapabilitiesToChunk(AttachCapabilitiesEvent<LevelChunk> e) {
+        LockableStorageCapability lHC = new LockableStorageCapability(e.getObject());
+        e.addCapability(LockableStorageCapability.ID, lHC);
+    }
+
 }

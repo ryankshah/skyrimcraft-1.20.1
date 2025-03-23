@@ -1,5 +1,7 @@
 package com.ryankshah.skyrimcraft.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ryankshah.skyrimcraft.item.LockItem;
 import com.ryankshah.skyrimcraft.platform.Services;
 import net.minecraft.client.Minecraft;
@@ -68,6 +70,15 @@ public class Lockable extends Observable implements Observer
         }
     }
 
+    public static final Codec<Lockable> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+            Cuboid6i.CODEC.fieldOf("bb").forGetter(Lockable::getBB),
+            Lock.CODEC.fieldOf("lock").forGetter(Lockable::getLock),
+            Transform.CODEC.fieldOf("transform").forGetter(Lockable::getTransform),
+            ItemStack.CODEC.fieldOf("stack").forGetter(Lockable::getStack),
+            Codec.INT.fieldOf("id").forGetter(Lockable::getId)
+    ).apply(instance, Lockable::new));
+
     public final Cuboid6i bb;
     public final Lock lock;
     public final Transform tr;
@@ -91,6 +102,26 @@ public class Lockable extends Observable implements Observer
         this.stack = stack;
         this.id = id;
         lock.addObserver(this);
+    }
+
+    public Cuboid6i getBB() {
+        return bb;
+    }
+
+    public Lock getLock() {
+        return lock;
+    }
+
+    public Transform getTransform() {
+        return tr;
+    }
+
+    public ItemStack getStack() {
+        return stack;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public static final String KEY_BB = "Bb", KEY_LOCK = "Lock", KEY_TRANSFORM = "Transform", KEY_STACK = "Stack", KEY_ID = "Id";

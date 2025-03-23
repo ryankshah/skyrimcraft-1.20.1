@@ -2,8 +2,6 @@ package com.ryankshah.skyrimcraft.util;
 
 
 import com.ryankshah.skyrimcraft.config.CommonConfig;
-import com.ryankshah.skyrimcraft.mixin.accessor.LootPoolAccessor;
-import com.ryankshah.skyrimcraft.mixin.accessor.LootTableAccessor;
 import com.ryankshah.skyrimcraft.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -118,18 +116,18 @@ public final class CommonUtil {
     //   }
 
     // Only merges entries, not conditions and functions
-    public static LootTable mergeEntries(LootTable table, LootTable inject) {
-        List<LootPool> list = Arrays.asList(((LootTableAccessor) table).getPools());
-        for (LootPool injectPool : ((LootTableAccessor) inject).getPools()) {
-            if (list.contains(injectPool)) {
-                ((LootPoolAccessor) injectPool).getEntries().addAll(((LootPoolAccessor) injectPool).getEntries());
-            } else {
-                list.add(injectPool);
-            }
-        }
-        ((LootTableAccessor) inject).setPools(list.toArray(new LootPool[0]));
-        return table;
-    }
+//    public static LootTable mergeEntries(LootTable table, LootTable inject) {
+//        List<LootPool> list = Arrays.asList(((LootTableAccessor) table).getPools());
+//        for (LootPool injectPool : ((LootTableAccessor) inject).getPools()) {
+//            if (list.contains(injectPool)) {
+//                ((LootPoolAccessor) injectPool).getEntries().addAll(((LootPoolAccessor) injectPool).getEntries());
+//            } else {
+//                list.add(injectPool);
+//            }
+//        }
+//        ((LootTableAccessor) inject).setPools(list.toArray(new LootPool[0]));
+//        return table;
+//    }
 
     public static Stream<Lockable> intersecting(Level world, BlockPos pos) {
         return Services.PLATFORM.getLockableHandler(world).getInChunk(pos).values().stream().filter(

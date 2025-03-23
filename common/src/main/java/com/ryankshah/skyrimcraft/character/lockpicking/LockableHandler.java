@@ -1,6 +1,8 @@
 package com.ryankshah.skyrimcraft.character.lockpicking;
 
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ryankshah.skyrimcraft.Constants;
 import com.ryankshah.skyrimcraft.config.CommonConfig;
 import com.ryankshah.skyrimcraft.network.skill.lockpicking.AddLockablePacket;
@@ -15,11 +17,14 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,27 +36,73 @@ public class LockableHandler implements ILockableHandler
 {
     public static final ResourceLocation ID = new ResourceLocation(Constants.MODID, "lockable_handler");
 
-    public final Level world;
+    public static Level world;
 
-    public AtomicInteger lastId = new AtomicInteger();
+    public static AtomicInteger lastId = new AtomicInteger();
 
-    public Int2ObjectMap<Lockable> lockables = new Int2ObjectLinkedOpenHashMap<>();
+    public static Int2ObjectMap<Lockable> lockables = new Int2ObjectLinkedOpenHashMap<>();
 
-    public LockableHandler(Level world) {
-        this.world = world;
+    // Create a codec for Int2ObjectMap<Lockable>
+    private static final Codec<Int2ObjectMap<Lockable>> INT_TO_LOCKABLE_MAP_CODEC = Codec.unboundedMap(
+            Codec.INT,
+            Lockable.CODEC
+    ).xmap(
+            map -> {
+                Int2ObjectLinkedOpenHashMap<Lockable> result = new Int2ObjectLinkedOpenHashMap<>(map.size());
+                result.putAll(map);
+                return result;
+            },
+            map -> {
+                Map<Integer, Lockable> result = new HashMap<>(map.size());
+                map.int2ObjectEntrySet().forEach(entry ->
+                        result.put(entry.getIntKey(), entry.getValue())
+                );
+                return result;
+            }
+    );
+
+    // Create a codec for AtomicInteger
+    private static final Codec<AtomicInteger> ATOMIC_INTEGER_CODEC = Codec.INT.xmap(
+            AtomicInteger::new,
+            AtomicInteger::get
+    );
+
+    // Final codec for LockableHandler
+    public static final Codec<LockableHandler> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ATOMIC_INTEGER_CODEC.fieldOf("lastId").forGetter(handler -> {
+                return new AtomicInteger(handler.getLastId());
+            }),
+            INT_TO_LOCKABLE_MAP_CODEC.fieldOf("lockables").forGetter(handler -> {
+                return handler.getLoaded();
+            })
+    ).apply(instance, (lastId, lockables) -> {
+        return new LockableHandler(lastId, lockables);
+    }));
+
+    public LockableHandler(Level w) {
+        this(w, new AtomicInteger(), new Int2ObjectLinkedOpenHashMap<>());
     }
 
-    public LockableHandler() {
-        this(null);
+    public LockableHandler() {}
+
+    public LockableHandler(Level w, AtomicInteger id, Int2ObjectMap<Lockable> l) {
+        world = w;
+        lastId = id;
+        lockables = l;
+    }
+
+    public LockableHandler(AtomicInteger id, Int2ObjectMap<Lockable> l) {
+        lastId = id;
+        lockables = l;
     }
 
     public int nextId() {
-        return this.lastId.incrementAndGet();
+        return lastId.incrementAndGet();
     }
 
     @Override
     public Int2ObjectMap<Lockable> getLoaded() {
-        return this.lockables;
+        return lockables;
     }
 
     @Override
@@ -128,25 +179,63 @@ public class LockableHandler implements ILockableHandler
         });
     }
 
-    public void readFromNbt(CompoundTag compoundTag) {
-        this.lastId.set(compoundTag.getInt("last_id"));
+    public int getLastId() {
+        return lastId.get();
+    }
+
+    public Int2ObjectMap<Lockable> getLockables() {
+        return lockables;
+    }
+
+    public static void readFromNbt(CompoundTag compoundTag) {
+        lastId.set(compoundTag.getInt("last_id"));
         int size = compoundTag.getInt("LockablesSize");
-        ListTag lockables = compoundTag.getList("Lockables",size);
-        for(int a = 0; a < lockables.size(); ++a)
+        ListTag lockablesTag = compoundTag.getList("Lockables",size);
+        for(int a = 0; a < lockablesTag.size(); ++a)
         {
-            CompoundTag nbt1 = lockables.getCompound(a);
+            CompoundTag nbt1 = lockablesTag.getCompound(a);
             Lockable lkb = Lockable.fromNbt(nbt1);
-            this.lockables.put(lkb.id, lkb);
-            lkb.addObserver(this);
+            lockables.put(lkb.id, lkb);
+            lkb.addObserver(new LockableHandler(world, lastId, lockables));
         }
     }
 
-    public void writeToNbt(CompoundTag compoundTag) {
-        compoundTag.putInt("last_id", this.lastId.get());
+    public static LockableHandler readNBT(Tag tag) {
+        CompoundTag compoundTag = (CompoundTag)tag;
+        lastId.set(compoundTag.getInt("last_id"));
+        int size = compoundTag.getInt("LockablesSize");
+        ListTag lockablesTag = compoundTag.getList("Lockables",size);
+        for(int a = 0; a < lockablesTag.size(); ++a)
+        {
+            CompoundTag nbt1 = lockablesTag.getCompound(a);
+            Lockable lkb = Lockable.fromNbt(nbt1);
+            lockables.put(lkb.id, lkb);
+            lkb.addObserver(new LockableHandler(world, lastId, lockables));
+        }
+        return new LockableHandler(world, lastId, lockables);
+    }
+
+    public static LockableHandler readNBTCompound(CompoundTag tag) {
+        CompoundTag compoundTag = (CompoundTag)tag;
+        lastId.set(compoundTag.getInt("last_id"));
+        int size = compoundTag.getInt("LockablesSize");
+        ListTag lockablesTag = compoundTag.getList("Lockables",size);
+        for(int a = 0; a < lockablesTag.size(); ++a)
+        {
+            CompoundTag nbt1 = lockablesTag.getCompound(a);
+            Lockable lkb = Lockable.fromNbt(nbt1);
+            lockables.put(lkb.id, lkb);
+            lkb.addObserver(new LockableHandler(world, lastId, lockables));
+        }
+        return new LockableHandler(world, lastId, lockables);
+    }
+
+    public static void writeToNbt(CompoundTag compoundTag) {
+        compoundTag.putInt("last_id", lastId.get());
         ListTag list = new ListTag();
-        for(Lockable lkb : this.lockables.values())
+        for(Lockable lkb : lockables.values())
             list.add(Lockable.toNbt(lkb));
         compoundTag.put("Lockables", list);
-        compoundTag.putInt("LockablesSize", this.lockables.size());
+        compoundTag.putInt("LockablesSize", lockables.size());
     }
 }

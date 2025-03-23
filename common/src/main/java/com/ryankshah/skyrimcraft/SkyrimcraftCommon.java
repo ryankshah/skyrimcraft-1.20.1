@@ -90,6 +90,7 @@ public class SkyrimcraftCommon
         SkyrimcraftLootConditionTypes.init();
         EntityRegistry.init();
         ContainerRegistry.init();
+        EnchantmentRegistry.init();
 
         ItemRegistry.init();
         BlockRegistry.init();

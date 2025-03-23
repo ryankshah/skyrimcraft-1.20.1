@@ -23,7 +23,7 @@ public class KeyRecipe extends CustomRecipe
     @Override
     public RecipeSerializer<KeyRecipe> getSerializer()
     {
-        return RecipeRegistry.KEY_RECIPE_SERIALIZER.get();
+        return null;
     }
 
     @Override

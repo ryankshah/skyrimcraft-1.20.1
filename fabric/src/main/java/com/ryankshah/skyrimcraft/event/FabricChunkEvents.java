@@ -1,6 +1,7 @@
 package com.ryankshah.skyrimcraft.event;
 
 import com.ryankshah.skyrimcraft.character.attachment.ExtraCharacter;
+import com.ryankshah.skyrimcraft.character.lockpicking.ILockableHandler;
 import com.ryankshah.skyrimcraft.network.character.AddVisitedChunk;
 import com.ryankshah.skyrimcraft.network.character.UpdateExtraCharacter;
 import com.ryankshah.skyrimcraft.platform.Services;
@@ -16,6 +17,15 @@ import net.minecraft.world.level.chunk.LevelChunk;
 public class FabricChunkEvents {
 
     public static void init() {
+        ServerChunkEvents.CHUNK_UNLOAD.register(((world, chunk) -> {
+            ILockableHandler handler = Services.PLATFORM.getLockableHandler(world); //ch.getLevel().getCapability(LocksCapabilities.LOCKABLE_HANDLER).orElse(null);
+//        ch.getCapability(LocksCapabilities.LOCKABLE_STORAGE).orElse(null).get()
+            Services.PLATFORM.getLockableStorage(chunk).get().values().forEach(lkb ->
+            {
+                handler.getLoaded().remove(lkb.id);
+                lkb.deleteObserver(handler);
+            });
+        }));
         // Register chunk load event
         ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
 

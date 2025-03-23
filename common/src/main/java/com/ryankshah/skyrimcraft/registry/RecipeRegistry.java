@@ -12,6 +12,7 @@ import com.ryankshah.skyrimcraft.registration.RegistrationProvider;
 import com.ryankshah.skyrimcraft.registration.RegistryObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -52,6 +53,6 @@ public class RecipeRegistry
     public static final RegistryObject<RecipeSerializer<AlchemyRecipe>> ALCHEMY_RECIPE_SERIALIZER = SERIALIZERS.register("alchemy", AlchemyRecipeSerializer::new);
     public static final RegistryObject<RecipeSerializer<OvenRecipe>> OVEN_RECIPE_SERIALIZER = SERIALIZERS.register("oven", OvenRecipeSerializer::new);
     public static final RegistryObject<RecipeSerializer<ForgeRecipe>> FORGE_RECIPE_SERIALIZER = SERIALIZERS.register("forge", ForgeRecipeSerializer::new);
-    public static final RegistryObject<RecipeSerializer<KeyRecipe>> KEY_RECIPE_SERIALIZER = SERIALIZERS.register("crafting_key", new SimpleCraftingRecipeSerializer<>(KeyRecipe::new));
+//    public static final RegistryObject<RecipeSerializer<KeyRecipe>> KEY_RECIPE_SERIALIZER = SERIALIZERS.register("crafting_key", new SimpleCraftingRecipeSerializer<>(KeyRecipe::new));
 
 }

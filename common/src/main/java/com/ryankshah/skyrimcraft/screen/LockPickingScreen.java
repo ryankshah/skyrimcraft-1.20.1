@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.ryankshah.skyrimcraft.Constants;
+import com.ryankshah.skyrimcraft.network.skill.lockpicking.TryPinPacket;
 import com.ryankshah.skyrimcraft.screen.container.LockPickingContainer;
 import com.ryankshah.skyrimcraft.screen.sprite.SpringSprite;
 import com.ryankshah.skyrimcraft.screen.sprite.Sprite;

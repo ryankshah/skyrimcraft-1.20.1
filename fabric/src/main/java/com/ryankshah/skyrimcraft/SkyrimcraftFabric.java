@@ -3,6 +3,8 @@ package com.ryankshah.skyrimcraft;
 import com.mojang.serialization.Codec;
 import com.ryankshah.skyrimcraft.character.attachment.Character;
 import com.ryankshah.skyrimcraft.character.attachment.*;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableHandler;
+import com.ryankshah.skyrimcraft.character.lockpicking.LockableStorage;
 import com.ryankshah.skyrimcraft.character.lockpicking.Selection;
 import com.ryankshah.skyrimcraft.character.magic.SpellRegistry;
 import com.ryankshah.skyrimcraft.character.skill.SkillRegistry;
@@ -94,6 +96,18 @@ public class SkyrimcraftFabric implements ModInitializer
                     .initializer(() -> 0L)
                     .persistent(Codec.LONG)
                     .buildAndRegister(new ResourceLocation(Constants.MODID, "conjure_familiar_spell_data"));
+
+    public static AttachmentType<LockableHandler> LOCKABLE_HANDLER_DATA =
+            AttachmentRegistryImpl.<LockableHandler>builder()
+                    .initializer(LockableHandler::new)
+                    .persistent(LockableHandler.CODEC)
+                    .buildAndRegister(new ResourceLocation(Constants.MODID, "lockable_handler"));
+
+    public static AttachmentType<LockableStorage> LOCKABLE_STORAGE_DATA =
+            AttachmentRegistryImpl.<LockableStorage>builder()
+                    .initializer(LockableStorage::new)
+                    .persistent(LockableStorage.CODEC)
+                    .buildAndRegister(new ResourceLocation(Constants.MODID, "lockable_storage"));
 
     public static AttachmentType<Selection> SELECTION_DATA =
             AttachmentRegistryImpl.<Selection>builder()

@@ -2,7 +2,6 @@ package com.ryankshah.skyrimcraft.screen.container;
 
 import com.ryankshah.skyrimcraft.item.LockPickItem;
 import com.ryankshah.skyrimcraft.network.skill.lockpicking.TryPinResultPacket;
-import com.ryankshah.skyrimcraft.platform.Services;
 import com.ryankshah.skyrimcraft.registry.ContainerRegistry;
 import com.ryankshah.skyrimcraft.registry.EnchantmentRegistry;
 import com.ryankshah.skyrimcraft.registry.ItemRegistry;
@@ -20,6 +19,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -209,10 +209,6 @@ public class LockPickingContainer extends AbstractContainerMenu
 //        this.player.level().playSound(player, this.pos.x, this.pos.y, this.pos.z, LocksSoundEvents.LOCK_OPEN.get(), SoundSource.BLOCKS, 1f, 1f);
     }
 
-//    public static final IContainerFactory<LockPickingContainer> FACTORY = (id, inv, buf) -> {
-//        return new LockPickingContainer(id, inv.player, buf.readEnum(InteractionHand.class), Services.PLATFORM.getLockableHandler(inv.player.level()).getLoaded().get(buf.readInt())); //inv.player.level().getCapability(LocksCapabilities.LOCKABLE_HANDLER).orElse(null).getLoaded().get(buf.readInt()));
-//    };
-
     //Network
     public static class Writer implements Consumer<FriendlyByteBuf>
     {
@@ -245,8 +241,7 @@ public class LockPickingContainer extends AbstractContainerMenu
         }
 
         @Override
-        public AbstractContainerMenu createMenu(int id, Inventory inv, Player player)
-        {
+        public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
             return new LockPickingContainer(id, player, this.hand, this.lockable);
         }
 

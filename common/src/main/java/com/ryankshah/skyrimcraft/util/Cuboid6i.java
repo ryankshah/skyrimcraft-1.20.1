@@ -1,5 +1,7 @@
 package com.ryankshah.skyrimcraft.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -14,6 +16,24 @@ import java.util.Objects;
 
 public class Cuboid6i
 {
+    public static final Codec<Cuboid6i> COORDINATES_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.fieldOf("x1").forGetter(cuboid -> cuboid.x1),
+            Codec.INT.fieldOf("y1").forGetter(cuboid -> cuboid.y1),
+            Codec.INT.fieldOf("z1").forGetter(cuboid -> cuboid.z1),
+            Codec.INT.fieldOf("x2").forGetter(cuboid -> cuboid.x2),
+            Codec.INT.fieldOf("y2").forGetter(cuboid -> cuboid.y2),
+            Codec.INT.fieldOf("z2").forGetter(cuboid -> cuboid.z2)
+    ).apply(instance, Cuboid6i::new));
+
+    // Codec that serializes using two BlockPos (start and end positions)
+    public static final Codec<Cuboid6i> BLOCKPOS_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            BlockPos.CODEC.fieldOf("pos1").forGetter(cuboid -> new BlockPos(cuboid.x1, cuboid.y1, cuboid.z1)),
+            BlockPos.CODEC.fieldOf("pos2").forGetter(cuboid -> new BlockPos(cuboid.x2 - 1, cuboid.y2 - 1, cuboid.z2 - 1))
+    ).apply(instance, Cuboid6i::new));
+
+    // Default codec to use
+    public static final Codec<Cuboid6i> CODEC = COORDINATES_CODEC;
+
     public final int x1, y1, z1, x2, y2, z2;
 
     public Cuboid6i(int x1, int y1, int z1, int x2, int y2, int z2)
